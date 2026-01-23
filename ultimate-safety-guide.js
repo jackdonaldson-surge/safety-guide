@@ -185,8 +185,17 @@
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
     @keyframes glossaryShine {
-      0% { background-position: 200% center; }
-      100% { background-position: -200% center; }
+      0% {
+        background-position: 100% center;
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-3px) scale(1.08);
+      }
+      100% {
+        background-position: -100% center;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .glossary-trigger {
@@ -216,9 +225,9 @@
     }
     .glossary-trigger svg { width: 22px; height: 22px; }
     .glossary-trigger.shining {
-      background: linear-gradient(90deg, #10b981 0%, #3b82f6 25%, #fff 50%, #3b82f6 75%, #10b981 100%);
+      background: linear-gradient(90deg, #10b981 0%, #3b82f6 30%, #fff 50%, #3b82f6 70%, #10b981 100%);
       background-size: 200% auto;
-      animation: glossaryShine 1.5s ease-in-out;
+      animation: glossaryShine 0.8s ease-in-out;
     }
 
     .glossary-overlay {
