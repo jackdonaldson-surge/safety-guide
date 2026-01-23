@@ -612,6 +612,17 @@
     .example-verdict.grounded { background: #dcfce7; color: #166534; }
     .example-verdict.refusal { background: #fee2e2; color: #991b1b; }
 
+    .category-description-box {
+      background: #f1f5f9;
+      border-left: 4px solid var(--card-color, #3b82f6);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0 1.5rem 0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #475569;
+    }
+
     .example-note {
       background: #fefce8;
       border: 1px solid #fef08a;
@@ -887,8 +898,7 @@
     const categoriesHtml = RESPONSE_EXAMPLES.categories.map(cat => `
       <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
         <h3>${ICONS[cat.icon] || ICONS.shield} ${cat.title}</h3>
-        <p>${cat.description}</p>
-        <span class="example-count">${cat.examples.length}</span>
+        <span class="example-count">${cat.examples.length} examples</span>
       </div>
     `).join('');
 
@@ -966,8 +976,7 @@
           <div class="example-label response">${ICONS.check} Ideal Response</div>
           <div class="example-text response-text">${escapeHtml(ex.response)}</div>
           ${ex.explanation ? `
-            <div class="example-label explanation">${ICONS.lightbulb} Explanation</div>
-            <div style="font-size: 0.9rem; color: #64748b; line-height: 1.6;">${escapeHtml(ex.explanation)}</div>
+            <div class="example-note">${ICONS.lightbulb} ${escapeHtml(ex.explanation)}</div>
           ` : ''}
           ${ex.note ? `<div class="example-note">${ICONS.lightbulb} ${escapeHtml(ex.note)}</div>` : ''}
         </div>
@@ -984,6 +993,9 @@
           <span class="color-dot" style="background: ${category.color}"></span>
           ${category.title}
         </h3>
+      </div>
+      <div class="category-description-box" style="--card-color: ${category.color}">
+        ${escapeHtml(category.description)}
       </div>
       ${examplesHtml}
     `;
