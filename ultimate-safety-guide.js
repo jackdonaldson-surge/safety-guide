@@ -201,7 +201,7 @@
     .glossary-trigger {
       position: fixed;
       bottom: 1.5rem;
-      right: 1.5rem;
+      left: 1.5rem;
       background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
       color: #fff;
       border: none;
@@ -220,7 +220,9 @@
       transition: all 0.3s ease;
     }
     .glossary-trigger:hover {
-      transform: translateY(-2px) scale(1.02);
+      background: linear-gradient(90deg, #10b981 0%, #3b82f6 30%, #fff 50%, #3b82f6 70%, #10b981 100%);
+      background-size: 200% auto;
+      animation: glossaryShine 0.8s ease-in-out;
       box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
     }
     .glossary-trigger svg { width: 22px; height: 22px; }
