@@ -204,7 +204,7 @@
     .glossary-trigger {
       position: fixed;
       bottom: 1.5rem;
-      right: 14rem;
+      left: 1.5rem;
       background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
       color: #fff;
       border: none;
@@ -219,12 +219,12 @@
       align-items: center;
       gap: 0.6rem;
       z-index: ${CONFIG.zIndex};
-      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 4px 15px rgba(59, 130, 246, 0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .glossary-trigger:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), 0 6px 20px rgba(59, 130, 246, 0.5);
     }
     .glossary-trigger:hover,
     .glossary-trigger.shining {
