@@ -228,7 +228,7 @@
     }
     .glossary-trigger:hover,
     .glossary-trigger.shining {
-      background: linear-gradient(90deg, #10b981 0%, #3b82f6 25%, #fff 50%, #3b82f6 75%, #10b981 100%);
+      background: linear-gradient(90deg, #10b981 0%, #3b82f6 30%, rgba(255,255,255,0.5) 50%, #3b82f6 70%, #10b981 100%);
       background-size: 300% auto;
       animation: glossaryShine 1s ease-in-out;
     }
