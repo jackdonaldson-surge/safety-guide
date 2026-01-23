@@ -175,7 +175,9 @@
   let allTerms = [];
   let activeTab = 'categories';
   let activeExampleCategory = null;
+  let activeToxicityCategory = null;
   let examplePage = 1;
+  let toxicityPage = 1;
   let shineInterval = null;
 
   // ============================================
@@ -660,6 +662,52 @@
     @media (max-width: 700px) {
       .redirect-comparison { grid-template-columns: 1fr; }
     }
+
+    /* Toxicity Level Styles */
+    .toxicity-info {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: #f8fafc;
+      border-radius: 8px;
+    }
+    .toxicity-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .safety-categories {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+    }
+    .safety-categories-label {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #475569;
+    }
+    .safety-categories-label svg {
+      width: 14px;
+      height: 14px;
+    }
+    .safety-categories-list {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
   `;
 
   // ============================================
@@ -751,6 +799,10 @@
           <button class="glossary-tab" data-tab="examples">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
             Response Examples
+          </button>
+          <button class="glossary-tab" data-tab="toxicity">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+            Toxicity Levels
           </button>
         </div>
         <div class="glossary-search" id="glossary-search-container">
@@ -915,7 +967,10 @@
     const prevBtn = document.getElementById('glossary-prev');
     const nextBtn = document.getElementById('glossary-next');
 
-    const categoriesHtml = RESPONSE_EXAMPLES.categories.map(cat => `
+    // Filter out toxicity categories
+    const responseCategories = RESPONSE_EXAMPLES.categories.filter(cat => !cat.id.startsWith('toxicity-'));
+
+    const categoriesHtml = responseCategories.map(cat => `
       <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
         <h3>${ICONS[cat.icon] || ICONS.shield} ${cat.title}</h3>
         <span class="example-count">${cat.examples.length} examples</span>
@@ -924,7 +979,7 @@
 
     content.innerHTML = `<div class="example-categories-grid">${categoriesHtml}</div>`;
 
-    pageInfo.textContent = `${RESPONSE_EXAMPLES.categories.length} categories`;
+    pageInfo.textContent = `${responseCategories.length} categories`;
     prevBtn.disabled = true;
     nextBtn.disabled = true;
 
@@ -1030,6 +1085,100 @@
     });
   }
 
+  // ============================================
+  // TOXICITY LEVEL RENDERING
+  // ============================================
+  function renderToxicityOverview() {
+    const content = document.getElementById('glossary-content');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
+
+    // Filter for toxicity categories only
+    const toxicityCategories = RESPONSE_EXAMPLES.categories.filter(cat => cat.id.startsWith('toxicity-'));
+
+    const categoriesHtml = toxicityCategories.map(cat => `
+      <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
+        <h3>${ICONS[cat.icon] || ICONS.shield} ${cat.title}</h3>
+        <span class="example-count">${cat.examples.length} examples</span>
+      </div>
+    `).join('');
+
+    content.innerHTML = `<div class="example-categories-grid">${categoriesHtml}</div>`;
+
+    pageInfo.textContent = `${toxicityCategories.length} toxicity levels`;
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+
+    content.querySelectorAll('.example-category-card').forEach(card => {
+      card.addEventListener('click', () => {
+        activeToxicityCategory = card.getAttribute('data-category-id');
+        toxicityPage = 1;
+        renderToxicityDetail();
+      });
+    });
+  }
+
+  function renderToxicityDetail() {
+    const content = document.getElementById('glossary-content');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
+
+    const category = RESPONSE_EXAMPLES.categories.find(c => c.id === activeToxicityCategory);
+    if (!category) return;
+
+    const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
+    const startIndex = (toxicityPage - 1) * CONFIG.itemsPerPage;
+    const endIndex = startIndex + CONFIG.itemsPerPage;
+    const pageExamples = category.examples.slice(startIndex, endIndex);
+
+    const examplesHtml = pageExamples.map(ex => `
+      <div class="example-item">
+        <div class="example-label prompt">${ICONS.info} Prompt</div>
+        <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
+        <div class="toxicity-info">
+          <div class="toxicity-badge" style="background: ${category.color}">${escapeHtml(ex.toxicityLevel)}</div>
+          ${ex.safetyRiskCategories && ex.safetyRiskCategories !== 'None' ? `
+            <div class="safety-categories">
+              <span class="safety-categories-label">${ICONS.shield} Risk Categories:</span>
+              <span class="safety-categories-list">${escapeHtml(ex.safetyRiskCategories)}</span>
+            </div>
+          ` : ''}
+        </div>
+        ${ex.explanation ? `
+          <div class="example-note">${ICONS.lightbulb} ${escapeHtml(ex.explanation)}</div>
+        ` : ''}
+      </div>
+    `).join('');
+
+    content.innerHTML = `
+      <div class="example-detail-header">
+        <button class="example-back-btn" id="toxicity-back-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+          Back
+        </button>
+        <h3 class="example-detail-title">
+          <span class="color-dot" style="background: ${category.color}"></span>
+          ${category.title}
+        </h3>
+      </div>
+      <div class="category-description-box" style="--card-color: ${category.color}">
+        ${escapeHtml(category.description)}
+      </div>
+      ${examplesHtml}
+    `;
+
+    pageInfo.textContent = totalPages > 0 ? `Page ${toxicityPage} of ${totalPages}` : 'No results';
+    prevBtn.disabled = toxicityPage <= 1;
+    nextBtn.disabled = toxicityPage >= totalPages;
+
+    document.getElementById('toxicity-back-btn').addEventListener('click', () => {
+      activeToxicityCategory = null;
+      renderToxicityOverview();
+    });
+  }
+
   function handleSearch(query) {
     const normalizedQuery = query.toLowerCase().trim();
 
@@ -1060,9 +1209,12 @@
 
     if (tab === 'categories') {
       renderCategoriesPage(document.getElementById('glossary-search-input').value);
-    } else {
+    } else if (tab === 'examples') {
       activeExampleCategory = null;
       renderExamplesOverview();
+    } else if (tab === 'toxicity') {
+      activeToxicityCategory = null;
+      renderToxicityOverview();
     }
   }
 
@@ -1179,10 +1331,16 @@
           renderCategoriesPage(document.getElementById('glossary-search-input').value);
           document.getElementById('glossary-content').scrollTop = 0;
         }
-      } else if (activeExampleCategory) {
+      } else if (activeTab === 'examples' && activeExampleCategory) {
         if (examplePage > 1) {
           examplePage--;
           renderExampleDetail();
+          document.getElementById('glossary-content').scrollTop = 0;
+        }
+      } else if (activeTab === 'toxicity' && activeToxicityCategory) {
+        if (toxicityPage > 1) {
+          toxicityPage--;
+          renderToxicityDetail();
           document.getElementById('glossary-content').scrollTop = 0;
         }
       }
@@ -1196,12 +1354,20 @@
           renderCategoriesPage(document.getElementById('glossary-search-input').value);
           document.getElementById('glossary-content').scrollTop = 0;
         }
-      } else if (activeExampleCategory) {
+      } else if (activeTab === 'examples' && activeExampleCategory) {
         const category = RESPONSE_EXAMPLES.categories.find(c => c.id === activeExampleCategory);
         const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
         if (examplePage < totalPages) {
           examplePage++;
           renderExampleDetail();
+          document.getElementById('glossary-content').scrollTop = 0;
+        }
+      } else if (activeTab === 'toxicity' && activeToxicityCategory) {
+        const category = RESPONSE_EXAMPLES.categories.find(c => c.id === activeToxicityCategory);
+        const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
+        if (toxicityPage < totalPages) {
+          toxicityPage++;
+          renderToxicityDetail();
           document.getElementById('glossary-content').scrollTop = 0;
         }
       }
