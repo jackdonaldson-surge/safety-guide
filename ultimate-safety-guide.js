@@ -7,7 +7,7 @@
   const CONFIG = {
     itemsPerPage: 5,
     zIndex: 10000,
-    shineInterval: 180000,
+    shineInterval: 60000,
     examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@main/glossary-examples.json',
     responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@dc638b7/response-examples.json'
   };
@@ -955,6 +955,7 @@
               <div class="example-text redirect-text">${escapeHtml(ex.redirect)}</div>
             </div>
           </div>
+          ${ex.explanation ? `<div class="example-note">${ICONS.lightbulb} ${escapeHtml(ex.explanation)}</div>` : ''}
           ${ex.note ? `<div class="example-note">${ICONS.lightbulb} ${escapeHtml(ex.note)}</div>` : ''}
         </div>
       `).join('');
