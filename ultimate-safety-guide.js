@@ -1152,7 +1152,172 @@
     const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
     return text.replace(regex, '<span class="glossary-highlight">$1</span>');
   }
-lesHtml = pageExamples.map((ex, i) => `
+
+  function renderCategoriesPage(query = '') {
+    const content = document.getElementById('glossary-content');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
+    const searchCount = document.getElementById('glossary-search-count');
+
+    const totalPages = Math.ceil(filteredTerms.length / CONFIG.itemsPerPage);
+    const startIndex = (currentPage - 1) * CONFIG.itemsPerPage;
+    const endIndex = startIndex + CONFIG.itemsPerPage;
+    const pageTerms = filteredTerms.slice(startIndex, endIndex);
+
+    searchCount.textContent = `${filteredTerms.length} result${filteredTerms.length !== 1 ? 's' : ''}`;
+
+    if (pageTerms.length === 0) {
+      content.innerHTML = `
+        <div class="glossary-no-results">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <p>No categories found matching "${escapeHtml(query)}"</p>
+        </div>
+      `;
+      pageInfo.textContent = 'No results';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
+    const entriesHtml = pageTerms.map(term => {
+      const entry = GLOSSARY[term];
+      const displayTerm = highlightTerm(term, query);
+      const displayDefinition = highlightTerm(formatDefinition(entry.definition), query);
+
+      let examplesHtml = '';
+      if (entry.examples && entry.examples.length > 0) {
+        const displayExamples = entry.examples.map(ex =>
+          `<li class="glossary-example-item">${highlightTerm(escapeHtml(ex), query)}</li>`
+        ).join('');
+        examplesHtml = `
+          <div class="glossary-examples-header">
+            ${ICONS.lightbulb} Example Prompts
+          </div>
+          <ul class="glossary-examples-list">${displayExamples}</ul>
+        `;
+      }
+
+      let seeAlsoHtml = '';
+      if (entry.see_also && entry.see_also.length > 0) {
+        const links = entry.see_also.map(t =>
+          `<span data-term="${escapeHtml(t)}">${escapeHtml(t)}</span>`
+        ).join(', ');
+        seeAlsoHtml = `<div class="glossary-see-also"><strong>See also:</strong> ${links}</div>`;
+      }
+
+      return `
+        <div class="glossary-entry">
+          <div class="glossary-term">
+            ${displayTerm}
+            <span class="glossary-term-badge">Risk Category</span>
+          </div>
+          <div class="glossary-definition">${displayDefinition}</div>
+          ${examplesHtml}
+          ${seeAlsoHtml}
+        </div>
+      `;
+    }).join('');
+
+    content.innerHTML = entriesHtml;
+
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    prevBtn.disabled = currentPage <= 1;
+    nextBtn.disabled = currentPage >= totalPages;
+
+    content.querySelectorAll('.glossary-see-also span').forEach(span => {
+      span.addEventListener('click', () => {
+        const term = span.getAttribute('data-term');
+        document.getElementById('glossary-search-input').value = term;
+        handleSearch(term);
+      });
+    });
+  }
+
+  function renderExamplesOverview() {
+    const content = document.getElementById('glossary-content');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
+
+    const categoriesHtml = RESPONSE_EXAMPLES.categories.map(cat => `
+      <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
+        <h3>${ICONS[cat.icon] || ICONS.shield} ${cat.title}</h3>
+        <p>${cat.description}</p>
+        <span class="example-count">${cat.examples.length}</span>
+      </div>
+    `).join('');
+
+    content.innerHTML = `<div class="example-categories-grid">${categoriesHtml}</div>`;
+
+    pageInfo.textContent = `${RESPONSE_EXAMPLES.categories.length} categories`;
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+
+    content.querySelectorAll('.example-category-card').forEach(card => {
+      card.addEventListener('click', () => {
+        activeExampleCategory = card.getAttribute('data-category-id');
+        examplePage = 1;
+        renderExampleDetail();
+      });
+    });
+  }
+
+  function renderExampleDetail() {
+    const content = document.getElementById('glossary-content');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
+
+    const category = RESPONSE_EXAMPLES.categories.find(c => c.id === activeExampleCategory);
+    if (!category) return;
+
+    const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
+    const startIndex = (examplePage - 1) * CONFIG.itemsPerPage;
+    const endIndex = startIndex + CONFIG.itemsPerPage;
+    const pageExamples = category.examples.slice(startIndex, endIndex);
+
+    let examplesHtml = '';
+
+    if (category.id === 'redirects-vs-refusals') {
+      examplesHtml = pageExamples.map(ex => `
+        <div class="example-item">
+          <div class="example-label prompt">${ICONS.info} Prompt</div>
+          <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
+          <div class="redirect-comparison">
+            <div>
+              <div class="example-label full-refusal">${ICONS.shield} Full Refusal</div>
+              <div class="example-text full-refusal-text">${escapeHtml(ex.fullRefusal)}</div>
+            </div>
+            <div>
+              <div class="example-label redirect">${ICONS.arrows} Redirect</div>
+              <div class="example-text redirect-text">${escapeHtml(ex.redirect)}</div>
+            </div>
+          </div>
+          ${ex.note ? `<div class="example-note">${ICONS.lightbulb} ${escapeHtml(ex.note)}</div>` : ''}
+        </div>
+      `).join('');
+    } else if (category.id === 'non-generative-harmful') {
+      examplesHtml = pageExamples.map(ex => `
+        <div class="example-item">
+          <div class="example-label prompt">${ICONS.info} Prompt</div>
+          <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
+          <div class="example-label response">${ICONS.check} Ideal Response</div>
+          <div class="example-text response-text">${escapeHtml(ex.response)}</div>
+          ${ex.verdict ? `
+            <div class="example-label verdict">${ICONS.shield} Verdict</div>
+            <div class="example-verdict ${ex.verdict.toLowerCase().includes('grounded') ? 'grounded' : 'refusal'}">${escapeHtml(ex.verdict)}</div>
+          ` : ''}
+          ${ex.reasoning ? `
+            <div class="example-label explanation">${ICONS.lightbulb} Reasoning</div>
+            <div style="font-size: 0.9rem; color: #64748b; line-height: 1.6;">${escapeHtml(ex.reasoning)}</div>
+          ` : ''}
+        </div>
+      `).join('');
+    } else {
+      examplesHtml = pageExamples.map((ex, i) => `
         <div class="example-item">
           <div class="example-label prompt">${ICONS.info} Prompt</div>
           <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
