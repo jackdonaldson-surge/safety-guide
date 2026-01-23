@@ -778,6 +778,7 @@
       align-items: center;
       gap: 0.5rem;
     }
+    .glossary-examples-header svg { width: 14px; height: 14px; }
     .glossary-examples-list {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
