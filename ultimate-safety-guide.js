@@ -203,8 +203,8 @@
 
     .glossary-trigger {
       position: fixed;
-      bottom: 5rem;
-      right: 1.5rem;
+      bottom: 1.5rem;
+      right: 14rem;
       background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
       color: #fff;
       border: none;
