@@ -432,8 +432,8 @@
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
     @keyframes glossaryShine {
-      0% { background-position: -200% center; }
-      100% { background-position: 200% center; }
+      0% { background-position: 200% center; }
+      100% { background-position: -200% center; }
     }
 
     .glossary-trigger {
@@ -921,10 +921,16 @@
   function startShineEffect() {
     const btn = document.getElementById('glossary-trigger');
     if (!btn) return;
-    
+
+    // Listen for animation end to remove class
+    btn.addEventListener('animationend', (e) => {
+      if (e.animationName === 'glossaryShine') {
+        btn.classList.remove('shining');
+      }
+    });
+
     shineInterval = setInterval(() => {
       btn.classList.add('shining');
-      setTimeout(() => btn.classList.remove('shining'), 1500);
     }, CONFIG.shineInterval);
   }
 
