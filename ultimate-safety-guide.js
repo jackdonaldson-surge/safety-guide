@@ -186,22 +186,25 @@
 
     @keyframes glossaryShine {
       0% {
-        background-position: 100% center;
+        background-position: 200% center;
         transform: translateY(0) scale(1);
       }
-      50% {
+      40% {
+        transform: translateY(-3px) scale(1.08);
+      }
+      60% {
         transform: translateY(-3px) scale(1.08);
       }
       100% {
-        background-position: -100% center;
+        background-position: -200% center;
         transform: translateY(0) scale(1);
       }
     }
 
     .glossary-trigger {
       position: fixed;
-      bottom: 1.5rem;
-      left: 1.5rem;
+      bottom: 5rem;
+      right: 1.5rem;
       background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
       color: #fff;
       border: none;
@@ -217,20 +220,19 @@
       gap: 0.6rem;
       z-index: ${CONFIG.zIndex};
       box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .glossary-trigger:hover {
-      background: linear-gradient(90deg, #10b981 0%, #3b82f6 30%, #fff 50%, #3b82f6 70%, #10b981 100%);
-      background-size: 200% auto;
-      animation: glossaryShine 0.8s ease-in-out;
+      transform: translateY(-2px) scale(1.02);
       box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
     }
-    .glossary-trigger svg { width: 22px; height: 22px; }
+    .glossary-trigger:hover,
     .glossary-trigger.shining {
-      background: linear-gradient(90deg, #10b981 0%, #3b82f6 30%, #fff 50%, #3b82f6 70%, #10b981 100%);
-      background-size: 200% auto;
-      animation: glossaryShine 0.8s ease-in-out;
+      background: linear-gradient(90deg, #10b981 0%, #3b82f6 25%, #fff 50%, #3b82f6 75%, #10b981 100%);
+      background-size: 300% auto;
+      animation: glossaryShine 1s ease-in-out;
     }
+    .glossary-trigger svg { width: 22px; height: 22px; }
 
     .glossary-overlay {
       position: fixed;
