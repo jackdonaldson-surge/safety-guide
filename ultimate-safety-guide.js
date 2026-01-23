@@ -1140,12 +1140,37 @@
   }
 
   function formatDefinition(definition) {
-    let formatted = escapeHtml(definition);
-    formatted = formatted.replace(/\n• /g, '</p><p style="margin: 0.3em 0 0.3em 1em;">• ');
-    formatted = formatted.replace(/"([^"]+)"/g, '<strong>"$1"</strong>');
-    formatted = formatted.replace(/\n\n/g, '</p><p style="margin-top: 0.75em;">');
-    formatted = formatted.replace(/\n/g, ' ');
-    return '<p style="margin: 0;">' + formatted + '</p>';
+    // Split into paragraphs first
+    let paragraphs = definition.split('\n\n');
+
+    let formattedParagraphs = paragraphs.map(para => {
+      // Check if this paragraph contains bullet points
+      if (para.includes('\n• ')) {
+        // Split into bullet points
+        let parts = para.split('\n• ');
+        let firstPart = escapeHtml(parts[0]);
+        firstPart = firstPart.replace(/"([^"]+)"/g, '<strong>&quot;$1&quot;</strong>');
+
+        let bullets = parts.slice(1).map(bullet => {
+          let escaped = escapeHtml(bullet);
+          escaped = escaped.replace(/"([^"]+)"/g, '<strong>&quot;$1&quot;</strong>');
+          return `<p style="margin: 0.3em 0 0.3em 1em;">• ${escaped}</p>`;
+        }).join('');
+
+        if (firstPart.trim()) {
+          return `<p style="margin: 0;">${firstPart}</p>${bullets}`;
+        } else {
+          return bullets;
+        }
+      } else {
+        // Regular paragraph
+        let escaped = escapeHtml(para);
+        escaped = escaped.replace(/"([^"]+)"/g, '<strong>&quot;$1&quot;</strong>');
+        return `<p style="margin: 0;">${escaped}</p>`;
+      }
+    });
+
+    return formattedParagraphs.join('');
   }
 
   function highlightTerm(text, query) {
