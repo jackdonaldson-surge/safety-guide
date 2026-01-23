@@ -388,7 +388,8 @@
     .glossary-trigger {
       position: fixed;
       bottom: 1.5rem;
-      left: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
       background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
       color: rgb(255, 255, 255);
       border: none;
@@ -415,12 +416,12 @@
       transition: all 0.3s ease;
     }
     .glossary-trigger:hover {
-      transform: translateY(-2px) scale(1.02);
+      transform: translateX(-50%) translateY(-2px) scale(1.02);
       box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5), 0 3px 10px rgba(0, 0, 0, 0.15);
       background: linear-gradient(135deg, #34d399 0%, #60a5fa 100%);
     }
     .glossary-trigger:active {
-      transform: translateY(0) scale(0.98);
+      transform: translateX(-50%) translateY(0) scale(0.98);
     }
     .glossary-trigger svg {
       width: 22px;
