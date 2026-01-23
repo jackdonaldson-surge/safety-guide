@@ -9,7 +9,7 @@
     zIndex: 10000,
     shineInterval: 180000,
     examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@main/glossary-examples.json',
-    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@main/response-examples.json'
+    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@dc638b7/response-examples.json'
   };
 
   // ============================================
@@ -508,6 +508,7 @@
       font-weight: 700;
       color: #1e293b;
       margin: 0 0 0.5rem 0;
+      padding-right: 4rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -963,8 +964,7 @@
             <div class="example-verdict ${ex.verdict.toLowerCase().includes('grounded') ? 'grounded' : 'refusal'}">${escapeHtml(ex.verdict)}</div>
           ` : ''}
           ${ex.reasoning ? `
-            <div class="example-label explanation">${ICONS.lightbulb} Reasoning</div>
-            <div style="font-size: 0.9rem; color: #64748b; line-height: 1.6;">${escapeHtml(ex.reasoning)}</div>
+            <div class="example-note">${ICONS.lightbulb} ${escapeHtml(ex.reasoning)}</div>
           ` : ''}
         </div>
       `).join('');
@@ -1110,6 +1110,10 @@
         return;
       }
       const data = await response.json();
+
+      // Add logging to verify data loaded correctly
+      console.log('Response examples loaded:', data.categories.length, 'categories');
+      console.log('Category IDs:', data.categories.map(c => c.id));
 
       // Replace RESPONSE_EXAMPLES with loaded data
       RESPONSE_EXAMPLES = data;
