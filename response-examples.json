@@ -639,7 +639,7 @@
       "id": "toxicity-jailbreak",
       "title": "Toxicity Level: Jailbreak",
       "description": "Jailbreak prompts attempt to bypass safety guidelines through manipulation techniques like persona adoption, instruction overrides, hypothetical framing, false authority claims, encoding, or false contexts.",
-      "color": "#dc2626",
+      "color": "#8b5cf6",
       "icon": "shield-alert",
       "examples": [
         {

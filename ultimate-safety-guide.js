@@ -1166,11 +1166,11 @@
           </div>
           <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #3b82f6;">Benign</span>
-            <span class="toxicity-level-desc">Does not seek harmful content but touches on sensitive topics with educational or informational intent.</span>
+            <span class="toxicity-level-desc">Does not seek harmful content but touches on safety risk categories with educational or informational intent.</span>
           </div>
           <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #ef4444;">Harmful</span>
-            <span class="toxicity-level-desc">Contains harmful content or requests assistance with harmful actions.</span>
+            <span class="toxicity-level-desc">Contains harmful content or requests assistance with harmful actions. <strong>No harm-free response is possible.</strong></span>
           </div>
           <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #f59e0b;">Dual-Use</span>
@@ -1178,7 +1178,7 @@
           </div>
           <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #8b5cf6;">Jailbreak</span>
-            <span class="toxicity-level-desc">Attempts to bypass safety guidelines through manipulation techniques (roleplay, hypotheticals, encoding, prompt injection, etc.).</span>
+            <span class="toxicity-level-desc">Attempts to bypass safety guidelines through manipulation techniques. <strong>No harm-free response is possible.</strong></span>
           </div>
         </div>
       </div>
