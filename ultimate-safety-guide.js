@@ -9,7 +9,7 @@
     zIndex: 10000,
     shineInterval: 60000,
     examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@main/glossary-examples.json',
-    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@02eb0c7/response-examples.json'
+    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@c45cb88/response-examples.json'
   };
 
   // ============================================
@@ -708,6 +708,64 @@
       font-size: 0.8rem;
       color: #64748b;
     }
+
+    /* Toxicity Guide Styles */
+    .toxicity-guide {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .toxicity-guide h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0 0 0.5rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .toxicity-guide h3 svg {
+      width: 18px;
+      height: 18px;
+      color: #64748b;
+    }
+    .toxicity-guide-intro {
+      margin: 0 0 1rem 0;
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+    .toxicity-levels-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .toxicity-level-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .toxicity-level-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 75px;
+      padding: 0.25rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+    .toxicity-level-desc {
+      font-size: 0.85rem;
+      color: #475569;
+      line-height: 1.4;
+    }
   `;
 
   // ============================================
@@ -1097,6 +1155,35 @@
     // Filter for toxicity categories only
     const toxicityCategories = RESPONSE_EXAMPLES.categories.filter(cat => cat.id.startsWith('toxicity-'));
 
+    const guideHtml = `
+      <div class="toxicity-guide">
+        <h3>${ICONS.info} Understanding Toxicity Levels</h3>
+        <p class="toxicity-guide-intro">Toxicity levels classify prompts based on their potential for harm and intent. Click a level below to see examples.</p>
+        <div class="toxicity-levels-list">
+          <div class="toxicity-level-item">
+            <span class="toxicity-level-badge" style="background: #10b981;">Safe</span>
+            <span class="toxicity-level-desc">NO potential for harm, no sensitive content, no safety risk categories.</span>
+          </div>
+          <div class="toxicity-level-item">
+            <span class="toxicity-level-badge" style="background: #3b82f6;">Benign</span>
+            <span class="toxicity-level-desc">Does not seek harmful content but touches on sensitive topics with educational or informational intent.</span>
+          </div>
+          <div class="toxicity-level-item">
+            <span class="toxicity-level-badge" style="background: #ef4444;">Harmful</span>
+            <span class="toxicity-level-desc">Contains harmful content or requests assistance with harmful actions.</span>
+          </div>
+          <div class="toxicity-level-item">
+            <span class="toxicity-level-badge" style="background: #f59e0b;">Dual-Use</span>
+            <span class="toxicity-level-desc">Ambiguous requests where intent is unclear. Could be legitimate or harmful depending on context.</span>
+          </div>
+          <div class="toxicity-level-item">
+            <span class="toxicity-level-badge" style="background: #8b5cf6;">Jailbreak</span>
+            <span class="toxicity-level-desc">Attempts to bypass safety guidelines through manipulation techniques (roleplay, hypotheticals, encoding, prompt injection, etc.).</span>
+          </div>
+        </div>
+      </div>
+    `;
+
     const categoriesHtml = toxicityCategories.map(cat => `
       <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
         <h3>${ICONS[cat.icon] || ICONS.shield} ${cat.title}</h3>
@@ -1104,7 +1191,7 @@
       </div>
     `).join('');
 
-    content.innerHTML = `<div class="example-categories-grid">${categoriesHtml}</div>`;
+    content.innerHTML = `${guideHtml}<div class="example-categories-grid">${categoriesHtml}</div>`;
 
     pageInfo.textContent = `${toxicityCategories.length} toxicity levels`;
     prevBtn.disabled = true;
