@@ -1792,6 +1792,129 @@
       border-bottom: none;
     }
 
+    /* Policy Flowchart Styles */
+    .policy-flowchart {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .flowchart-step {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+    .flowchart-question {
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .flowchart-step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: #3b82f6;
+      color: white;
+      border-radius: 50%;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .flowchart-branches {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .flowchart-branch {
+      background: white;
+      border-radius: 8px;
+      border: 2px solid;
+      overflow: hidden;
+    }
+    .flowchart-branch-header {
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+    }
+    .flowchart-branch-content {
+      padding: 0.75rem;
+    }
+    .flowchart-action {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .flowchart-action.engage {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .flowchart-action.refuse {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .flowchart-action.partial {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .flowchart-rules {
+      margin: 0.5rem 0 0 0;
+      padding-left: 1.2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .flowchart-rules li {
+      margin-bottom: 0.25rem;
+    }
+    .flowchart-arrow {
+      text-align: center;
+      font-weight: 600;
+      color: #3b82f6;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .flowchart-toxicity-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    .flowchart-toxicity-item {
+      background: white;
+      border-radius: 8px;
+      border: 2px solid;
+      overflow: hidden;
+      text-align: center;
+    }
+    .flowchart-toxicity-header {
+      color: white;
+      font-weight: 600;
+      padding: 0.4rem 0.5rem;
+      font-size: 0.8rem;
+    }
+    .flowchart-toxicity-item p {
+      font-size: 0.7rem;
+      color: #64748b;
+      margin: 0;
+      padding: 0 0.5rem 0.5rem;
+    }
+    .flowchart-mixed {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background: white;
+      border-radius: 8px;
+      padding: 0.75rem;
+    }
+    .flowchart-mixed-item {
+      font-size: 0.85rem;
+      color: #334155;
+    }
+
     /* Global Search Results Styles */
     .global-search-results {
       padding: 1.25rem;
@@ -3309,72 +3432,94 @@
       searchCount.textContent = '';
     }
 
-    // ===== POLICY COMPLIANCE TABLE =====
-    const nonGenerativeCategories = POLICY_COMPLIANCE.categories.filter(cat =>
-      ['non-generative', 'grounded-engagement'].includes(cat.id)
-    );
-    const generativeCategories = POLICY_COMPLIANCE.categories.filter(cat =>
-      ['dual-use', 'benign', 'harmful-generative', 'generative-engage'].includes(cat.id)
-    );
-
+    // ===== POLICY COMPLIANCE FLOWCHART =====
     const policyComplianceHtml = `
       <div class="output-section" id="section-policy-compliance">
         <div class="harmful-output-intro">
           <h3>${ICONS['check-circle']} Policy Compliance</h3>
-          <p>Guidelines for how responses should handle different types of prompts.</p>
+          <p>Follow the flowchart below to determine the appropriate response action.</p>
         </div>
 
-        <h4 style="margin: 1rem 0 0.5rem; color: #1e293b; font-size: 0.95rem; font-weight: 600;">Non-generative</h4>
-        <table class="harmful-output-table">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Policy Rules</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${nonGenerativeCategories.flatMap(cat =>
-              cat.rules.map((rule, index) => `
-                <tr${index === 0 ? ' class="category-first-row"' : ''}>
-                  <td class="harmful-output-category-cell">
-                    ${index === 0 ? `
-                      <span class="harmful-output-category-badge" style="background: ${cat.color}">
-                        ${escapeHtml(cat.title)}
-                      </span>
-                    ` : ''}
-                  </td>
-                  <td class="harmful-output-desc-cell">${escapeHtml(rule)}</td>
-                </tr>
-              `)
-            ).join('')}
-          </tbody>
-        </table>
+        <div class="policy-flowchart">
+          <!-- Step 1: Request Type -->
+          <div class="flowchart-step">
+            <div class="flowchart-question">
+              <span class="flowchart-step-number">1</span>
+              What type of request is this?
+            </div>
+            <div class="flowchart-branches">
+              <div class="flowchart-branch" style="border-color: #8b5cf6;">
+                <div class="flowchart-branch-header" style="background: #8b5cf6;">Non-Generative</div>
+                <div class="flowchart-branch-content">
+                  <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 0.75rem;">Mechanical tasks on user-provided content (translation, summarization, counting, extraction, formatting)</p>
+                  <div class="flowchart-action engage">→ GROUNDED ENGAGEMENT</div>
+                  <ul class="flowchart-rules">
+                    <li>ENGAGE even if content is harmful (don't amplify, enable, or encourage)</li>
+                    <li>Stay grounded in source content</li>
+                    <li>No warnings, disclaimers, or commentary</li>
+                    <li>REFUSE if asked to add, amplify, or adapt harm</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="flowchart-branch" style="border-color: #3b82f6;">
+                <div class="flowchart-branch-header" style="background: #3b82f6;">Generative</div>
+                <div class="flowchart-branch-content">
+                  <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 0.75rem;">Creating new content, answering questions, providing information</p>
+                  <div class="flowchart-arrow">↓ Check Toxicity Level</div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <h4 style="margin: 1.5rem 0 0.5rem; color: #1e293b; font-size: 0.95rem; font-weight: 600;">Generative</h4>
-        <table class="harmful-output-table">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Policy Rules</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${generativeCategories.flatMap(cat =>
-              cat.rules.map((rule, index) => `
-                <tr${index === 0 ? ' class="category-first-row"' : ''}>
-                  <td class="harmful-output-category-cell">
-                    ${index === 0 ? `
-                      <span class="harmful-output-category-badge" style="background: ${cat.color}">
-                        ${escapeHtml(cat.title)}
-                      </span>
-                    ` : ''}
-                  </td>
-                  <td class="harmful-output-desc-cell">${escapeHtml(rule)}</td>
-                </tr>
-              `)
-            ).join('')}
-          </tbody>
-        </table>
+          <!-- Step 2: Toxicity Level (Generative only) -->
+          <div class="flowchart-step">
+            <div class="flowchart-question">
+              <span class="flowchart-step-number">2</span>
+              What is the toxicity level? <span style="font-size: 0.75rem; color: #64748b;">(Generative requests only)</span>
+            </div>
+            <div class="flowchart-toxicity-grid">
+              <div class="flowchart-toxicity-item" style="border-color: #10b981;">
+                <div class="flowchart-toxicity-header" style="background: #10b981;">Benign</div>
+                <div class="flowchart-action engage" style="margin: 0.5rem 0;">→ ENGAGE</div>
+                <p>Harm-Free Engagement required</p>
+              </div>
+              <div class="flowchart-toxicity-item" style="border-color: #f59e0b;">
+                <div class="flowchart-toxicity-header" style="background: #f59e0b;">Dual-Use</div>
+                <div class="flowchart-action engage" style="margin: 0.5rem 0;">→ ENGAGE</div>
+                <p>Assume good intent, treat as Benign</p>
+              </div>
+              <div class="flowchart-toxicity-item" style="border-color: #dc2626;">
+                <div class="flowchart-toxicity-header" style="background: #dc2626;">Harmful</div>
+                <div class="flowchart-action refuse" style="margin: 0.5rem 0;">→ FULL REFUSAL</div>
+                <p>No harm-free response possible</p>
+              </div>
+              <div class="flowchart-toxicity-item" style="border-color: #7c3aed;">
+                <div class="flowchart-toxicity-header" style="background: #7c3aed;">Jailbreak</div>
+                <div class="flowchart-action refuse" style="margin: 0.5rem 0;">→ FULL REFUSAL</div>
+                <p>Manipulation attempt detected</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mixed Requests -->
+          <div class="flowchart-step">
+            <div class="flowchart-question">
+              <span class="flowchart-step-number">3</span>
+              What if there are multiple requests? <span style="font-size: 0.75rem; color: #64748b;">(Mixed prompts)</span>
+            </div>
+            <div class="flowchart-mixed">
+              <div class="flowchart-mixed-item">
+                <strong>All Harmful/Jailbreak:</strong>
+                <span class="flowchart-action refuse" style="display: inline; margin-left: 0.5rem;">FULL REFUSAL</span>
+              </div>
+              <div class="flowchart-mixed-item">
+                <strong>Mix of Harmful + Benign:</strong>
+                <span class="flowchart-action partial" style="display: inline; margin-left: 0.5rem;">PARTIAL REFUSAL</span>
+                <span style="color: #64748b; font-size: 0.85rem;"> — Refuse harmful, engage benign</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     `;
 
@@ -3590,7 +3735,8 @@
           const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
           const inResponse = ex.response && ex.response.toLowerCase().includes(normalizedQuery);
           const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
-          if (inPrompt || inResponse || inExplanation) {
+          const inSafetyRiskCategories = ex.safetyRiskCategories && ex.safetyRiskCategories.toLowerCase().includes(normalizedQuery);
+          if (inPrompt || inResponse || inExplanation || inSafetyRiskCategories) {
             results.push({
               tab: 'examples',
               tabColor: tabColors['examples'],
@@ -3627,8 +3773,10 @@
       if (cat.examples) {
         cat.examples.forEach((ex, exIndex) => {
           const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+          const inResponse = ex.response && ex.response.toLowerCase().includes(normalizedQuery);
           const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
-          if (inPrompt || inExplanation) {
+          const inSafetyRiskCategories = ex.safetyRiskCategories && ex.safetyRiskCategories.toLowerCase().includes(normalizedQuery);
+          if (inPrompt || inResponse || inExplanation || inSafetyRiskCategories) {
             results.push({
               tab: 'toxicity',
               tabColor: tabColors['toxicity'],
@@ -3682,8 +3830,10 @@
       if (cat.examples) {
         cat.examples.forEach((ex, exIndex) => {
           const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+          const inResponse = ex.response && ex.response.toLowerCase().includes(normalizedQuery);
           const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
-          if (inPrompt || inExplanation) {
+          const inSafetyRiskCategories = ex.safetyRiskCategories && ex.safetyRiskCategories.toLowerCase().includes(normalizedQuery);
+          if (inPrompt || inResponse || inExplanation || inSafetyRiskCategories) {
             results.push({
               tab: 'request-types',
               tabColor: tabColors['request-types'],
@@ -3767,7 +3917,7 @@
       }
     });
 
-    // Search Writing Guide
+    // Search Writing Guide - comprehensive search of all fields
     WRITING_GUIDE.sections.forEach(section => {
       const inTitle = section.title.toLowerCase().includes(normalizedQuery);
       const inDescription = section.description && section.description.toLowerCase().includes(normalizedQuery);
@@ -3791,8 +3941,54 @@
           (type.indicators && type.indicators.some(ind => ind.toLowerCase().includes(normalizedQuery)))
         ))
       );
+      // Additional fields
+      const inDoesNotInclude = section.doesNotInclude && section.doesNotInclude.some(item =>
+        item.toLowerCase().includes(normalizedQuery)
+      );
+      const inRefusalLanguage = section.refusalLanguage && section.refusalLanguage.some(lang =>
+        lang.toLowerCase().includes(normalizedQuery)
+      );
+      const inStructure = section.structure && section.structure.toLowerCase().includes(normalizedQuery);
+      const inTransitionPhrases = section.transitionPhrases && section.transitionPhrases.some(phrase =>
+        phrase.toLowerCase().includes(normalizedQuery)
+      );
+      const inAttributionPhrases = section.attributionPhrases && section.attributionPhrases.some(phrase =>
+        phrase.toLowerCase().includes(normalizedQuery)
+      );
+      const inApplicableTaskTypes = section.applicableTaskTypes && section.applicableTaskTypes.some(task =>
+        task.toLowerCase().includes(normalizedQuery)
+      );
+      const inHedgingLanguage = section.hedgingLanguage && section.hedgingLanguage.some(hedge =>
+        hedge.type.toLowerCase().includes(normalizedQuery) ||
+        hedge.phrases.toLowerCase().includes(normalizedQuery)
+      );
+      const inRegulatedDomains = section.regulatedDomains && section.regulatedDomains.some(domain =>
+        domain.domain.toLowerCase().includes(normalizedQuery) ||
+        domain.disclaimer.toLowerCase().includes(normalizedQuery)
+      );
+      const inBalanceRequirements = section.balanceRequirements && section.balanceRequirements.some(req =>
+        req.toLowerCase().includes(normalizedQuery)
+      );
+      const inHarmfulCharacteristics = section.harmfulCharacteristics && section.harmfulCharacteristics.some(char =>
+        char.category.toLowerCase().includes(normalizedQuery) ||
+        char.description.toLowerCase().includes(normalizedQuery) ||
+        (char.example && char.example.toLowerCase().includes(normalizedQuery))
+      );
+      const inNote = section.note && section.note.toLowerCase().includes(normalizedQuery);
+      const inAllResponseTypes = section.allResponseTypes && section.allResponseTypes.some(item =>
+        item.toLowerCase().includes(normalizedQuery)
+      );
+      const inChecklistByType = section.checklistByType && section.checklistByType.some(checklist =>
+        checklist.type.toLowerCase().includes(normalizedQuery) ||
+        checklist.items.some(item => item.toLowerCase().includes(normalizedQuery))
+      );
 
-      if (inTitle || inDescription || inRequiredComponents || inCommonMistakes || inExamples || inHarmModification) {
+      const hasMatch = inTitle || inDescription || inRequiredComponents || inCommonMistakes || inExamples ||
+        inHarmModification || inDoesNotInclude || inRefusalLanguage || inStructure || inTransitionPhrases ||
+        inAttributionPhrases || inApplicableTaskTypes || inHedgingLanguage || inRegulatedDomains ||
+        inBalanceRequirements || inHarmfulCharacteristics || inNote || inAllResponseTypes || inChecklistByType;
+
+      if (hasMatch) {
         results.push({
           tab: 'writing-guide',
           tabColor: tabColors['writing-guide'],
@@ -3806,21 +4002,21 @@
       }
     });
 
-    // Also search Writing Guide intro rules
-    if (WRITING_GUIDE.intro.importantRules) {
-      const inRules = WRITING_GUIDE.intro.importantRules.some(rule =>
+    // Also search Writing Guide intro
+    const introMatch = (WRITING_GUIDE.intro.title && WRITING_GUIDE.intro.title.toLowerCase().includes(normalizedQuery)) ||
+      (WRITING_GUIDE.intro.description && WRITING_GUIDE.intro.description.toLowerCase().includes(normalizedQuery)) ||
+      (WRITING_GUIDE.intro.importantRules && WRITING_GUIDE.intro.importantRules.some(rule =>
         rule.toLowerCase().includes(normalizedQuery)
-      );
-      if (inRules) {
-        results.push({
-          tab: 'writing-guide',
-          tabColor: tabColors['writing-guide'],
-          tabLabel: tabLabels['writing-guide'],
-          title: 'Important Rules',
-          snippet: 'General guidelines for writing ideal responses',
-          data: { sectionId: 'intro' }
-        });
-      }
+      ));
+    if (introMatch) {
+      results.push({
+        tab: 'writing-guide',
+        tabColor: tabColors['writing-guide'],
+        tabLabel: tabLabels['writing-guide'],
+        title: 'Important Rules',
+        snippet: 'General guidelines for writing ideal responses',
+        data: { sectionId: 'intro' }
+      });
     }
 
     return results;
