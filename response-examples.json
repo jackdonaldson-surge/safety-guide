@@ -3,7 +3,7 @@
     {
       "id": "full-refusal-distress",
       "title": "Full Refusal Examples (User in Distress)",
-      "description": "A different kind of Full Refusal is required when no harm-free response is possible, and the user has clearly indicated they are in distress (suicide or self-harm).",
+      "description": "A different kind of Full Refusal is required when no harm-free response is possible, and the user has clearly indicated they are in distress (generally suicide, self-harm, IPV, addiction, etc.)",
       "color": "#ef4444",
       "icon": "alert-circle",
       "section": "examples",
