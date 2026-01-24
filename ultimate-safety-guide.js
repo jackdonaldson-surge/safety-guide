@@ -1532,6 +1532,33 @@
       flex-shrink: 0;
       margin-top: 0.1rem;
     }
+    .request-type-cross-ref {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: #1e40af;
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .request-type-cross-ref svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .cross-ref-link {
+      color: #2563eb;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .cross-ref-link:hover {
+      color: #1d4ed8;
+    }
     .request-type-example {
       background: #fff;
       border: 1px solid #e2e8f0;
@@ -2733,10 +2760,10 @@
           currentPage = Math.floor(termIndex / CONFIG.itemsPerPage) + 1;
         }
         renderCategoriesPage();
-        // Highlight the specific card
+        // Highlight the specific entry
         if (termIndex !== -1) {
           const indexOnPage = termIndex % CONFIG.itemsPerPage;
-          highlightAndScroll('.glossary-card', indexOnPage);
+          highlightAndScroll('.glossary-entry', indexOnPage);
         }
         break;
 
@@ -2944,6 +2971,13 @@
       </div>
     ` : '';
 
+    const crossRefHtml = category.id === 'harmful-non-generative' ? `
+      <div class="request-type-cross-ref">
+        ${ICONS.info}
+        <span>For more comprehensive examples with sample responses, see <a href="#" class="cross-ref-link" data-tab="examples" data-category="harmful-non-generative">Responses to Harmful Non-generative Requests</a> in the Response Types and Examples tab.</span>
+      </div>
+    ` : '';
+
     const examplesHtml = pageExamples.map(ex => {
       const hasAction = ex.action !== undefined;
       const actionHtml = hasAction ? `
@@ -2965,6 +2999,7 @@
         ${headerHtml}
         ${descriptionHtml}
         ${guidanceHtml}
+        ${crossRefHtml}
         <h4 style="margin: 0 0 1rem 0; color: #1e293b;">Examples</h4>
         ${examplesHtml}
       </div>
@@ -2980,6 +3015,27 @@
       activeRequestTypeCategory = null;
       renderRequestTypesOverview();
     });
+
+    // Add cross-reference link handler
+    const crossRefLink = document.querySelector('.cross-ref-link');
+    if (crossRefLink) {
+      crossRefLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetTab = crossRefLink.dataset.tab;
+        const targetCategory = crossRefLink.dataset.category;
+
+        // Switch to the examples tab
+        activeTab = targetTab;
+        document.querySelectorAll('.glossary-tab').forEach(t => {
+          t.classList.toggle('active', t.dataset.tab === targetTab);
+        });
+
+        // Navigate to the specific category
+        activeExampleCategory = targetCategory;
+        examplePage = 1;
+        renderExampleDetail();
+      });
+    }
   }
 
   function handleSearch(query) {
