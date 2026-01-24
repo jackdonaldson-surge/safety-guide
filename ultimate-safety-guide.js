@@ -1320,6 +1320,20 @@
       color: #94a3b8;
     }
 
+    /* Highlight animation for navigated-to items */
+    @keyframes highlightPulse {
+      0% { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.6); }
+      50% { box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.3); }
+      100% { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0); }
+    }
+    .highlight-result {
+      animation: highlightPulse 1.5s ease-out;
+      border-color: #3b82f6 !important;
+    }
+    .glossary-card.highlight-result {
+      animation: highlightPulse 1.5s ease-out;
+    }
+
     /* Request Types Styles */
     .request-types-intro {
       background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -2623,6 +2637,20 @@
       t.classList.toggle('active', t.dataset.tab === result.tab);
     });
 
+    // Helper to highlight and scroll to an element
+    const highlightAndScroll = (selector, indexOnPage) => {
+      setTimeout(() => {
+        const elements = document.querySelectorAll(selector);
+        if (elements.length > indexOnPage) {
+          const element = elements[indexOnPage];
+          element.classList.add('highlight-result');
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Remove highlight after animation
+          setTimeout(() => element.classList.remove('highlight-result'), 2000);
+        }
+      }, 100);
+    };
+
     // Navigate based on tab and data
     switch (result.tab) {
       case 'categories':
@@ -2634,6 +2662,11 @@
           currentPage = Math.floor(termIndex / CONFIG.itemsPerPage) + 1;
         }
         renderCategoriesPage();
+        // Highlight the specific card
+        if (termIndex !== -1) {
+          const indexOnPage = termIndex % CONFIG.itemsPerPage;
+          highlightAndScroll('.glossary-card', indexOnPage);
+        }
         break;
 
       case 'examples':
@@ -2644,6 +2677,11 @@
             examplePage = Math.floor(result.data.exampleIndex / CONFIG.itemsPerPage) + 1;
           }
           renderExampleDetail();
+          // Highlight the specific example
+          if (result.data.exampleIndex !== undefined) {
+            const indexOnPage = result.data.exampleIndex % CONFIG.itemsPerPage;
+            highlightAndScroll('.example-item', indexOnPage);
+          }
         } else {
           activeExampleCategory = null;
           renderExamplesOverview();
@@ -2658,6 +2696,11 @@
             toxicityPage = Math.floor(result.data.exampleIndex / CONFIG.itemsPerPage) + 1;
           }
           renderToxicityDetail();
+          // Highlight the specific example
+          if (result.data.exampleIndex !== undefined) {
+            const indexOnPage = result.data.exampleIndex % CONFIG.itemsPerPage;
+            highlightAndScroll('.toxicity-example-item, .example-item', indexOnPage);
+          }
         } else {
           activeToxicityCategory = null;
           renderToxicityOverview();
@@ -2676,6 +2719,11 @@
             requestTypePage = Math.floor(result.data.exampleIndex / CONFIG.itemsPerPage) + 1;
           }
           renderRequestTypeDetail();
+          // Highlight the specific example
+          if (result.data.exampleIndex !== undefined) {
+            const indexOnPage = result.data.exampleIndex % CONFIG.itemsPerPage;
+            highlightAndScroll('.request-type-example', indexOnPage);
+          }
         } else {
           activeRequestTypeCategory = null;
           renderRequestTypesOverview();
