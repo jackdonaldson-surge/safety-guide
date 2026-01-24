@@ -288,7 +288,7 @@
     },
     {
       "id": "harmful-non-generative",
-      "title": "Harmful Non-Generative Prompts",
+      "title": "Responses to Harmful Non-generative Requests",
       "description": "Guidance on handling harmful, non-generative prompts. Depending on the intent of the prompt, these can be refused OR engaged with, grounded in the provided text. Ask yourself: does fulfilling this prompt amplify, enable or encourage harm?",
       "color": "#f59e0b",
       "icon": "file-text",
