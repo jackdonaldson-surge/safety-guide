@@ -3574,7 +3574,7 @@
     const responseTypeMap = {
       'full-refusal': { tab: 'examples', category: 'full-refusal' },
       'partial-refusal': { tab: 'examples', category: 'partial-refusal' },
-      'grounded-engagement': { tab: 'examples', category: 'harmful-non-generative' },
+      'grounded-engagement': { tab: 'examples', category: 'grounded-engagement' },
       'harm-free-engagement': { tab: 'examples', category: 'harm-free-engagement' },
       'harmful-engagement': { tab: 'harmful-output', category: null },
       'quality-checklist': null
