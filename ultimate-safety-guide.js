@@ -1236,35 +1236,44 @@
     const guideHtml = `
       <div class="toxicity-guide">
         <h3>${ICONS.info} Understanding Toxicity Levels</h3>
-        <p class="toxicity-guide-intro">Toxicity levels classify prompts based on their potential for harm and intent. Click a level below to see examples.</p>
+        <p class="toxicity-guide-intro">Toxicity classification is not simply about user content or their intent—it depends heavily on <strong>whether a harm-free response is possible</strong>. A prompt touching on sensitive topics may still be safe to answer if the information can be provided without enabling harm or providing harmful content. When we say "harm-free", we mean a response that does not meet any of the "Harmful Output Characteristics".</p>
         <div class="toxicity-levels-list">
-          <div class="toxicity-level-item" data-toxicity-id="toxicity-safe">
+          <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #10b981;">Safe</span>
-            <span class="toxicity-level-desc">NO potential for harm, no sensitive content, no safety risk categories. <a class="toxicity-see-examples">See examples →</a></span>
+            <span class="toxicity-level-desc">NO potential for harm, no sensitive content, no safety risk categories.</span>
           </div>
-          <div class="toxicity-level-item" data-toxicity-id="toxicity-benign">
+          <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #3b82f6;">Benign</span>
-            <span class="toxicity-level-desc">Does not seek harmful content but touches on safety risk categories with educational or informational intent. <a class="toxicity-see-examples">See examples →</a></span>
+            <span class="toxicity-level-desc">Does not seek harmful content but touches on safety risk categories with educational or informational intent.</span>
           </div>
-          <div class="toxicity-level-item" data-toxicity-id="toxicity-dual-use">
+          <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #f59e0b;">Dual-Use</span>
-            <span class="toxicity-level-desc">Ambiguous requests where intent is unclear. Could be legitimate or harmful depending on context. <strong>A harm-free response is possible.</strong> <a class="toxicity-see-examples">See examples →</a></span>
+            <span class="toxicity-level-desc">Ambiguous requests where intent is unclear. Could be legitimate or harmful depending on context. <strong>A harm-free response is possible.</strong></span>
           </div>
-          <div class="toxicity-level-item" data-toxicity-id="toxicity-harmful">
+          <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #ef4444;">Harmful</span>
-            <span class="toxicity-level-desc">Requests assistance with harmful actions or requests harmful content. <strong>No harm-free response is possible.</strong> <a class="toxicity-see-examples">See examples →</a></span>
+            <span class="toxicity-level-desc">Requests assistance with harmful actions or requests harmful content. <strong>No harm-free response is possible.</strong></span>
           </div>
-          <div class="toxicity-level-item" data-toxicity-id="toxicity-jailbreak">
+          <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #8b5cf6;">Jailbreak</span>
-            <span class="toxicity-level-desc">Attempts to bypass safety guidelines through manipulation techniques. <strong>No harm-free response is possible.</strong> <a class="toxicity-see-examples">See examples →</a></span>
+            <span class="toxicity-level-desc">Attempts to bypass safety guidelines through manipulation techniques. <strong>No harm-free response is possible.</strong></span>
           </div>
         </div>
       </div>
     `;
 
+    // Map toxicity IDs to friendly card titles
+    const toxicityCardTitles = {
+      'toxicity-safe': 'Safe Prompt Examples',
+      'toxicity-benign': 'Benign Prompt Examples',
+      'toxicity-dual-use': 'Dual-Use Prompt Examples',
+      'toxicity-harmful': 'Harmful Prompt Examples',
+      'toxicity-jailbreak': 'Jailbreak Prompt Examples'
+    };
+
     const categoriesHtml = toxicityCategories.map(cat => `
       <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
-        <h3>${ICONS[cat.icon] || ICONS.shield} ${cat.title}</h3>
+        <h3>${ICONS[cat.icon] || ICONS.shield} ${toxicityCardTitles[cat.id] || cat.title}</h3>
         <span class="see-examples-link">See examples →</span>
       </div>
     `).join('');
@@ -1281,20 +1290,6 @@
         toxicityPage = 1;
         renderToxicityDetail();
       });
-    });
-
-    // Add click handlers for "See examples" links in the guide
-    content.querySelectorAll('.toxicity-level-item').forEach(item => {
-      const link = item.querySelector('.toxicity-see-examples');
-      if (link) {
-        link.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const toxicityId = item.getAttribute('data-toxicity-id');
-          activeToxicityCategory = toxicityId;
-          toxicityPage = 1;
-          renderToxicityDetail();
-        });
-      }
     });
   }
 
