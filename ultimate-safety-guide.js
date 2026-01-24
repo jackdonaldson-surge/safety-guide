@@ -8,8 +8,8 @@
     itemsPerPage: 5,
     zIndex: 10000,
     shineInterval: 120000,
-    examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@37dfb65/glossary-examples.json',
-    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@37dfb65/response-examples.json'
+    examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@ed97338/glossary-examples.json',
+    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@ed97338/response-examples.json'
   };
 
   // ============================================
@@ -336,7 +336,7 @@
       },
       {
         id: 'generative-engage',
-        title: 'Generative Engagement',
+        title: 'Harm-Free Engagement',
         color: '#3b82f6',
         rules: [
           'Responses to Generative prompts that ENGAGE must be harm-free'
