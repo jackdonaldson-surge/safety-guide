@@ -542,6 +542,34 @@
       border-radius: 20px;
     }
 
+    /* Examples Sections */
+    .examples-section {
+      margin-bottom: 0.5rem;
+    }
+    .examples-section:last-child {
+      margin-bottom: 0;
+    }
+    .examples-section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #475569;
+      margin: 0;
+      padding: 1rem 1.25rem 0 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .examples-section-title svg {
+      width: 16px;
+      height: 16px;
+      color: #64748b;
+    }
+    .examples-section .example-categories-grid {
+      padding-top: 0.75rem;
+    }
+
     .example-detail-header {
       padding: 1rem 1.5rem;
       background: #fff;
@@ -1025,19 +1053,50 @@
     const prevBtn = document.getElementById('glossary-prev');
     const nextBtn = document.getElementById('glossary-next');
 
-    // Filter out toxicity categories
-    const responseCategories = RESPONSE_EXAMPLES.categories.filter(cat => !cat.id.startsWith('toxicity-'));
+    // Filter out toxicity categories and special sections
+    const specialIds = ['harmful-non-generative', 'redirects-vs-refusals'];
+    const mainCategories = RESPONSE_EXAMPLES.categories.filter(cat =>
+      !cat.id.startsWith('toxicity-') && !specialIds.includes(cat.id)
+    );
+    const harmfulNonGen = RESPONSE_EXAMPLES.categories.find(cat => cat.id === 'harmful-non-generative');
+    const redirectsVsRefusals = RESPONSE_EXAMPLES.categories.find(cat => cat.id === 'redirects-vs-refusals');
 
-    const categoriesHtml = responseCategories.map(cat => `
+    const renderCategoryCard = (cat) => `
       <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
         <h3>${ICONS[cat.icon] || ICONS.shield} ${cat.title}</h3>
-        <span class="example-count">${cat.examples.length} examples</span>
       </div>
-    `).join('');
+    `;
 
-    content.innerHTML = `<div class="example-categories-grid">${categoriesHtml}</div>`;
+    const mainCategoriesHtml = mainCategories.map(renderCategoryCard).join('');
 
-    pageInfo.textContent = `${responseCategories.length} categories`;
+    let sectionsHtml = `
+      <div class="examples-section">
+        <h3 class="examples-section-title">${ICONS.clipboard} Response Examples</h3>
+        <div class="example-categories-grid">${mainCategoriesHtml}</div>
+      </div>
+    `;
+
+    if (harmfulNonGen) {
+      sectionsHtml += `
+        <div class="examples-section">
+          <h3 class="examples-section-title">${ICONS['alert-circle']} Non-Generative Harmful</h3>
+          <div class="example-categories-grid">${renderCategoryCard(harmfulNonGen)}</div>
+        </div>
+      `;
+    }
+
+    if (redirectsVsRefusals) {
+      sectionsHtml += `
+        <div class="examples-section">
+          <h3 class="examples-section-title">${ICONS.info} Redirects vs. Refusals</h3>
+          <div class="example-categories-grid">${renderCategoryCard(redirectsVsRefusals)}</div>
+        </div>
+      `;
+    }
+
+    content.innerHTML = sectionsHtml;
+
+    pageInfo.textContent = '';
     prevBtn.disabled = true;
     nextBtn.disabled = true;
 
@@ -1187,13 +1246,12 @@
     const categoriesHtml = toxicityCategories.map(cat => `
       <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
         <h3>${ICONS[cat.icon] || ICONS.shield} ${cat.title}</h3>
-        <span class="example-count">${cat.examples.length} examples</span>
       </div>
     `).join('');
 
     content.innerHTML = `${guideHtml}<div class="example-categories-grid">${categoriesHtml}</div>`;
 
-    pageInfo.textContent = `${toxicityCategories.length} toxicity levels`;
+    pageInfo.textContent = '';
     prevBtn.disabled = true;
     nextBtn.disabled = true;
 
