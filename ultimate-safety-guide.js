@@ -1226,10 +1226,17 @@
       font-weight: 500;
     }
 
-    .glossary-content { flex: 1; overflow-y: auto; background: #f8fafc; }
-    .glossary-content::-webkit-scrollbar { width: 10px; }
-    .glossary-content::-webkit-scrollbar-track { background: #f1f5f9; }
-    .glossary-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+    .glossary-content {
+      flex: 1;
+      overflow-y: auto;
+      background: #f8fafc;
+      -webkit-overflow-scrolling: touch;
+      transform: translateZ(0);
+      will-change: scroll-position;
+    }
+    .glossary-content::-webkit-scrollbar { width: 8px; }
+    .glossary-content::-webkit-scrollbar-track { background: transparent; }
+    .glossary-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 
     @keyframes glossaryFadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -1793,6 +1800,7 @@
       margin-bottom: 2.5rem;
       padding-bottom: 1.5rem;
       border-bottom: 1px solid #e2e8f0;
+      contain: layout style;
     }
     .output-section:last-child {
       margin-bottom: 0;
@@ -2007,6 +2015,25 @@
     .flowchart-decision-option .flowchart-action-badge {
       font-size: 0.65rem;
       padding: 0.25rem 0.5rem;
+    }
+    .flowchart-vertical-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+    }
+    .flowchart-vertical-flow > .flowchart-toxicity {
+      width: 100%;
+    }
+    .flowchart-vertical-arrow {
+      color: #94a3b8;
+      font-size: 1.2rem;
+      line-height: 1;
+      padding: 0.2rem 0;
+    }
+    .flowchart-vertical-flow > .flowchart-decision-branch {
+      width: 100%;
     }
     .flowchart-outcome {
       display: flex;
@@ -3723,13 +3750,22 @@
                     <span class="flowchart-row-arrow">→</span>
                     <span class="flowchart-action-badge engage">GROUNDED ENGAGEMENT</span>
                   </div>
-                  <!-- Harmful -->
+                  <!-- Harmful (task doesn't amplify) -->
                   <div class="flowchart-row">
+                    <div class="flowchart-toxicity" style="background: #fee2e2; color: #991b1b;">
+                      <div class="flowchart-toxicity-name">Harmful</div>
+                      <div class="flowchart-toxicity-desc">Task does NOT amplify harm</div>
+                    </div>
+                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-action-badge engage">GROUNDED ENGAGEMENT</span>
+                  </div>
+                  <!-- Harmful (clear intent / amplifies) -->
+                  <div class="flowchart-vertical-flow">
                     <div class="flowchart-toxicity" style="background: #fee2e2; color: #991b1b;">
                       <div class="flowchart-toxicity-name">Harmful</div>
                       <div class="flowchart-toxicity-desc">Clear harmful intent OR amplifies/enables/encourages harm</div>
                     </div>
-                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-vertical-arrow">↓</span>
                     <div class="flowchart-decision-branch">
                       <div class="flowchart-decision-question">Mixed Request?</div>
                       <div class="flowchart-decision-options">
@@ -3745,15 +3781,6 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- Harmful (task doesn't amplify) -->
-                  <div class="flowchart-row">
-                    <div class="flowchart-toxicity" style="background: #fee2e2; color: #991b1b;">
-                      <div class="flowchart-toxicity-name">Harmful</div>
-                      <div class="flowchart-toxicity-desc">Task does NOT amplify harm (mechanical only)</div>
-                    </div>
-                    <span class="flowchart-row-arrow">→</span>
-                    <span class="flowchart-action-badge engage">GROUNDED ENGAGEMENT</span>
                   </div>
                 </div>
                 <div class="flowchart-note">
@@ -3789,12 +3816,12 @@
                     <span class="flowchart-action-badge engage">HARM-FREE ENGAGEMENT</span>
                   </div>
                   <!-- Harmful -->
-                  <div class="flowchart-row">
+                  <div class="flowchart-vertical-flow">
                     <div class="flowchart-toxicity" style="background: #fee2e2; color: #991b1b;">
                       <div class="flowchart-toxicity-name">Harmful</div>
                       <div class="flowchart-toxicity-desc">No harm-free response possible</div>
                     </div>
-                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-vertical-arrow">↓</span>
                     <div class="flowchart-decision-branch">
                       <div class="flowchart-decision-question">Mixed Request?</div>
                       <div class="flowchart-decision-options">
