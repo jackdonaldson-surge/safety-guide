@@ -1361,6 +1361,70 @@
       color: #475569;
       line-height: 1.5;
     }
+    .request-type-definition {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .request-type-definition-header {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .request-type-definition-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .request-type-definition-icon svg {
+      width: 18px;
+      height: 18px;
+      color: white;
+    }
+    .request-type-definition-title {
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 1rem;
+    }
+    .request-type-definition-body {
+      padding: 1rem 1.25rem;
+    }
+    .request-type-definition-text {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .request-type-examples-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.9rem;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      color: #475569;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .request-type-examples-link:hover {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+    .request-type-examples-link svg {
+      width: 16px;
+      height: 16px;
+    }
     .request-type-card {
       background: #fff;
       border: 1px solid #e2e8f0;
@@ -2755,17 +2819,9 @@
       searchCount.textContent = '';
     }
 
-    const introHtml = `
-      <div class="request-types-intro">
-        <h3>${ICONS.info} Understanding Request Types</h3>
-        <p>Request classification determines whether a prompt asks the model to <strong>generate new content</strong> (generative) or <strong>transform existing content</strong> (non-generative). This distinction is important for evaluating how to handle potentially harmful requests.</p>
-      </div>
-    `;
-
     if (categoriesToShow.length === 0) {
       content.innerHTML = `
         <div style="padding: 1.25rem;">
-          ${introHtml}
           <div class="glossary-no-results">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -2780,29 +2836,40 @@
       return;
     }
 
-    const cardsHtml = categoriesToShow.map(cat => `
-      <div class="request-type-card" data-category-id="${cat.id}">
-        <div class="request-type-card-header">
-          <div class="request-type-icon" style="background: ${cat.color}">
-            ${ICONS[cat.icon] || ICONS.info}
+    // Build definition cards with full descriptions
+    const definitionsHtml = categoriesToShow.map(cat => {
+      const guidanceHtml = cat.guidanceIntro ? `
+        <div class="request-type-guidance" style="margin-top: 0.75rem; margin-bottom: 0;">
+          ${ICONS.lightbulb}
+          <span>${escapeHtml(cat.guidanceIntro)}</span>
+        </div>
+      ` : '';
+
+      return `
+        <div class="request-type-definition">
+          <div class="request-type-definition-header">
+            <div class="request-type-definition-icon" style="background: ${cat.color}">
+              ${ICONS[cat.icon] || ICONS.info}
+            </div>
+            <div class="request-type-definition-title">${currentSearchQuery ? highlightTerm(escapeHtml(cat.title), currentSearchQuery) : escapeHtml(cat.title)}</div>
           </div>
-          <div class="request-type-info">
-            <div class="request-type-title">${currentSearchQuery ? highlightTerm(escapeHtml(cat.title), currentSearchQuery) : escapeHtml(cat.title)}</div>
-            <div class="request-type-count">${cat.examples.length} example${cat.examples.length !== 1 ? 's' : ''}</div>
-          </div>
-          <div class="request-type-arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
+          <div class="request-type-definition-body">
+            <div class="request-type-definition-text">${currentSearchQuery ? highlightTerm(escapeHtml(cat.description), currentSearchQuery) : escapeHtml(cat.description)}</div>
+            ${guidanceHtml}
+            <button class="request-type-examples-link" data-category-id="${cat.id}">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+              See ${cat.examples.length} Example${cat.examples.length !== 1 ? 's' : ''}
+            </button>
           </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
 
     content.innerHTML = `
       <div style="padding: 1.25rem;">
-        ${introHtml}
-        ${cardsHtml}
+        ${definitionsHtml}
       </div>
     `;
 
@@ -2810,10 +2877,10 @@
     prevBtn.disabled = true;
     nextBtn.disabled = true;
 
-    // Add click handlers for cards
-    document.querySelectorAll('.request-type-card').forEach(card => {
-      card.addEventListener('click', () => {
-        activeRequestTypeCategory = card.getAttribute('data-category-id');
+    // Add click handlers for "See Examples" buttons
+    document.querySelectorAll('.request-type-examples-link').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeRequestTypeCategory = btn.getAttribute('data-category-id');
         requestTypePage = 1;
         renderRequestTypeDetail();
       });
