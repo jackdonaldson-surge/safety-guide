@@ -938,8 +938,8 @@
 
     /* Harmful Output Characteristics Styles */
     .harmful-output-intro {
-      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-      border: 1px solid #fecaca;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid #e2e8f0;
       border-radius: 12px;
       padding: 1.25rem;
       margin-bottom: 1.5rem;
@@ -951,16 +951,17 @@
       margin: 0 0 0.5rem 0;
       font-size: 1rem;
       font-weight: 600;
-      color: #991b1b;
+      color: #1e293b;
     }
     .harmful-output-intro h3 svg {
       width: 18px;
       height: 18px;
+      color: #64748b;
     }
     .harmful-output-intro p {
       margin: 0;
       font-size: 0.9rem;
-      color: #7f1d1d;
+      color: #475569;
       line-height: 1.5;
     }
     /* Table styles for Harmful Output */
@@ -994,10 +995,18 @@
     .harmful-output-table tr:hover {
       background: #f8fafc;
     }
+    .harmful-output-table tr.category-first-row td {
+      border-top: 2px solid #cbd5e1;
+      padding-top: 0.85rem;
+    }
+    .harmful-output-table tbody tr:first-child.category-first-row td {
+      border-top: none;
+    }
     .harmful-output-category-cell {
       font-weight: 600;
       white-space: nowrap;
       width: 140px;
+      vertical-align: middle;
     }
     .harmful-output-category-badge {
       display: inline-flex;
@@ -1801,7 +1810,7 @@
     );
 
     const tableRowsHtml = tableRows.map(({ category: cat, characteristic: char, isFirst }) => `
-      <tr>
+      <tr${isFirst ? ' class="category-first-row"' : ''}>
         <td class="harmful-output-category-cell">
           ${isFirst ? `
             <span class="harmful-output-category-badge" style="background: ${cat.color}">
