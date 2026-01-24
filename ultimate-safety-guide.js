@@ -1169,7 +1169,7 @@
       cursor: pointer;
       padding: 0.5rem;
       border-radius: 8px;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
     .glossary-close:hover { background: rgba(255,255,255,0.25); transform: rotate(90deg); }
     .glossary-close svg { width: 20px; height: 20px; }
@@ -1190,7 +1190,7 @@
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
       display: flex;
       align-items: center;
       gap: 0.4rem;
@@ -1345,7 +1345,7 @@
       font-size: 0.85rem;
       cursor: pointer;
       border-radius: 8px;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease, border-color 0.2s ease;
       display: flex;
       align-items: center;
       gap: 0.4rem;
@@ -1487,7 +1487,7 @@
       align-items: center;
       gap: 0.4rem;
       font-weight: 600;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease;
     }
     .example-back-btn:hover { background: #e2e8f0; color: #1e293b; }
     .example-back-btn svg { width: 16px; height: 16px; }
@@ -1881,7 +1881,7 @@
     }
     .flowchart-branch-container {
       display: flex;
-      gap: 2rem;
+      gap: 1.25rem;
       justify-content: center;
       width: 100%;
     }
@@ -1890,7 +1890,7 @@
       flex-direction: column;
       align-items: center;
       flex: 1;
-      max-width: 340px;
+      max-width: 400px;
     }
     .flowchart-branch-header {
       font-weight: 700;
@@ -1922,8 +1922,12 @@
     }
     .flowchart-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .flowchart-row > .flowchart-row-arrow {
+      margin-top: 0.7rem;
     }
     .flowchart-toxicity {
       flex: 1;
@@ -2342,7 +2346,7 @@
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease;
     }
     .request-type-examples-link:hover {
       background: #e2e8f0;
@@ -2534,7 +2538,7 @@
       color: #475569;
       font-size: 0.85rem;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease;
     }
     .request-type-back-btn:hover {
       background: #e2e8f0;
