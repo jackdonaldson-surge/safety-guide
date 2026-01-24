@@ -1796,52 +1796,200 @@
     .policy-flowchart {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      align-items: center;
+      gap: 0;
+      padding: 1rem 0;
     }
-    .flowchart-step {
-      background: #f8fafc;
+    .flowchart-node {
+      background: white;
+      border: 2px solid #e2e8f0;
       border-radius: 12px;
-      padding: 1rem;
+      padding: 1rem 1.5rem;
+      text-align: center;
+      position: relative;
+      max-width: 280px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
-    .flowchart-question {
+    .flowchart-node.start {
+      background: #1e293b;
+      color: white;
+      border-color: #1e293b;
+    }
+    .flowchart-node.decision {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      border-radius: 12px;
+      transform: none;
+    }
+    .flowchart-node.action-engage {
+      background: #dcfce7;
+      border-color: #10b981;
+    }
+    .flowchart-node.action-refuse {
+      background: #fee2e2;
+      border-color: #ef4444;
+    }
+    .flowchart-node.action-partial {
+      background: #fef3c7;
+      border-color: #f59e0b;
+    }
+    .flowchart-node-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+    .flowchart-node-subtitle {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+    .flowchart-node.action-engage .flowchart-node-title { color: #166534; }
+    .flowchart-node.action-refuse .flowchart-node-title { color: #991b1b; }
+    .flowchart-node.action-partial .flowchart-node-title { color: #92400e; }
+    .flowchart-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #94a3b8;
+    }
+    .flowchart-connector-line {
+      width: 2px;
+      height: 20px;
+      background: #cbd5e1;
+    }
+    .flowchart-connector-arrow {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid #cbd5e1;
+    }
+    .flowchart-connector-label {
+      font-size: 0.75rem;
       font-weight: 600;
-      color: #1e293b;
-      margin-bottom: 1rem;
+      padding: 0.25rem 0.5rem;
+      background: #f1f5f9;
+      border-radius: 4px;
+      margin: 4px 0;
+    }
+    .flowchart-branch-container {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      width: 100%;
+    }
+    .flowchart-branch-path {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      max-width: 340px;
+    }
+    .flowchart-branch-header {
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      color: white;
+      margin-bottom: 0;
+    }
+    .flowchart-decision-box {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1rem;
+      width: 100%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .flowchart-decision-title {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #475569;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+    .flowchart-outcomes {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .flowchart-outcome {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-    }
-    .flowchart-step-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      background: #3b82f6;
-      color: white;
-      border-radius: 50%;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
       font-size: 0.8rem;
-      flex-shrink: 0;
     }
-    .flowchart-branches {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .flowchart-outcome.engage {
+      background: #dcfce7;
+      border-left: 3px solid #10b981;
+    }
+    .flowchart-outcome.refuse {
+      background: #fee2e2;
+      border-left: 3px solid #ef4444;
+    }
+    .flowchart-outcome.partial {
+      background: #fef3c7;
+      border-left: 3px solid #f59e0b;
+    }
+    .flowchart-outcome-label {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .flowchart-outcome.engage .flowchart-outcome-label { color: #166534; }
+    .flowchart-outcome.refuse .flowchart-outcome-label { color: #991b1b; }
+    .flowchart-outcome.partial .flowchart-outcome-label { color: #92400e; }
+    .flowchart-outcome-condition {
+      color: #64748b;
+      font-size: 0.75rem;
+    }
+    .flowchart-note {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #475569;
+      text-align: left;
+    }
+    .flowchart-note strong {
+      color: #1e293b;
+    }
+    .flowchart-mixed-section {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 1rem;
+      width: 100%;
+      max-width: 600px;
+      margin-top: 0.5rem;
+    }
+    .flowchart-mixed-title {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #475569;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+    .flowchart-mixed-outcomes {
+      display: flex;
       gap: 1rem;
+      justify-content: center;
     }
-    .flowchart-branch {
+    .flowchart-mixed-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.75rem;
       background: white;
       border-radius: 8px;
-      border: 2px solid;
-      overflow: hidden;
+      flex: 1;
+      max-width: 200px;
     }
-    .flowchart-branch-header {
-      color: white;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.9rem;
-    }
-    .flowchart-branch-content {
-      padding: 0.75rem;
+    .flowchart-mixed-item .condition {
+      font-size: 0.75rem;
+      color: #64748b;
+      text-align: center;
     }
     .flowchart-action {
       display: inline-block;
@@ -3436,86 +3584,112 @@
     const policyComplianceHtml = `
       <div class="output-section" id="section-policy-compliance">
         <div class="harmful-output-intro">
-          <h3>${ICONS['check-circle']} Policy Compliance</h3>
-          <p>Follow the flowchart below to determine the appropriate response action.</p>
+          <h3>${ICONS['check-circle']} Policy Compliance Flowchart</h3>
+          <p>Follow the decision tree to determine the appropriate response action.</p>
         </div>
 
         <div class="policy-flowchart">
-          <!-- Step 1: Request Type -->
-          <div class="flowchart-step">
-            <div class="flowchart-question">
-              <span class="flowchart-step-number">1</span>
-              What type of request is this?
-            </div>
-            <div class="flowchart-branches">
-              <div class="flowchart-branch" style="border-color: #8b5cf6;">
-                <div class="flowchart-branch-header" style="background: #8b5cf6;">Non-Generative</div>
-                <div class="flowchart-branch-content">
-                  <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 0.75rem;">Mechanical tasks on user-provided content (translation, summarization, counting, extraction, formatting)</p>
-                  <div class="flowchart-action engage">→ GROUNDED ENGAGEMENT</div>
-                  <ul class="flowchart-rules">
-                    <li>ENGAGE even if content is harmful (don't amplify, enable, or encourage)</li>
-                    <li>Stay grounded in source content</li>
-                    <li>No warnings, disclaimers, or commentary</li>
-                    <li>REFUSE if asked to add, amplify, or adapt harm</li>
-                  </ul>
+          <!-- START NODE -->
+          <div class="flowchart-node start">
+            <div class="flowchart-node-title">Incoming Request</div>
+            <div class="flowchart-node-subtitle" style="color: #94a3b8;">What type of request is this?</div>
+          </div>
+
+          <!-- Connector with split -->
+          <div class="flowchart-connector">
+            <div class="flowchart-connector-line"></div>
+            <div class="flowchart-connector-arrow"></div>
+          </div>
+
+          <!-- TWO BRANCHES -->
+          <div class="flowchart-branch-container">
+            <!-- NON-GENERATIVE PATH -->
+            <div class="flowchart-branch-path">
+              <div class="flowchart-branch-header" style="background: #8b5cf6;">NON-GENERATIVE</div>
+              <div style="font-size: 0.75rem; color: #64748b; text-align: center; margin: 0.5rem 0; padding: 0 0.5rem;">
+                Mechanical tasks: translation, summarization, counting, extraction, formatting
+              </div>
+
+              <div class="flowchart-connector">
+                <div class="flowchart-connector-line"></div>
+                <div class="flowchart-connector-label">Check toxicity</div>
+                <div class="flowchart-connector-arrow"></div>
+              </div>
+
+              <div class="flowchart-decision-box">
+                <div class="flowchart-decision-title">What is the toxicity level?</div>
+                <div class="flowchart-outcomes">
+                  <div class="flowchart-outcome engage">
+                    <span class="flowchart-outcome-label">GROUNDED ENGAGEMENT</span>
+                    <span class="flowchart-outcome-condition">Benign or Dual-Use content</span>
+                  </div>
+                  <div class="flowchart-outcome engage">
+                    <span class="flowchart-outcome-label">GROUNDED ENGAGEMENT</span>
+                    <span class="flowchart-outcome-condition">Harmful, but task does NOT amplify/enable/encourage harm</span>
+                  </div>
+                  <div class="flowchart-outcome refuse">
+                    <span class="flowchart-outcome-label">REFUSE</span>
+                    <span class="flowchart-outcome-condition">Harmful + clear harmful intent OR task amplifies/enables/encourages harm</span>
+                  </div>
+                </div>
+                <div class="flowchart-note">
+                  <strong>Grounded Engagement Rules:</strong> Stay grounded in source content. No warnings, disclaimers, or commentary. Don't sanitize or amplify.
                 </div>
               </div>
-              <div class="flowchart-branch" style="border-color: #3b82f6;">
-                <div class="flowchart-branch-header" style="background: #3b82f6;">Generative</div>
-                <div class="flowchart-branch-content">
-                  <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 0.75rem;">Creating new content, answering questions, providing information</p>
-                  <div class="flowchart-arrow">↓ Check Toxicity Level</div>
+            </div>
+
+            <!-- GENERATIVE PATH -->
+            <div class="flowchart-branch-path">
+              <div class="flowchart-branch-header" style="background: #3b82f6;">GENERATIVE</div>
+              <div style="font-size: 0.75rem; color: #64748b; text-align: center; margin: 0.5rem 0; padding: 0 0.5rem;">
+                Creating new content, answering questions, providing information
+              </div>
+
+              <div class="flowchart-connector">
+                <div class="flowchart-connector-line"></div>
+                <div class="flowchart-connector-label">Check toxicity</div>
+                <div class="flowchart-connector-arrow"></div>
+              </div>
+
+              <div class="flowchart-decision-box">
+                <div class="flowchart-decision-title">What is the toxicity level?</div>
+                <div class="flowchart-outcomes">
+                  <div class="flowchart-outcome engage">
+                    <span class="flowchart-outcome-label">ENGAGE</span>
+                    <span class="flowchart-outcome-condition">Benign — Harm-free engagement</span>
+                  </div>
+                  <div class="flowchart-outcome engage">
+                    <span class="flowchart-outcome-label">ENGAGE</span>
+                    <span class="flowchart-outcome-condition">Dual-Use — Assume good intent</span>
+                  </div>
+                  <div class="flowchart-outcome refuse">
+                    <span class="flowchart-outcome-label">FULL REFUSAL</span>
+                    <span class="flowchart-outcome-condition">Harmful — No harm-free response possible</span>
+                  </div>
+                  <div class="flowchart-outcome refuse">
+                    <span class="flowchart-outcome-label">FULL REFUSAL</span>
+                    <span class="flowchart-outcome-condition">Jailbreak — Manipulation attempt</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Step 2: Toxicity Level (Generative only) -->
-          <div class="flowchart-step">
-            <div class="flowchart-question">
-              <span class="flowchart-step-number">2</span>
-              What is the toxicity level? <span style="font-size: 0.75rem; color: #64748b;">(Generative requests only)</span>
-            </div>
-            <div class="flowchart-toxicity-grid">
-              <div class="flowchart-toxicity-item" style="border-color: #10b981;">
-                <div class="flowchart-toxicity-header" style="background: #10b981;">Benign</div>
-                <div class="flowchart-action engage" style="margin: 0.5rem 0;">→ ENGAGE</div>
-                <p>Harm-Free Engagement required</p>
-              </div>
-              <div class="flowchart-toxicity-item" style="border-color: #f59e0b;">
-                <div class="flowchart-toxicity-header" style="background: #f59e0b;">Dual-Use</div>
-                <div class="flowchart-action engage" style="margin: 0.5rem 0;">→ ENGAGE</div>
-                <p>Assume good intent, treat as Benign</p>
-              </div>
-              <div class="flowchart-toxicity-item" style="border-color: #dc2626;">
-                <div class="flowchart-toxicity-header" style="background: #dc2626;">Harmful</div>
-                <div class="flowchart-action refuse" style="margin: 0.5rem 0;">→ FULL REFUSAL</div>
-                <p>No harm-free response possible</p>
-              </div>
-              <div class="flowchart-toxicity-item" style="border-color: #7c3aed;">
-                <div class="flowchart-toxicity-header" style="background: #7c3aed;">Jailbreak</div>
-                <div class="flowchart-action refuse" style="margin: 0.5rem 0;">→ FULL REFUSAL</div>
-                <p>Manipulation attempt detected</p>
-              </div>
-            </div>
+          <!-- MIXED REQUESTS SECTION -->
+          <div class="flowchart-connector">
+            <div class="flowchart-connector-line" style="height: 30px;"></div>
           </div>
 
-          <!-- Mixed Requests -->
-          <div class="flowchart-step">
-            <div class="flowchart-question">
-              <span class="flowchart-step-number">3</span>
-              What if there are multiple requests? <span style="font-size: 0.75rem; color: #64748b;">(Mixed prompts)</span>
-            </div>
-            <div class="flowchart-mixed">
+          <div class="flowchart-mixed-section">
+            <div class="flowchart-mixed-title">Mixed Requests (multiple asks in one prompt)</div>
+            <div class="flowchart-mixed-outcomes">
               <div class="flowchart-mixed-item">
-                <strong>All Harmful/Jailbreak:</strong>
-                <span class="flowchart-action refuse" style="display: inline; margin-left: 0.5rem;">FULL REFUSAL</span>
+                <span class="flowchart-action refuse">FULL REFUSAL</span>
+                <span class="condition">All parts are Harmful/Jailbreak</span>
               </div>
               <div class="flowchart-mixed-item">
-                <strong>Mix of Harmful + Benign:</strong>
-                <span class="flowchart-action partial" style="display: inline; margin-left: 0.5rem;">PARTIAL REFUSAL</span>
-                <span style="color: #64748b; font-size: 0.85rem;"> — Refuse harmful, engage benign</span>
+                <span class="flowchart-action partial">PARTIAL REFUSAL</span>
+                <span class="condition">Mix of Harmful + Benign — Refuse harmful parts, engage with benign</span>
               </div>
             </div>
           </div>
