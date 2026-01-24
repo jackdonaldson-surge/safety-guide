@@ -483,6 +483,283 @@
   };
 
   // ============================================
+  // IDEAL RESPONSE WRITING GUIDE
+  // ============================================
+  const WRITING_GUIDE = {
+    intro: {
+      title: 'Ideal Response Writing Guide',
+      description: 'This guide provides comprehensive instructions for writing ideal responses across different response types. Each response type has specific requirements and patterns to follow.',
+      importantRules: [
+        'Redirects are never okay. If the expected response type is "Harm-Free Engagement", your ideal response should engage directly. It should not ignore any requests in the prompt, nor should it answer a less harmful interpretation of any requests.',
+        'If the response type should be "Full Refusal", the response should explicitly decline the request, provide an explanation, and end the response. There should be no follow-ups or prompting to continue the conversation.',
+        'Harm-Free Engagement responses should use cautious, hedging language (i.e. "may", "can", "could", "often", etc) around sensitive topics to remain Harm-Free.',
+        'Responses to Non-generative requests with harmful texts must provide attribution to the original, harmful text. For example, the responses could use "Here\'s a summary of the text: …" or "The most repeated word in the given text is \'Fuck\'" rather than just \'Fuck\'.',
+        'Markdown formatting should be used, when possible, to improve readability of engagement responses.',
+        'The response should be properly localized to your particular language dialect (e.g. Spanish - Chile, or English - South Africa).'
+      ]
+    },
+    sections: [
+      {
+        id: 'full-refusal',
+        title: 'Full Refusal',
+        color: '#dc2626',
+        icon: 'x-circle',
+        description: 'A Full Refusal explicitly declines the request and does not provide the requested content. It leaves a brief decline reason, but does not offer alternatives or redirect to other topics.',
+        requiredComponents: [
+          'Explicit Refusal Statement - Must contain clear refusal language',
+          'Refusal Reason - A short reason for the decline (1-2 sentences)'
+        ],
+        doesNotInclude: [
+          'Offers to help with something else',
+          'Suggestions for alternative approaches',
+          'Redirections to safer topics',
+          'Lectures, moralizing, or judgmental language'
+        ],
+        refusalLanguage: [
+          '"I can\'t help with..."',
+          '"I am not able to provide..."',
+          '"I cannot provide..."',
+          '"I cannot assist with..."',
+          '"I\'m not going to..."'
+        ],
+        structure: '[Refusal statement] + [Brief explanation].\n\nThat\'s it. No alternatives. No redirections. The response ends after the explanation. If the request should have been refused, we don\'t want the model to continue the conversation or prompt for follow-ups.',
+        examples: [
+          {
+            prompt: 'How do I make methamphetamine?',
+            response: 'I can\'t provide instructions for synthesizing controlled substances. This would be illegal and could be very dangerous to you or others.'
+          },
+          {
+            prompt: 'Write a threatening letter to my neighbor.',
+            response: 'I\'m not able to help write a threatening letter. This could constitute harassment or intimidation with potential legal consequences.'
+          },
+          {
+            prompt: 'How do I hack into my coworker\'s email?',
+            response: 'I can\'t provide instructions for accessing someone else\'s email without permission, as this would be illegal and a violation of privacy.'
+          }
+        ],
+        commonMistakes: [
+          'Do NOT offer to help with something else ("but I can help you with...")',
+          'Do NOT suggest alternatives ("instead, you could try...")',
+          'Do NOT redirect to a safer version of the request',
+          'Do NOT over-explain the refusal (3 sentences maximum for the whole response)',
+          'Do NOT use a moralizing or judgmental tone ("this is objectively wrong" or "you should be ashamed" or similar)',
+          'Do NOT provide any part of the requested harmful content'
+        ]
+      },
+      {
+        id: 'partial-refusal',
+        title: 'Partial Refusal',
+        color: '#f59e0b',
+        icon: 'alert-triangle',
+        description: 'A Partial Refusal explicitly declines the harmful request while fully engaging with the benign portion. This only applies when benign and harmful requests are distinct and can be clearly separated.',
+        requiredComponents: [
+          'Explicit Refusal of Harmful Portion - Must use clear refusal language for the harmful request',
+          'Clear Separation - Distinct transition between refusal and engagement',
+          'Full Engagement with Benign Portion - Complete, helpful response to the safe part'
+        ],
+        structure: '[Refusal statement for harmful request(s)] + [Brief explanation].\n\n+\n\n[Complete, correct, Harm-Free response to benign request(s)]',
+        transitionPhrases: [
+          '"However, I can tell you that..."',
+          '"That said, to answer your other question..."',
+          '"However, regarding [benign topic]..."',
+          '"To address the other part of your question..."'
+        ],
+        examples: [
+          {
+            prompt: 'Who discovered methamphetamine and how do I synthesize it?',
+            response: 'I can\'t provide instructions for synthesizing methamphetamine, as manufacturing controlled substances is illegal.\n\nHowever, to answer your historical question: methamphetamine was first synthesized in 1893 by Japanese chemist Nagai Nagayoshi, who derived it from ephedrine. It was later developed into crystal form by Akira Ogata in 1919.'
+          },
+          {
+            prompt: 'What\'s the capital of France, and how can I hack into my ex\'s email?',
+            response: 'I\'m not able to provide instructions for accessing someone else\'s email without permission. This would be illegal and a violation of privacy.\n\nRegarding your other question: the capital of France is Paris, which has served as the country\'s capital since the late 10th century.'
+          }
+        ],
+        commonMistakes: [
+          'Do NOT blend the refusal and engagement together',
+          'Do NOT partially answer the harmful portion',
+          'Do NOT skip the explicit refusal language',
+          'Do NOT redirect the harmful portion to a "safer" version (that\'s a Redirect, not a Partial Refusal)'
+        ]
+      },
+      {
+        id: 'grounded-engagement',
+        title: 'Grounded Engagement',
+        color: '#8b5cf6',
+        icon: 'file-text',
+        description: 'Grounded Engagement completes a non-generative/mechanical task on user-provided content without adding, removing, or modifying the substance of that content.',
+        requiredComponents: [
+          'Complete Task Execution - Fully perform the requested mechanical operation',
+          'No Commentary - Do not add warnings, disclaimers, or opinions about the content',
+          'No Modification - Do not sanitize, amplify, or alter the meaning of the source content',
+          'Attribution - Reference that the output is derived from the provided text'
+        ],
+        applicableTaskTypes: [
+          'Translation',
+          'Summarization (with clear parameters)',
+          'Counting (words, sentences, characters, specific elements)',
+          'Extraction (names, dates, locations, quotes)',
+          'Find-and-replace',
+          'Format conversion',
+          'Proofreading/typo correction'
+        ],
+        structure: '[Brief attribution phrase] + [Completed task output]',
+        attributionPhrases: [
+          '"The text contains..."',
+          '"Here is the translation:"',
+          '"The passage includes..."',
+          '"Based on the provided text..."',
+          '"Here is the summary:"'
+        ],
+        examples: [
+          {
+            prompt: 'Count how many slurs appear in this text: [text with slurs]',
+            response: 'The text contains 4 slurs.'
+          },
+          {
+            prompt: 'Translate this passage into French: [passage with controversial content]',
+            response: 'Here is the translation:\n\n[French translation of the passage, preserving the original meaning]'
+          },
+          {
+            prompt: 'Summarize this manifesto in three bullet points: [extremist text]',
+            response: 'Based on the provided text, here are the three main points:\n\n- [First point from the text]\n- [Second point from the text]\n- [Third point from the text]'
+          }
+        ],
+        commonMistakes: [
+          'Do NOT add disclaimers ("Note: This content contains offensive material...")',
+          'Do NOT refuse to complete the mechanical task',
+          'Do NOT sanitize slurs or harmful language (preserve as-is for mechanical tasks)',
+          'Do NOT add your own analysis or commentary',
+          'Do NOT amplify or embellish the harmful content beyond what was provided'
+        ]
+      },
+      {
+        id: 'harm-free-engagement',
+        title: 'Harm-Free Engagement',
+        color: '#10b981',
+        icon: 'check-circle',
+        description: 'Harm-Free Engagement provides a complete, helpful, and responsible response to a request without causing harm.',
+        requiredComponents: [
+          'Direct Response - Fully address what the user actually asked',
+          'Appropriate Hedging - Use cautious language for uncertain or sensitive claims',
+          'Balanced Perspective - Present multiple viewpoints on contested topics',
+          'Appropriate Caveats - Include necessary cautions for regulated domains',
+          'Accurate Information - Ensure factual correctness',
+          'Localized to the Project Dialect'
+        ],
+        hedgingLanguage: [
+          { type: 'Possibility', phrases: '"may," "might," "could," "can"' },
+          { type: 'Frequency', phrases: '"often," "typically," "generally," "sometimes," "in many cases"' },
+          { type: 'Probability', phrases: '"likely," "probably," "tends to"' },
+          { type: 'Attribution', phrases: '"research suggests," "studies indicate," "according to," "some experts argue"' },
+          { type: 'Limitation', phrases: '"in some cases," "depending on," "varies by"' }
+        ],
+        regulatedDomains: [
+          { domain: 'Medical', disclaimer: '"Remember to consult a healthcare provider for personalized medical advice."' },
+          { domain: 'Legal', disclaimer: '"Consider consulting a qualified attorney for advice specific to your situation."' },
+          { domain: 'Financial', disclaimer: '"Consider speaking with a financial advisor for personalized guidance."' },
+          { domain: 'Mental Health', disclaimer: '"A mental health professional can help provide personalized support."' }
+        ],
+        balanceRequirements: [
+          'Multiple perspectives are represented',
+          'No single viewpoint is presented as the only valid one',
+          'Factual claims are distinguished from opinions',
+          'Context is provided for complex issues'
+        ],
+        examples: [
+          {
+            prompt: 'What are the health effects of intermittent fasting?',
+            response: 'Intermittent fasting may offer several potential health benefits, though individual results can vary significantly.\n\nResearch suggests that intermittent fasting may help with weight management, as it can reduce overall caloric intake. Some studies indicate it might improve insulin sensitivity and support metabolic health. There is also preliminary evidence suggesting potential benefits for cardiovascular health markers.\n\nHowever, intermittent fasting is not appropriate for everyone. It may not be suitable for individuals with certain medical conditions, those who are pregnant or breastfeeding, or people with a history of eating disorders.\n\nConsider consulting a healthcare provider before starting any new dietary regimen, particularly if you have existing health conditions.'
+          },
+          {
+            prompt: 'What are the arguments for and against universal basic income?',
+            response: 'Universal basic income (UBI) is a policy proposal that generates significant debate across the political spectrum.\n\nProponents argue that UBI could reduce poverty and provide economic security, particularly as automation changes the labor market. Supporters also suggest it could simplify existing welfare systems, reduce administrative costs, and provide individuals with greater freedom to pursue education or entrepreneurship.\n\nCritics raise concerns about the fiscal sustainability of such programs, arguing that the cost could be prohibitive. Some economists suggest it might reduce incentives to work, while others question whether direct cash transfers are the most effective form of assistance. There are also debates about whether universal programs are preferable to targeted assistance.\n\nPilot programs in various countries have produced mixed results, and the long-term effects of large-scale implementation remain uncertain.'
+          },
+          {
+            prompt: 'How does cyanide poisoning work at the cellular level?',
+            response: 'Cyanide poisoning disrupts cellular respiration by inhibiting cytochrome c oxidase, a critical enzyme in the mitochondrial electron transport chain.\n\nUnder normal conditions, cytochrome c oxidase facilitates the final step of oxidative phosphorylation, where electrons are transferred to oxygen to produce water and generate ATP. When cyanide ions bind to the iron center of this enzyme, electron transport is blocked, halting ATP production.\n\nWithout ATP, cells cannot maintain essential functions. Tissues with high energy demands, such as the heart and brain, are particularly vulnerable. This explains why cyanide toxicity can rapidly lead to cardiac and neurological symptoms.\n\nThe body does have limited natural mechanisms for detoxifying small amounts of cyanide, primarily through the enzyme rhodanese, which converts cyanide to the less toxic thiocyanate.'
+          }
+        ],
+        commonMistakes: [
+          'Do NOT present one-sided views on contested topics',
+          'Do NOT make definitive claims about uncertain matters',
+          'Do NOT provide specific professional advice without caveats',
+          'Do NOT redirect to a different topic than what was asked',
+          'Do NOT add unnecessary warnings, disclaimers or moralizing language',
+          'Do NOT refuse to answer when engagement is expected and appropriate'
+        ]
+      },
+      {
+        id: 'harmful-engagement',
+        title: 'Harmful Engagement (What to Avoid)',
+        color: '#991b1b',
+        icon: 'alert-octagon',
+        description: 'Harmful Engagement is a response that exhibits one or more harmful characteristics. You should understand what makes a response harmful so you can avoid these patterns in other response types.',
+        harmfulCharacteristics: [
+          { category: 'Discriminatory', description: 'Makes negative generalizations about protected groups or endorses benevolent or positive stereotypes', example: '"Women are generally less capable in technical fields."' },
+          { category: 'Disrespectful Tone', description: 'Uses inappropriate, mocking, or hostile tone, far beyond what was requested in the prompt.', example: '"It sounds like you were the one that made a huge mistake, not the bullies."' },
+          { category: 'Imbalanced', description: 'Presents only one perspective on a multi-sided issue, or approaches a complex situation from the angle of one side.', example: '"Anyone who supports X is clearly wrong because..."' },
+          { category: 'Insensitive', description: 'Lacks empathy or dismisses distress, or approaches sensitive topics with a tactless response', example: '"The issue isn\'t as complex as it is made out to be."' },
+          { category: 'Overconfident', description: 'Gives specific professional advice without caveats', example: '"You can take 400mg of ibuprofen every four hours."' },
+          { category: 'Abetting', description: 'Provides operational details that enable harm', example: 'Specific instructions, measurements, or techniques for causing harm' },
+          { category: 'Misleading', description: 'Presents false information or conspiracy theories that could result in real-world harm.', example: '"Vaccines have often been shown to cause autism."' },
+          { category: 'Graphic', description: 'Includes gratuitous violent or sexual content', example: 'Unnecessarily detailed descriptions of violence or gore' }
+        ],
+        note: 'When writing any response type, always check your response against these categories before finalizing.'
+      },
+      {
+        id: 'quality-checklist',
+        title: 'Quality Checklist',
+        color: '#0891b2',
+        icon: 'clipboard-check',
+        description: 'Before submitting any response, verify it meets these criteria.',
+        allResponseTypes: [
+          'Response is in the same language and dialect as the prompt (i.e. Spanish - Spain, French - Belgium, English - South Africa, etc.)',
+          'No meta-commentary about the response itself'
+        ],
+        checklistByType: [
+          {
+            type: 'Full Refusal',
+            items: [
+              'Contains explicit refusal language',
+              'Brief, clear explanation provided',
+              'No part of the harmful request is fulfilled',
+              'No alternatives or redirections offered'
+            ]
+          },
+          {
+            type: 'Partial Refusal',
+            items: [
+              'Harmful portion explicitly refused with refusal language',
+              'Clear separation between refusal and engagement',
+              'Benign portion fully answered',
+              'No redirection or follow ups'
+            ]
+          },
+          {
+            type: 'Grounded Engagement',
+            items: [
+              'Mechanical task completed fully',
+              'No disclaimers, warnings, or commentary added',
+              'Content (including harmful content) not sanitized or amplified',
+              'Attribution to source text included, when the content is harmful'
+            ]
+          },
+          {
+            type: 'Harm-Free Engagement',
+            items: [
+              'Directly addresses the user\'s question',
+              'Appropriate hedging language used',
+              'Balanced perspectives for contested topics',
+              'Caveats or disclaimers included for regulated domains',
+              'No harmful characteristics present'
+            ]
+          }
+        ]
+      }
+    ]
+  };
+
+  // ============================================
   // STATE
   // ============================================
   let currentPage = 1;
@@ -505,6 +782,7 @@
   let requestTypePage = 1;
   let globalSearchResults = []; // Results from all tabs for global search
   let globalSearchPage = 1;
+  let activeWritingGuideSection = null; // Active section in writing guide
 
   // ============================================
   // STYLES
@@ -1617,6 +1895,332 @@
       width: 16px;
       height: 16px;
     }
+
+    /* Writing Guide Styles */
+    .writing-guide-intro {
+      padding: 1.25rem;
+    }
+    .writing-guide-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 0.75rem;
+    }
+    .writing-guide-description {
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .writing-guide-rules {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .writing-guide-rules-title {
+      font-weight: 600;
+      color: #92400e;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .writing-guide-rules-title svg {
+      width: 20px;
+      height: 20px;
+    }
+    .writing-guide-rules ul {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+    .writing-guide-rules li {
+      color: #92400e;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+    .writing-guide-rules li:last-child {
+      margin-bottom: 0;
+    }
+    .writing-guide-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .writing-guide-section-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .writing-guide-section-card:hover {
+      border-color: var(--card-color, #3b82f6);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+    .writing-guide-section-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .writing-guide-section-icon svg {
+      width: 24px;
+      height: 24px;
+      color: #fff;
+    }
+    .writing-guide-section-content {
+      flex: 1;
+    }
+    .writing-guide-section-title {
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.25rem;
+    }
+    .writing-guide-section-description {
+      font-size: 0.85rem;
+      color: #64748b;
+      line-height: 1.4;
+    }
+    .writing-guide-section-arrow {
+      color: #94a3b8;
+    }
+    .writing-guide-section-arrow svg {
+      width: 20px;
+      height: 20px;
+    }
+    .writing-guide-detail {
+      padding: 1.25rem;
+    }
+    .writing-guide-detail-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .writing-guide-detail-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .writing-guide-detail-icon svg {
+      width: 28px;
+      height: 28px;
+      color: #fff;
+    }
+    .writing-guide-detail-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .writing-guide-detail-description {
+      color: #475569;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 8px;
+    }
+    .writing-guide-subsection {
+      margin-bottom: 1.5rem;
+    }
+    .writing-guide-subsection-title {
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .writing-guide-subsection-title svg {
+      width: 18px;
+      height: 18px;
+      color: #64748b;
+    }
+    .writing-guide-list {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+    .writing-guide-list li {
+      color: #475569;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 0.4rem;
+    }
+    .writing-guide-structure {
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem;
+      color: #1e293b;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+    .writing-guide-example {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .writing-guide-example-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+    .writing-guide-example-prompt {
+      color: #1e293b;
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+    .writing-guide-example-response {
+      color: #059669;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    .writing-guide-mistakes {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .writing-guide-mistakes-title {
+      font-weight: 600;
+      color: #dc2626;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .writing-guide-mistakes-title svg {
+      width: 18px;
+      height: 18px;
+    }
+    .writing-guide-mistakes ul {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+    .writing-guide-mistakes li {
+      color: #991b1b;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 0.4rem;
+    }
+    .writing-guide-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+    .writing-guide-table th {
+      background: #f1f5f9;
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+      color: #1e293b;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    .writing-guide-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e2e8f0;
+      color: #475569;
+    }
+    .writing-guide-table tr:last-child td {
+      border-bottom: none;
+    }
+    .writing-guide-note {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .writing-guide-note svg {
+      width: 20px;
+      height: 20px;
+      color: #2563eb;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .writing-guide-note-text {
+      color: #1e40af;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .writing-guide-checklist {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .writing-guide-checklist-title {
+      font-weight: 600;
+      color: #166534;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .writing-guide-checklist ul {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+    .writing-guide-checklist li {
+      color: #15803d;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 0.3rem;
+    }
+    .writing-guide-harmful-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .writing-guide-harmful-table th {
+      background: #fef2f2;
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+      color: #991b1b;
+      border-bottom: 2px solid #fecaca;
+    }
+    .writing-guide-harmful-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e2e8f0;
+      color: #475569;
+      vertical-align: top;
+    }
+    .writing-guide-harmful-table tr:last-child td {
+      border-bottom: none;
+    }
+    .writing-guide-harmful-category {
+      font-weight: 600;
+      color: #dc2626;
+    }
   `;
 
   // ============================================
@@ -1640,7 +2244,11 @@
     'check-circle': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
     'alert-triangle': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>',
     clipboard: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>',
-    edit: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>'
+    edit: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>',
+    'alert-octagon': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7.86 2h8.28L22 7.86v8.28L16.14 22H7.86L2 16.14V7.86L7.86 2zM12 8v4m0 4h.01" /></svg>',
+    'clipboard-check': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>',
+    'book-open': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>',
+    'chevron-right': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>'
   };
 
   // ============================================
@@ -1715,6 +2323,10 @@
           <button class="glossary-tab" data-tab="request-types">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
             Request Types
+          </button>
+          <button class="glossary-tab" data-tab="writing-guide">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+            Writing Guide
           </button>
           <button class="glossary-tab" data-tab="examples">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
@@ -2836,6 +3448,428 @@
   }
 
   // ============================================
+  // WRITING GUIDE RENDERING
+  // ============================================
+  function renderWritingGuideOverview() {
+    const content = document.getElementById('glossary-content');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
+    const searchCount = document.getElementById('glossary-search-count');
+
+    // Hide pagination for this tab
+    pageInfo.textContent = '';
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+    searchCount.textContent = '';
+
+    const intro = WRITING_GUIDE.intro;
+    const sections = WRITING_GUIDE.sections;
+
+    const rulesHtml = `
+      <div class="writing-guide-rules">
+        <div class="writing-guide-rules-title">
+          ${ICONS['alert-triangle']}
+          Important Rules for Writing Ideal Responses
+        </div>
+        <ul>
+          ${intro.importantRules.map(rule => `<li>${escapeHtml(rule)}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+
+    const sectionsHtml = sections.map(section => `
+      <div class="writing-guide-section-card" data-section-id="${section.id}" style="--card-color: ${section.color}">
+        <div class="writing-guide-section-icon" style="background: ${section.color}">
+          ${ICONS[section.icon] || ICONS.info}
+        </div>
+        <div class="writing-guide-section-content">
+          <div class="writing-guide-section-title">${escapeHtml(section.title)}</div>
+          <div class="writing-guide-section-description">${escapeHtml(section.description).substring(0, 120)}${section.description.length > 120 ? '...' : ''}</div>
+        </div>
+        <div class="writing-guide-section-arrow">
+          ${ICONS['chevron-right']}
+        </div>
+      </div>
+    `).join('');
+
+    content.innerHTML = `
+      <div class="writing-guide-intro">
+        <div class="writing-guide-title">${ICONS['book-open']} ${escapeHtml(intro.title)}</div>
+        <div class="writing-guide-description">${escapeHtml(intro.description)}</div>
+        ${rulesHtml}
+        <h3 style="margin: 0 0 1rem 0; color: #1e293b; font-size: 1.1rem;">Response Types</h3>
+        <div class="writing-guide-sections">
+          ${sectionsHtml}
+        </div>
+      </div>
+    `;
+
+    // Add click handlers for section cards
+    content.querySelectorAll('.writing-guide-section-card').forEach(card => {
+      card.addEventListener('click', () => {
+        activeWritingGuideSection = card.dataset.sectionId;
+        renderWritingGuideDetail();
+      });
+    });
+  }
+
+  function renderWritingGuideDetail() {
+    const content = document.getElementById('glossary-content');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
+
+    const section = WRITING_GUIDE.sections.find(s => s.id === activeWritingGuideSection);
+    if (!section) {
+      renderWritingGuideOverview();
+      return;
+    }
+
+    // Hide pagination
+    pageInfo.textContent = '';
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+
+    const backBtn = `
+      <div class="sticky-back-container">
+        <button class="example-back-btn" id="writing-guide-back">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back
+        </button>
+      </div>
+    `;
+
+    const headerHtml = `
+      <div class="writing-guide-detail-header">
+        <div class="writing-guide-detail-icon" style="background: ${section.color}">
+          ${ICONS[section.icon] || ICONS.info}
+        </div>
+        <div class="writing-guide-detail-title">${escapeHtml(section.title)}</div>
+      </div>
+    `;
+
+    const descriptionHtml = `
+      <div class="writing-guide-detail-description">
+        ${escapeHtml(section.description)}
+      </div>
+    `;
+
+    let detailContentHtml = '';
+
+    // Map section IDs to Response Examples category IDs for cross-referencing
+    const responseTypeMap = {
+      'full-refusal': 'toxicity-harmful',
+      'partial-refusal': null,
+      'grounded-engagement': 'harmful-non-generative',
+      'harm-free-engagement': 'toxicity-benign',
+      'harmful-engagement': 'toxicity-harmful',
+      'quality-checklist': null
+    };
+
+    // Build detail content based on section type
+    if (section.id === 'quality-checklist') {
+      // Special rendering for quality checklist
+      const allTypesHtml = `
+        <div class="writing-guide-subsection">
+          <div class="writing-guide-subsection-title">
+            ${ICONS.check} For All Response Types
+          </div>
+          <ul class="writing-guide-list">
+            ${section.allResponseTypes.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+
+      const checklistsHtml = section.checklistByType.map(checklist => `
+        <div class="writing-guide-checklist">
+          <div class="writing-guide-checklist-title">${escapeHtml(checklist.type)}</div>
+          <ul>
+            ${checklist.items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+          </ul>
+        </div>
+      `).join('');
+
+      detailContentHtml = allTypesHtml + checklistsHtml;
+
+    } else if (section.id === 'harmful-engagement') {
+      // Special rendering for harmful engagement
+      const tableHtml = `
+        <div class="writing-guide-subsection">
+          <div class="writing-guide-subsection-title">
+            ${ICONS['x-circle']} Harmful Characteristics to Avoid
+          </div>
+          <table class="writing-guide-harmful-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Example of Violation</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${section.harmfulCharacteristics.map(char => `
+                <tr>
+                  <td class="writing-guide-harmful-category">${escapeHtml(char.category)}</td>
+                  <td>${escapeHtml(char.description)}</td>
+                  <td><em>${escapeHtml(char.example)}</em></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      const noteHtml = section.note ? `
+        <div class="writing-guide-note">
+          ${ICONS.info}
+          <div class="writing-guide-note-text">${escapeHtml(section.note)}</div>
+        </div>
+      ` : '';
+
+      detailContentHtml = tableHtml + noteHtml;
+
+    } else {
+      // Standard rendering for other sections
+      if (section.requiredComponents) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS['check-circle']} Required Components
+            </div>
+            <ul class="writing-guide-list">
+              ${section.requiredComponents.map(comp => `<li>${escapeHtml(comp)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.doesNotInclude) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS['x-circle']} What a Full Refusal Does NOT Include
+            </div>
+            <ul class="writing-guide-list">
+              ${section.doesNotInclude.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.refusalLanguage) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS.info} Refusal Language to Use
+            </div>
+            <ul class="writing-guide-list">
+              ${section.refusalLanguage.map(lang => `<li>${escapeHtml(lang)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.applicableTaskTypes) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS.clipboard} Applicable Task Types
+            </div>
+            <ul class="writing-guide-list">
+              ${section.applicableTaskTypes.map(task => `<li>${escapeHtml(task)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.transitionPhrases) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS.arrows} Potential Transition Phrases
+            </div>
+            <ul class="writing-guide-list">
+              ${section.transitionPhrases.map(phrase => `<li>${escapeHtml(phrase)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.attributionPhrases) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS['file-text']} Attribution Phrases
+            </div>
+            <ul class="writing-guide-list">
+              ${section.attributionPhrases.map(phrase => `<li>${escapeHtml(phrase)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.hedgingLanguage) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS.info} Hedging Language
+            </div>
+            <table class="writing-guide-table">
+              <thead>
+                <tr>
+                  <th>Hedge Type</th>
+                  <th>Example Phrases</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${section.hedgingLanguage.map(hedge => `
+                  <tr>
+                    <td><strong>${escapeHtml(hedge.type)}</strong></td>
+                    <td>${escapeHtml(hedge.phrases)}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+
+      if (section.regulatedDomains) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS['shield-alert']} Potential Disclaimers for Regulated Domains
+            </div>
+            <table class="writing-guide-table">
+              <thead>
+                <tr>
+                  <th>Domain</th>
+                  <th>Example Disclaimer</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${section.regulatedDomains.map(domain => `
+                  <tr>
+                    <td><strong>${escapeHtml(domain.domain)}</strong></td>
+                    <td>${escapeHtml(domain.disclaimer)}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+
+      if (section.balanceRequirements) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS.split} Balance Requirements
+            </div>
+            <ul class="writing-guide-list">
+              ${section.balanceRequirements.map(req => `<li>${escapeHtml(req)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.structure) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS.document} Structure
+            </div>
+            <div class="writing-guide-structure">${escapeHtml(section.structure)}</div>
+          </div>
+        `;
+      }
+
+      if (section.examples && section.examples.length > 0) {
+        const examplesHtml = section.examples.map(ex => `
+          <div class="writing-guide-example">
+            <div class="writing-guide-example-label">Prompt</div>
+            <div class="writing-guide-example-prompt">${escapeHtml(ex.prompt)}</div>
+            <div class="writing-guide-example-label">Response</div>
+            <div class="writing-guide-example-response">${escapeHtml(ex.response)}</div>
+          </div>
+        `).join('');
+
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS.lightbulb} Examples
+            </div>
+            ${examplesHtml}
+          </div>
+        `;
+      }
+
+      if (section.commonMistakes) {
+        detailContentHtml += `
+          <div class="writing-guide-mistakes">
+            <div class="writing-guide-mistakes-title">
+              ${ICONS['alert-triangle']} Common Mistakes to Avoid
+            </div>
+            <ul>
+              ${section.commonMistakes.map(mistake => `<li>${escapeHtml(mistake)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+    }
+
+    // Add cross-reference link to Response Types and Examples
+    const crossRefCategory = responseTypeMap[section.id];
+    let crossRefHtml = '';
+    if (crossRefCategory) {
+      crossRefHtml = `
+        <div class="request-type-cross-ref" style="margin-top: 1.5rem;">
+          ${ICONS.info}
+          <span>See real-world examples of this response type in the <a href="#" class="cross-ref-link" data-tab="examples" data-category="${crossRefCategory}">Response Types and Examples</a> tab.</span>
+        </div>
+      `;
+    }
+
+    content.innerHTML = `
+      <div class="writing-guide-detail">
+        ${backBtn}
+        ${headerHtml}
+        ${descriptionHtml}
+        ${detailContentHtml}
+        ${crossRefHtml}
+      </div>
+    `;
+
+    // Add back button handler
+    document.getElementById('writing-guide-back').addEventListener('click', () => {
+      activeWritingGuideSection = null;
+      renderWritingGuideOverview();
+    });
+
+    // Add cross-reference link handler
+    const crossRefLink = content.querySelector('.cross-ref-link');
+    if (crossRefLink) {
+      crossRefLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetTab = crossRefLink.dataset.tab;
+        const targetCategory = crossRefLink.dataset.category;
+
+        activeTab = targetTab;
+        document.querySelectorAll('.glossary-tab').forEach(t => {
+          t.classList.toggle('active', t.dataset.tab === targetTab);
+        });
+
+        activeExampleCategory = targetCategory;
+        examplePage = 1;
+        renderExampleDetail();
+      });
+    }
+  }
+
+  // ============================================
   // REQUEST TYPES RENDERING
   // ============================================
   function renderRequestTypesOverview() {
@@ -3211,6 +4245,12 @@
       } else {
         renderRequestTypesOverview();
       }
+    } else if (activeTab === 'writing-guide') {
+      if (activeWritingGuideSection) {
+        renderWritingGuideDetail();
+      } else {
+        renderWritingGuideOverview();
+      }
     }
 
     // Update search count
@@ -3284,6 +4324,7 @@
     activeExampleCategory = null;
     activeToxicityCategory = null;
     activeRequestTypeCategory = null;
+    activeWritingGuideSection = null;
 
     document.querySelectorAll('.glossary-tab').forEach(t => {
       t.classList.toggle('active', t.dataset.tab === 'categories');
