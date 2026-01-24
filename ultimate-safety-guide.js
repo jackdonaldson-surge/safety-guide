@@ -1169,7 +1169,7 @@
       flex-wrap: wrap;
       gap: 0.5rem;
       margin-bottom: 1rem;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .glossary-tab {
       padding: 0.55rem 1rem;
