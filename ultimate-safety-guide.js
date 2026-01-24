@@ -8,6 +8,7 @@
     itemsPerPage: 5,
     zIndex: 10000,
     shineInterval: 120000,
+    searchDebounceMs: 150,
     examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@e1a864e/glossary-examples.json',
     responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@e1a864e/response-examples.json'
   };
@@ -1029,6 +1030,15 @@
   let requestTypePage = 1;
   let globalSearchResults = []; // Results from all tabs for global search
   let globalSearchPage = 1;
+  let searchDebounceTimer = null;
+
+  // Debounce utility function
+  function debounce(func, wait) {
+    return function executedFunction(...args) {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
   let activeWritingGuideSection = null; // Active section in writing guide
 
   // ============================================
@@ -1230,7 +1240,6 @@
       padding: 1.5rem;
       border-bottom: 1px solid #e2e8f0;
       background: #fff;
-      animation: glossaryFadeIn 0.25s ease;
     }
     .glossary-term {
       font-size: 1.15rem;
@@ -1497,7 +1506,6 @@
       padding: 1.5rem;
       border-bottom: 1px solid #e2e8f0;
       background: #fff;
-      animation: glossaryFadeIn 0.25s ease;
     }
     .example-label {
       font-size: 0.75rem;
@@ -5469,8 +5477,9 @@
       tab.addEventListener('click', () => switchTab(tab.dataset.tab));
     });
 
+    const debouncedSearch = debounce((value) => handleSearch(value), CONFIG.searchDebounceMs);
     document.getElementById('glossary-search-input').addEventListener('input', (e) => {
-      handleSearch(e.target.value);
+      debouncedSearch(e.target.value);
     });
 
     document.getElementById('glossary-prev').addEventListener('click', () => {
