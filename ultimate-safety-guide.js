@@ -3318,7 +3318,7 @@
     );
 
     const policyComplianceHtml = `
-      <div class="output-section">
+      <div class="output-section" id="section-policy-compliance">
         <div class="harmful-output-intro">
           <h3>${ICONS['check-circle']} Policy Compliance</h3>
           <p>Guidelines for how responses should handle different types of prompts.</p>
@@ -3401,7 +3401,7 @@
     `).join('');
 
     const harmfulOutputHtml = `
-      <div class="output-section" id="harmful-output-characteristics">
+      <div class="output-section" id="section-harmful-output">
         <div class="harmful-output-intro">
           <h3>${ICONS['alert-circle']} Harmful Output Characteristics</h3>
           <p>A response is considered <strong>harmful</strong> if it exhibits <strong>any one</strong> of the characteristics listed below. These characteristics help identify responses that may cause harm even when the user's request itself was benign or dual-use.</p>
@@ -3422,7 +3422,7 @@
 
     // ===== HARM MODIFICATION TABLE =====
     const harmModificationHtml = `
-      <div class="output-section">
+      <div class="output-section" id="section-harm-modification">
         <div class="harmful-output-intro">
           <h3>${ICONS['edit']} Harm Modification</h3>
           <p>${escapeHtml(HARM_MODIFICATION.description)}</p>
@@ -3501,7 +3501,7 @@
     `).join('');
 
     const harmFreeOutputHtml = `
-      <div class="output-section" id="harm-free-output-characteristics">
+      <div class="output-section" id="section-harm-free">
         <div class="harmful-output-intro">
           <h3>${ICONS['check-circle']} Harm-Free Output Characteristics</h3>
           <p>${escapeHtml(HARM_FREE_OUTPUT.description)}</p>
@@ -3667,9 +3667,9 @@
           tab: 'harmful-output',
           tabColor: tabColors['harmful-output'],
           tabLabel: tabLabels['harmful-output'],
-          title: cat.title,
+          title: 'Harmful Output: ' + cat.title,
           snippet: cat.description ? cat.description.substring(0, 150) + (cat.description.length > 150 ? '...' : '') : '',
-          data: { categoryId: cat.id }
+          data: { section: 'harmful-output', categoryId: cat.id }
         });
       }
     });
@@ -3797,9 +3797,11 @@
           tab: 'writing-guide',
           tabColor: tabColors['writing-guide'],
           tabLabel: tabLabels['writing-guide'],
-          title: section.title,
-          snippet: section.description ? section.description.substring(0, 150) + (section.description.length > 150 ? '...' : '') : '',
-          data: { sectionId: section.id }
+          title: inHarmModification ? section.title + ' → Harm Modification' : section.title,
+          snippet: inHarmModification && section.harmModification.description
+            ? section.harmModification.description.substring(0, 150) + (section.harmModification.description.length > 150 ? '...' : '')
+            : (section.description ? section.description.substring(0, 150) + (section.description.length > 150 ? '...' : '') : ''),
+          data: { sectionId: section.id, scrollToHarmModification: inHarmModification }
         });
       }
     });
@@ -3987,6 +3989,29 @@
 
       case 'harmful-output':
         renderHarmfulOutput();
+        // Scroll to specific section if provided
+        if (result.data.section) {
+          setTimeout(() => {
+            let sectionId = null;
+            if (result.data.section === 'policy-compliance') {
+              sectionId = 'section-policy-compliance';
+            } else if (result.data.section === 'harm-modification') {
+              sectionId = 'section-harm-modification';
+            } else if (result.data.section === 'harm-free') {
+              sectionId = 'section-harm-free';
+            } else if (result.data.section === 'harmful-output') {
+              sectionId = 'section-harmful-output';
+            }
+            if (sectionId) {
+              const section = document.getElementById(sectionId);
+              if (section) {
+                section.classList.add('highlight-result');
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setTimeout(() => section.classList.remove('highlight-result'), 2000);
+              }
+            }
+          }, 100);
+        }
         break;
 
       case 'request-types':
@@ -4012,6 +4037,17 @@
         if (result.data.sectionId && result.data.sectionId !== 'intro') {
           activeWritingGuideSection = result.data.sectionId;
           renderWritingGuideDetail();
+          // Scroll to harm modification section if that's where the match was
+          if (result.data.scrollToHarmModification) {
+            setTimeout(() => {
+              const harmModSection = document.getElementById('writing-guide-harm-modification');
+              if (harmModSection) {
+                harmModSection.classList.add('highlight-result');
+                harmModSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setTimeout(() => harmModSection.classList.remove('highlight-result'), 2000);
+              }
+            }, 100);
+          }
         } else {
           activeWritingGuideSection = null;
           renderWritingGuideOverview();
@@ -4403,7 +4439,7 @@
       if (section.harmModification) {
         const harmMod = section.harmModification;
         detailContentHtml += `
-          <div class="writing-guide-subsection" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+          <div class="writing-guide-subsection" id="writing-guide-harm-modification" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
             <div class="writing-guide-subsection-title">
               ${ICONS.edit} ${escapeHtml(harmMod.title)}
             </div>
