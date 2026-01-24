@@ -3572,10 +3572,10 @@
     // Map section IDs to Response Examples category IDs for cross-referencing
     // Map section IDs to Response Examples category IDs and tabs
     const responseTypeMap = {
-      'full-refusal': { tab: 'examples', category: 'refusal-examples' },
-      'partial-refusal': null,
+      'full-refusal': { tab: 'examples', category: 'full-refusal' },
+      'partial-refusal': { tab: 'examples', category: 'partial-refusal' },
       'grounded-engagement': { tab: 'examples', category: 'harmful-non-generative' },
-      'harm-free-engagement': { tab: 'examples', category: 'engagement-examples' },
+      'harm-free-engagement': { tab: 'examples', category: 'harm-free-engagement' },
       'harmful-engagement': { tab: 'harmful-output', category: null },
       'quality-checklist': null
     };
@@ -3836,11 +3836,16 @@
     const crossRefInfo = responseTypeMap[section.id];
     let crossRefHtml = '';
     if (crossRefInfo) {
-      const tabLabel = crossRefInfo.tab === 'examples' ? 'Response Types and Examples' : 'Toxicity Levels';
+      let tabLabel = 'Response Types and Examples';
+      if (crossRefInfo.tab === 'toxicity') {
+        tabLabel = 'Toxicity Levels';
+      } else if (crossRefInfo.tab === 'harmful-output') {
+        tabLabel = 'Harmful Output';
+      }
       crossRefHtml = `
         <div class="request-type-cross-ref" style="margin-top: 1.5rem;">
           ${ICONS.info}
-          <span>See real-world examples of this response type in the <a href="#" class="cross-ref-link" data-tab="${crossRefInfo.tab}" data-category="${crossRefInfo.category}">${tabLabel}</a> tab.</span>
+          <span>See real-world examples of this response type in the <a href="#" class="cross-ref-link" data-tab="${crossRefInfo.tab}" data-category="${crossRefInfo.category || ''}">${tabLabel}</a> tab.</span>
         </div>
       `;
     }
@@ -4307,6 +4312,18 @@
     document.querySelectorAll('.glossary-tab').forEach(t => {
       t.classList.toggle('active', t.dataset.tab === tab);
     });
+
+    // Reset all detail states when switching tabs
+    activeExampleCategory = null;
+    activeToxicityCategory = null;
+    activeRequestTypeCategory = null;
+    activeWritingGuideSection = null;
+
+    // Reset pagination
+    currentPage = 1;
+    examplePage = 1;
+    toxicityPage = 1;
+    requestTypePage = 1;
 
     // Keep search bar visible on all tabs
     const searchContainer = document.getElementById('glossary-search-container');
