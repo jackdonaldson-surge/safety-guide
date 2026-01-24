@@ -5,40 +5,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { margin: 0; background: #0f172a; }
+    body {
+      margin: 0;
+      background: #0f172a;
+      min-height: 100vh;
+    }
+    /* Center the trigger button */
+    .glossary-trigger {
+      position: fixed !important;
+      left: 50% !important;
+      bottom: 50% !important;
+      transform: translate(-50%, 50%) !important;
+    }
   </style>
 </head>
 <body>
   <script src="https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@main/ultimate-safety-guide.js"></script>
   <script>
-    // Wait for widget to load, then configure for standalone mode
-    const checkAndOpen = setInterval(() => {
+    // Auto-click the trigger button once it loads
+    const waitForTrigger = setInterval(() => {
       const trigger = document.getElementById('glossary-trigger');
-      const modal = document.getElementById('glossary-modal');
-      const overlay = document.getElementById('glossary-overlay');
-      const closeBtn = document.getElementById('glossary-close');
-
-      if (trigger && modal && overlay) {
-        // Hide trigger button
-        trigger.style.display = 'none';
-
-        // Hide close button (no way to close in standalone mode)
-        if (closeBtn) closeBtn.style.display = 'none';
-
-        // Make modal fullscreen
-        modal.style.width = '95vw';
-        modal.style.maxWidth = '900px';
-        modal.style.height = '90vh';
-        modal.style.maxHeight = 'none';
-
-        // Open modal
-        modal.classList.add('open');
-        overlay.classList.add('open');
-
-        // Prevent closing
-        overlay.onclick = null;
-
-        clearInterval(checkAndOpen);
+      if (trigger) {
+        clearInterval(waitForTrigger);
+        // Small delay to ensure everything is ready
+        setTimeout(() => trigger.click(), 200);
       }
     }, 100);
   </script>
