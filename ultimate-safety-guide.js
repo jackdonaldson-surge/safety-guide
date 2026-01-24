@@ -503,6 +503,8 @@
   let filteredRequestTypeCategories = []; // Filtered request type categories
   let activeRequestTypeCategory = null;
   let requestTypePage = 1;
+  let globalSearchResults = []; // Results from all tabs for global search
+  let globalSearchPage = 1;
 
   // ============================================
   // STYLES
@@ -921,9 +923,17 @@
       align-items: center;
       gap: 1rem;
     }
+    .sticky-back-container {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(to bottom, #fff 85%, transparent);
+      padding: 1rem 1.25rem 1.25rem 1.25rem;
+      margin: -1.25rem -1.25rem 0 -1.25rem;
+      z-index: 10;
+    }
     .example-back-btn {
       background: #f1f5f9;
-      border: none;
+      border: 1px solid #e2e8f0;
       color: #475569;
       padding: 0.5rem 0.9rem;
       font-family: inherit;
@@ -934,8 +944,9 @@
       align-items: center;
       gap: 0.4rem;
       font-weight: 600;
+      transition: all 0.2s ease;
     }
-    .example-back-btn:hover { background: #e2e8f0; }
+    .example-back-btn:hover { background: #e2e8f0; color: #1e293b; }
     .example-back-btn svg { width: 16px; height: 16px; }
     .example-detail-title {
       font-size: 1.1rem;
@@ -1228,6 +1239,87 @@
       color: #475569;
     }
 
+    /* Global Search Results Styles */
+    .global-search-results {
+      padding: 1.25rem;
+    }
+    .global-search-header {
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .global-search-header h3 {
+      margin: 0;
+      font-size: 1rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .global-search-header h3 svg {
+      width: 18px;
+      height: 18px;
+      color: #3b82f6;
+    }
+    .global-search-result {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .global-search-result:hover {
+      border-color: #94a3b8;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .global-search-result-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .global-search-tab-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: white;
+    }
+    .global-search-tab-badge svg {
+      width: 12px;
+      height: 12px;
+    }
+    .global-search-category {
+      font-size: 0.8rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+    .global-search-result-title {
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+      line-height: 1.4;
+    }
+    .global-search-result-snippet {
+      font-size: 0.85rem;
+      color: #64748b;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .global-search-arrow {
+      margin-left: auto;
+      color: #94a3b8;
+    }
+
     /* Request Types Styles */
     .request-types-intro {
       background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -1411,7 +1503,6 @@
       font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.2s ease;
-      margin-bottom: 1.5rem;
     }
     .request-type-back-btn:hover {
       background: #e2e8f0;
@@ -1939,20 +2030,24 @@
     }
 
     content.innerHTML = `
-      <div class="example-detail-header">
-        <button class="example-back-btn" id="example-back-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
-          Back
-        </button>
-        <h3 class="example-detail-title">
-          <span class="color-dot" style="background: ${category.color}"></span>
-          ${category.title}
-        </h3>
+      <div style="padding: 1.25rem;">
+        <div class="sticky-back-container">
+          <button class="example-back-btn" id="example-back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            Back
+          </button>
+        </div>
+        <div class="example-detail-header" style="margin-bottom: 1rem;">
+          <h3 class="example-detail-title">
+            <span class="color-dot" style="background: ${category.color}"></span>
+            ${category.title}
+          </h3>
+        </div>
+        <div class="category-description-box" style="--card-color: ${category.color}">
+          ${escapeHtml(category.description)}
+        </div>
+        ${examplesHtml}
       </div>
-      <div class="category-description-box" style="--card-color: ${category.color}">
-        ${escapeHtml(category.description)}
-      </div>
-      ${examplesHtml}
     `;
 
     pageInfo.textContent = totalPages > 0 ? `Page ${examplePage} of ${totalPages}` : 'No results';
@@ -2149,20 +2244,24 @@
     `).join('');
 
     content.innerHTML = `
-      <div class="example-detail-header">
-        <button class="example-back-btn" id="toxicity-back-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
-          Back
-        </button>
-        <h3 class="example-detail-title">
-          <span class="color-dot" style="background: ${category.color}"></span>
-          ${category.title}
-        </h3>
+      <div style="padding: 1.25rem;">
+        <div class="sticky-back-container">
+          <button class="example-back-btn" id="toxicity-back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            Back
+          </button>
+        </div>
+        <div class="example-detail-header" style="margin-bottom: 1rem;">
+          <h3 class="example-detail-title">
+            <span class="color-dot" style="background: ${category.color}"></span>
+            ${category.title}
+          </h3>
+        </div>
+        <div class="category-description-box" style="--card-color: ${category.color}">
+          ${escapeHtml(category.description)}
+        </div>
+        ${examplesHtml}
       </div>
-      <div class="category-description-box" style="--card-color: ${category.color}">
-        ${escapeHtml(category.description)}
-      </div>
-      ${examplesHtml}
     `;
 
     pageInfo.textContent = totalPages > 0 ? `Page ${toxicityPage} of ${totalPages}` : 'No results';
@@ -2261,6 +2360,333 @@
     pageInfo.textContent = '';
     prevBtn.disabled = true;
     nextBtn.disabled = true;
+  }
+
+  // ============================================
+  // GLOBAL SEARCH
+  // ============================================
+  function gatherGlobalSearchResults(query) {
+    const results = [];
+    const normalizedQuery = query.toLowerCase().trim();
+    if (!normalizedQuery) return results;
+
+    // Tab colors for badges
+    const tabColors = {
+      'categories': '#1e40af',
+      'examples': '#059669',
+      'toxicity': '#7c3aed',
+      'harmful-output': '#dc2626',
+      'request-types': '#0891b2'
+    };
+
+    const tabLabels = {
+      'categories': 'Risk Categories',
+      'examples': 'Response Examples',
+      'toxicity': 'Toxicity Levels',
+      'harmful-output': 'Harmful Output',
+      'request-types': 'Request Types'
+    };
+
+    // Search Risk Categories (GLOSSARY)
+    allTerms.forEach(term => {
+      const entry = GLOSSARY[term];
+      const inName = term.toLowerCase().includes(normalizedQuery);
+      const inDefinition = entry.definition && entry.definition.toLowerCase().includes(normalizedQuery);
+      if (inName || inDefinition) {
+        results.push({
+          tab: 'categories',
+          tabColor: tabColors['categories'],
+          tabLabel: tabLabels['categories'],
+          title: term,
+          snippet: entry.definition ? entry.definition.substring(0, 150) + (entry.definition.length > 150 ? '...' : '') : '',
+          data: { term }
+        });
+      }
+    });
+
+    // Search Response Examples (non-toxicity categories)
+    const exampleCategories = RESPONSE_EXAMPLES.categories.filter(cat => !cat.id.startsWith('toxicity-'));
+    exampleCategories.forEach(cat => {
+      const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
+      const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
+
+      // Search within examples
+      if (cat.examples) {
+        cat.examples.forEach((ex, exIndex) => {
+          const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+          const inResponse = ex.response && ex.response.toLowerCase().includes(normalizedQuery);
+          const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
+          if (inPrompt || inResponse || inExplanation) {
+            results.push({
+              tab: 'examples',
+              tabColor: tabColors['examples'],
+              tabLabel: tabLabels['examples'],
+              category: cat.title,
+              categoryId: cat.id,
+              title: ex.prompt ? ex.prompt.substring(0, 100) + (ex.prompt.length > 100 ? '...' : '') : cat.title,
+              snippet: ex.response ? ex.response.substring(0, 120) + (ex.response.length > 120 ? '...' : '') : (ex.explanation || ''),
+              data: { categoryId: cat.id, exampleIndex: exIndex }
+            });
+          }
+        });
+      }
+
+      // Also add category-level match
+      if (inTitle || inDescription) {
+        results.push({
+          tab: 'examples',
+          tabColor: tabColors['examples'],
+          tabLabel: tabLabels['examples'],
+          title: cat.title,
+          snippet: cat.description ? cat.description.substring(0, 150) + (cat.description.length > 150 ? '...' : '') : '',
+          data: { categoryId: cat.id }
+        });
+      }
+    });
+
+    // Search Toxicity categories
+    const toxicityCategories = RESPONSE_EXAMPLES.categories.filter(cat => cat.id.startsWith('toxicity-'));
+    toxicityCategories.forEach(cat => {
+      const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
+      const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
+
+      if (cat.examples) {
+        cat.examples.forEach((ex, exIndex) => {
+          const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+          const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
+          if (inPrompt || inExplanation) {
+            results.push({
+              tab: 'toxicity',
+              tabColor: tabColors['toxicity'],
+              tabLabel: tabLabels['toxicity'],
+              category: cat.title,
+              categoryId: cat.id,
+              title: ex.prompt ? ex.prompt.substring(0, 100) + (ex.prompt.length > 100 ? '...' : '') : cat.title,
+              snippet: ex.explanation || '',
+              data: { categoryId: cat.id, exampleIndex: exIndex }
+            });
+          }
+        });
+      }
+
+      if (inTitle || inDescription) {
+        results.push({
+          tab: 'toxicity',
+          tabColor: tabColors['toxicity'],
+          tabLabel: tabLabels['toxicity'],
+          title: cat.title,
+          snippet: cat.description ? cat.description.substring(0, 150) + (cat.description.length > 150 ? '...' : '') : '',
+          data: { categoryId: cat.id }
+        });
+      }
+    });
+
+    // Search Harmful Output
+    HARMFUL_OUTPUT.categories.forEach(cat => {
+      const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
+      const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
+      const inCharacteristics = cat.characteristics && cat.characteristics.some(char =>
+        char.toLowerCase().includes(normalizedQuery)
+      );
+      if (inTitle || inDescription || inCharacteristics) {
+        results.push({
+          tab: 'harmful-output',
+          tabColor: tabColors['harmful-output'],
+          tabLabel: tabLabels['harmful-output'],
+          title: cat.title,
+          snippet: cat.description ? cat.description.substring(0, 150) + (cat.description.length > 150 ? '...' : '') : '',
+          data: { categoryId: cat.id }
+        });
+      }
+    });
+
+    // Search Request Types
+    REQUEST_TYPES.categories.forEach(cat => {
+      const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
+      const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
+
+      if (cat.examples) {
+        cat.examples.forEach((ex, exIndex) => {
+          const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+          const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
+          if (inPrompt || inExplanation) {
+            results.push({
+              tab: 'request-types',
+              tabColor: tabColors['request-types'],
+              tabLabel: tabLabels['request-types'],
+              category: cat.title,
+              categoryId: cat.id,
+              title: ex.prompt ? ex.prompt.substring(0, 100) + (ex.prompt.length > 100 ? '...' : '') : cat.title,
+              snippet: ex.explanation || '',
+              data: { categoryId: cat.id, exampleIndex: exIndex }
+            });
+          }
+        });
+      }
+
+      if (inTitle || inDescription) {
+        results.push({
+          tab: 'request-types',
+          tabColor: tabColors['request-types'],
+          tabLabel: tabLabels['request-types'],
+          title: cat.title,
+          snippet: cat.description ? cat.description.substring(0, 150) + (cat.description.length > 150 ? '...' : '') : '',
+          data: { categoryId: cat.id }
+        });
+      }
+    });
+
+    return results;
+  }
+
+  function renderGlobalSearchResults() {
+    const content = document.getElementById('glossary-content');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
+    const searchCount = document.getElementById('glossary-search-count');
+
+    const totalPages = Math.ceil(globalSearchResults.length / CONFIG.itemsPerPage);
+    const startIndex = (globalSearchPage - 1) * CONFIG.itemsPerPage;
+    const endIndex = startIndex + CONFIG.itemsPerPage;
+    const pageResults = globalSearchResults.slice(startIndex, endIndex);
+
+    searchCount.textContent = `${globalSearchResults.length} result${globalSearchResults.length !== 1 ? 's' : ''} across all tabs`;
+
+    if (globalSearchResults.length === 0) {
+      content.innerHTML = `
+        <div class="global-search-results">
+          <div class="glossary-no-results">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            <p>No results found for "${escapeHtml(currentSearchQuery)}"</p>
+          </div>
+        </div>
+      `;
+      pageInfo.textContent = '';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
+    const resultsHtml = pageResults.map((result, index) => `
+      <div class="global-search-result" data-result-index="${startIndex + index}">
+        <div class="global-search-result-header">
+          <span class="global-search-tab-badge" style="background: ${result.tabColor}">
+            ${result.tabLabel}
+          </span>
+          ${result.category ? `<span class="global-search-category">› ${escapeHtml(result.category)}</span>` : ''}
+          <span class="global-search-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+        <div class="global-search-result-title">${highlightTerm(escapeHtml(result.title), currentSearchQuery)}</div>
+        <div class="global-search-result-snippet">${highlightTerm(escapeHtml(result.snippet), currentSearchQuery)}</div>
+      </div>
+    `).join('');
+
+    content.innerHTML = `
+      <div class="global-search-results">
+        <div class="global-search-header">
+          <h3>${ICONS.info} Search Results</h3>
+        </div>
+        ${resultsHtml}
+      </div>
+    `;
+
+    pageInfo.textContent = `Page ${globalSearchPage} of ${totalPages}`;
+    prevBtn.disabled = globalSearchPage === 1;
+    nextBtn.disabled = globalSearchPage === totalPages;
+
+    // Add click handlers for navigation
+    document.querySelectorAll('.global-search-result').forEach(resultEl => {
+      resultEl.addEventListener('click', () => {
+        const index = parseInt(resultEl.getAttribute('data-result-index'));
+        const result = globalSearchResults[index];
+        navigateToSearchResult(result);
+      });
+    });
+  }
+
+  function navigateToSearchResult(result) {
+    // Clear search to show full content
+    const searchInput = document.getElementById('glossary-search-input');
+    searchInput.value = '';
+    currentSearchQuery = '';
+
+    // Switch to the correct tab
+    activeTab = result.tab;
+    document.querySelectorAll('.glossary-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.tab === result.tab);
+    });
+
+    // Navigate based on tab and data
+    switch (result.tab) {
+      case 'categories':
+        // Go to the specific category
+        currentPage = 1;
+        filteredTerms = [...allTerms];
+        const termIndex = allTerms.indexOf(result.data.term);
+        if (termIndex !== -1) {
+          currentPage = Math.floor(termIndex / CONFIG.itemsPerPage) + 1;
+        }
+        renderCategoriesPage();
+        break;
+
+      case 'examples':
+        if (result.data.categoryId) {
+          activeExampleCategory = result.data.categoryId;
+          examplePage = 1;
+          if (result.data.exampleIndex !== undefined) {
+            examplePage = Math.floor(result.data.exampleIndex / CONFIG.itemsPerPage) + 1;
+          }
+          renderExampleDetail();
+        } else {
+          activeExampleCategory = null;
+          renderExamplesOverview();
+        }
+        break;
+
+      case 'toxicity':
+        if (result.data.categoryId) {
+          activeToxicityCategory = result.data.categoryId;
+          toxicityPage = 1;
+          if (result.data.exampleIndex !== undefined) {
+            toxicityPage = Math.floor(result.data.exampleIndex / CONFIG.itemsPerPage) + 1;
+          }
+          renderToxicityDetail();
+        } else {
+          activeToxicityCategory = null;
+          renderToxicityOverview();
+        }
+        break;
+
+      case 'harmful-output':
+        renderHarmfulOutput();
+        break;
+
+      case 'request-types':
+        if (result.data.categoryId) {
+          activeRequestTypeCategory = result.data.categoryId;
+          requestTypePage = 1;
+          if (result.data.exampleIndex !== undefined) {
+            requestTypePage = Math.floor(result.data.exampleIndex / CONFIG.itemsPerPage) + 1;
+          }
+          renderRequestTypeDetail();
+        } else {
+          activeRequestTypeCategory = null;
+          renderRequestTypesOverview();
+        }
+        break;
+    }
+
+    // Clear global search state
+    globalSearchResults = [];
+    globalSearchPage = 1;
+    document.getElementById('glossary-search-count').textContent = '';
   }
 
   // ============================================
@@ -2364,12 +2790,14 @@
     const pageExamples = category.examples.slice(startIndex, endIndex);
 
     const backBtn = `
-      <button class="request-type-back-btn" id="request-type-back">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-        Back to Request Types
-      </button>
+      <div class="sticky-back-container">
+        <button class="example-back-btn" id="request-type-back">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back
+        </button>
+      </div>
     `;
 
     const headerHtml = `
@@ -2572,8 +3000,17 @@
     examplePage = 1;
     toxicityPage = 1;
     requestTypePage = 1;
+    globalSearchPage = 1;
 
-    // Render based on active tab
+    // If there's a search query, show global search results
+    if (normalizedQuery) {
+      globalSearchResults = gatherGlobalSearchResults(normalizedQuery);
+      renderGlobalSearchResults();
+      return;
+    }
+
+    // No search query - render based on active tab
+    globalSearchResults = [];
     if (activeTab === 'categories') {
       renderCategoriesPage(query);
     } else if (activeTab === 'examples') {
@@ -2659,10 +3096,12 @@
     filteredToxicityResults = [];
     filteredHarmfulOutputCategories = [...HARMFUL_OUTPUT.categories];
     filteredRequestTypeCategories = [...REQUEST_TYPES.categories];
+    globalSearchResults = [];
     currentPage = 1;
     examplePage = 1;
     toxicityPage = 1;
     requestTypePage = 1;
+    globalSearchPage = 1;
     activeTab = 'categories';
     activeExampleCategory = null;
     activeToxicityCategory = null;
@@ -2764,6 +3203,16 @@
     });
 
     document.getElementById('glossary-prev').addEventListener('click', () => {
+      // Global search pagination takes priority
+      if (currentSearchQuery && globalSearchResults.length > 0) {
+        if (globalSearchPage > 1) {
+          globalSearchPage--;
+          renderGlobalSearchResults();
+          document.getElementById('glossary-content').scrollTop = 0;
+        }
+        return;
+      }
+
       if (activeTab === 'categories') {
         if (currentPage > 1) {
           currentPage--;
@@ -2806,6 +3255,17 @@
     });
 
     document.getElementById('glossary-next').addEventListener('click', () => {
+      // Global search pagination takes priority
+      if (currentSearchQuery && globalSearchResults.length > 0) {
+        const totalPages = Math.ceil(globalSearchResults.length / CONFIG.itemsPerPage);
+        if (globalSearchPage < totalPages) {
+          globalSearchPage++;
+          renderGlobalSearchResults();
+          document.getElementById('glossary-content').scrollTop = 0;
+        }
+        return;
+      }
+
       if (activeTab === 'categories') {
         const totalPages = Math.ceil(filteredTerms.length / CONFIG.itemsPerPage);
         if (currentPage < totalPages) {
