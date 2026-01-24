@@ -1161,6 +1161,22 @@
     return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
+  function getToxicityBadgeColor(level) {
+    const colors = {
+      'Safe': '#10b981',
+      'Benign': '#3b82f6',
+      'Dual-Use': '#f59e0b',
+      'Harmful': '#ef4444',
+      'Jailbreak': '#8b5cf6'
+    };
+    return colors[level] || '#64748b';
+  }
+
+  function renderToxicityBadge(level) {
+    if (!level) return '';
+    return `<span class="toxicity-badge-inline" style="background: ${getToxicityBadgeColor(level)}; color: white; padding: 0.15em 0.5em; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;">${escapeHtml(level)}</span>`;
+  }
+
   function formatDefinition(definition) {
     // Split into paragraphs first
     let paragraphs = definition.split('\n\n');
@@ -1403,7 +1419,7 @@
         return `
           <div class="example-item">
             <div style="margin-bottom: 0.75rem;">${categoryBadge}</div>
-            <div class="example-label prompt">Prompt</div>
+            <div class="example-label prompt">Prompt${renderToxicityBadge(ex.toxicityLevel)}</div>
             <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.prompt), currentSearchQuery)}</div>
             <div class="redirect-comparison">
               <div>
@@ -1423,7 +1439,7 @@
         return `
           <div class="example-item">
             <div style="margin-bottom: 0.75rem;">${categoryBadge}</div>
-            <div class="example-label prompt">Prompt</div>
+            <div class="example-label prompt">Prompt${renderToxicityBadge(ex.toxicityLevel)}</div>
             <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.prompt), currentSearchQuery)}</div>
             <div class="example-label response">${ICONS.check} Ideal Response</div>
             <div class="example-text response-text">${highlightTerm(escapeHtml(ex.response), currentSearchQuery)}</div>
@@ -1438,7 +1454,7 @@
         return `
           <div class="example-item">
             <div style="margin-bottom: 0.75rem;">${categoryBadge}</div>
-            <div class="example-label prompt">Prompt</div>
+            <div class="example-label prompt">Prompt${renderToxicityBadge(ex.toxicityLevel)}</div>
             <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.prompt), currentSearchQuery)}</div>
             <div class="example-label response">${ICONS.check} Ideal Response</div>
             <div class="example-text response-text">${highlightTerm(escapeHtml(ex.response), currentSearchQuery)}</div>
@@ -1474,7 +1490,7 @@
     if (category.id === 'redirects-vs-refusals') {
       examplesHtml = pageExamples.map(ex => `
         <div class="example-item">
-          <div class="example-label prompt">Prompt</div>
+          <div class="example-label prompt">Prompt${renderToxicityBadge(ex.toxicityLevel)}</div>
           <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
           <div class="redirect-comparison">
             <div>
@@ -1493,7 +1509,7 @@
     } else if (category.id === 'harmful-non-generative') {
       examplesHtml = pageExamples.map(ex => `
         <div class="example-item">
-          <div class="example-label prompt">Prompt</div>
+          <div class="example-label prompt">Prompt${renderToxicityBadge(ex.toxicityLevel)}</div>
           <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
           <div class="example-label response">${ICONS.check} Ideal Response</div>
           <div class="example-text response-text">${escapeHtml(ex.response)}</div>
@@ -1509,7 +1525,7 @@
     } else {
       examplesHtml = pageExamples.map((ex, i) => `
         <div class="example-item">
-          <div class="example-label prompt">Prompt</div>
+          <div class="example-label prompt">Prompt${renderToxicityBadge(ex.toxicityLevel)}</div>
           <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
           <div class="example-label response">${ICONS.check} Ideal Response</div>
           <div class="example-text response-text">${escapeHtml(ex.response)}</div>
