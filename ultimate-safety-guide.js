@@ -3708,6 +3708,63 @@
       }
     });
 
+    // Search Policy Compliance
+    POLICY_COMPLIANCE.categories.forEach(cat => {
+      const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
+      const inRules = cat.rules && cat.rules.some(rule =>
+        rule.toLowerCase().includes(normalizedQuery)
+      );
+      if (inTitle || inRules) {
+        results.push({
+          tab: 'harmful-output',
+          tabColor: tabColors['harmful-output'],
+          tabLabel: tabLabels['harmful-output'],
+          title: 'Policy: ' + cat.title,
+          snippet: cat.rules ? cat.rules[0].substring(0, 150) + (cat.rules[0].length > 150 ? '...' : '') : '',
+          data: { section: 'policy-compliance', categoryId: cat.id }
+        });
+      }
+    });
+
+    // Search Harm Modification
+    HARM_MODIFICATION.types.forEach(type => {
+      const inTitle = type.title.toLowerCase().includes(normalizedQuery);
+      const inDescription = type.description && type.description.toLowerCase().includes(normalizedQuery);
+      const inSubtypes = type.subtypes && type.subtypes.some(sub =>
+        sub.name.toLowerCase().includes(normalizedQuery) ||
+        (sub.indicators && sub.indicators.some(ind => ind.toLowerCase().includes(normalizedQuery)))
+      );
+      if (inTitle || inDescription || inSubtypes) {
+        results.push({
+          tab: 'harmful-output',
+          tabColor: tabColors['harmful-output'],
+          tabLabel: tabLabels['harmful-output'],
+          title: 'Harm Modification: ' + type.title,
+          snippet: type.description || (type.subtypes ? type.subtypes[0].name : ''),
+          data: { section: 'harm-modification', typeId: type.id }
+        });
+      }
+    });
+
+    // Search Harm-Free Output
+    HARM_FREE_OUTPUT.categories.forEach(cat => {
+      const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
+      const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
+      const inCharacteristics = cat.characteristics && cat.characteristics.some(char =>
+        char.toLowerCase().includes(normalizedQuery)
+      );
+      if (inTitle || inDescription || inCharacteristics) {
+        results.push({
+          tab: 'harmful-output',
+          tabColor: tabColors['harmful-output'],
+          tabLabel: tabLabels['harmful-output'],
+          title: 'Harm-Free: ' + cat.title,
+          snippet: cat.description ? cat.description.substring(0, 150) + (cat.description.length > 150 ? '...' : '') : '',
+          data: { section: 'harm-free', categoryId: cat.id }
+        });
+      }
+    });
+
     return results;
   }
 
