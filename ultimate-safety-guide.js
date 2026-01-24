@@ -1921,15 +1921,15 @@
       margin-bottom: 1.5rem;
     }
     .writing-guide-rules {
-      background: #fef3c7;
-      border: 1px solid #fcd34d;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
       padding: 1.25rem;
       margin-bottom: 1.5rem;
     }
     .writing-guide-rules-title {
       font-weight: 600;
-      color: #92400e;
+      color: #1e293b;
       margin-bottom: 0.75rem;
       display: flex;
       align-items: center;
@@ -1938,13 +1938,14 @@
     .writing-guide-rules-title svg {
       width: 20px;
       height: 20px;
+      color: #475569;
     }
     .writing-guide-rules ul {
       margin: 0;
       padding-left: 1.25rem;
     }
     .writing-guide-rules li {
-      color: #92400e;
+      color: #475569;
       font-size: 0.9rem;
       line-height: 1.6;
       margin-bottom: 0.5rem;
