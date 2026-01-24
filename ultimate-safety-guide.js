@@ -179,6 +179,9 @@
   let examplePage = 1;
   let toxicityPage = 1;
   let shineInterval = null;
+  let currentSearchQuery = '';
+  let filteredExampleCategories = [];
+  let filteredToxicityCategories = [];
 
   // ============================================
   // STYLES
@@ -913,7 +916,7 @@
           <svg class="glossary-search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
-          <input type="text" id="glossary-search-input" placeholder="Search categories, definitions, or examples..." autocomplete="off">
+          <input type="text" id="glossary-search-input" placeholder="Search all content..." autocomplete="off">
           <span class="glossary-search-count" id="glossary-search-count"></span>
         </div>
       </div>
@@ -1071,13 +1074,13 @@
     const prevBtn = document.getElementById('glossary-prev');
     const nextBtn = document.getElementById('glossary-next');
 
-    // Filter out toxicity categories and special sections
+    // Use filtered categories from search
     const specialIds = ['harmful-non-generative', 'redirects-vs-refusals'];
-    const mainCategories = RESPONSE_EXAMPLES.categories.filter(cat =>
-      !cat.id.startsWith('toxicity-') && !specialIds.includes(cat.id)
+    const mainCategories = filteredExampleCategories.filter(cat =>
+      !specialIds.includes(cat.id)
     );
-    const harmfulNonGen = RESPONSE_EXAMPLES.categories.find(cat => cat.id === 'harmful-non-generative');
-    const redirectsVsRefusals = RESPONSE_EXAMPLES.categories.find(cat => cat.id === 'redirects-vs-refusals');
+    const harmfulNonGen = filteredExampleCategories.find(cat => cat.id === 'harmful-non-generative');
+    const redirectsVsRefusals = filteredExampleCategories.find(cat => cat.id === 'redirects-vs-refusals');
 
     const renderCategoryCard = (cat) => `
       <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
@@ -1088,12 +1091,32 @@
 
     const mainCategoriesHtml = mainCategories.map(renderCategoryCard).join('');
 
-    let sectionsHtml = `
-      <div class="examples-section">
-        <h3 class="examples-section-title">${ICONS.clipboard} Response Examples</h3>
-        <div class="example-categories-grid">${mainCategoriesHtml}</div>
-      </div>
-    `;
+    // Check if there are no results
+    if (filteredExampleCategories.length === 0) {
+      content.innerHTML = `
+        <div class="glossary-no-results">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <p>No matching response examples found</p>
+        </div>
+      `;
+      pageInfo.textContent = '';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
+    let sectionsHtml = '';
+
+    if (mainCategories.length > 0) {
+      sectionsHtml += `
+        <div class="examples-section">
+          <h3 class="examples-section-title">${ICONS.clipboard} Response Examples</h3>
+          <div class="example-categories-grid">${mainCategoriesHtml}</div>
+        </div>
+      `;
+    }
 
     if (harmfulNonGen) {
       sectionsHtml += `
@@ -1230,8 +1253,8 @@
     const prevBtn = document.getElementById('glossary-prev');
     const nextBtn = document.getElementById('glossary-next');
 
-    // Filter for toxicity categories only
-    const toxicityCategories = RESPONSE_EXAMPLES.categories.filter(cat => cat.id.startsWith('toxicity-'));
+    // Use filtered toxicity categories from search
+    const toxicityCategories = filteredToxicityCategories;
 
     const guideHtml = `
       <div class="toxicity-guide">
@@ -1270,6 +1293,23 @@
       'toxicity-harmful': 'Harmful Prompt Examples',
       'toxicity-jailbreak': 'Jailbreak Prompt Examples'
     };
+
+    // Check if there are no results
+    if (toxicityCategories.length === 0) {
+      content.innerHTML = `
+        ${guideHtml}
+        <div class="glossary-no-results">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <p>No matching toxicity levels found</p>
+        </div>
+      `;
+      pageInfo.textContent = '';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
 
     const categoriesHtml = toxicityCategories.map(cat => `
       <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
@@ -1355,7 +1395,9 @@
 
   function handleSearch(query) {
     const normalizedQuery = query.toLowerCase().trim();
+    currentSearchQuery = normalizedQuery;
 
+    // Filter categories (Risk Categories tab)
     if (!normalizedQuery) {
       filteredTerms = [...allTerms];
     } else {
@@ -1368,8 +1410,93 @@
       });
     }
 
+    // Filter response examples (Response Examples tab)
+    const specialIds = ['harmful-non-generative', 'redirects-vs-refusals'];
+    const allExampleCategories = RESPONSE_EXAMPLES.categories.filter(cat =>
+      !cat.id.startsWith('toxicity-')
+    );
+
+    if (!normalizedQuery) {
+      filteredExampleCategories = allExampleCategories;
+    } else {
+      filteredExampleCategories = allExampleCategories.filter(cat => {
+        const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
+        const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
+        const inExamples = cat.examples && cat.examples.some(ex => {
+          const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+          const inResponse = ex.response && ex.response.toLowerCase().includes(normalizedQuery);
+          const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
+          const inRedirect = ex.redirect && ex.redirect.toLowerCase().includes(normalizedQuery);
+          const inFullRefusal = ex.fullRefusalWithRedirect && ex.fullRefusalWithRedirect.toLowerCase().includes(normalizedQuery);
+          return inPrompt || inResponse || inExplanation || inRedirect || inFullRefusal;
+        });
+        return inTitle || inDescription || inExamples;
+      });
+    }
+
+    // Filter toxicity categories (Toxicity Levels tab)
+    const allToxicityCategories = RESPONSE_EXAMPLES.categories.filter(cat =>
+      cat.id.startsWith('toxicity-')
+    );
+
+    if (!normalizedQuery) {
+      filteredToxicityCategories = allToxicityCategories;
+    } else {
+      filteredToxicityCategories = allToxicityCategories.filter(cat => {
+        const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
+        const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
+        const inExamples = cat.examples && cat.examples.some(ex => {
+          const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+          const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
+          const inCategories = ex.safetyRiskCategories && ex.safetyRiskCategories.toLowerCase().includes(normalizedQuery);
+          return inPrompt || inExplanation || inCategories;
+        });
+        return inTitle || inDescription || inExamples;
+      });
+    }
+
+    // Reset pages
     currentPage = 1;
-    renderCategoriesPage(query);
+    examplePage = 1;
+    toxicityPage = 1;
+
+    // Render based on active tab
+    if (activeTab === 'categories') {
+      renderCategoriesPage(query);
+    } else if (activeTab === 'examples') {
+      if (activeExampleCategory) {
+        renderExampleDetail();
+      } else {
+        renderExamplesOverview();
+      }
+    } else if (activeTab === 'toxicity') {
+      if (activeToxicityCategory) {
+        renderToxicityDetail();
+      } else {
+        renderToxicityOverview();
+      }
+    }
+
+    // Update search count
+    updateSearchCount();
+  }
+
+  function updateSearchCount() {
+    const searchCount = document.getElementById('glossary-search-count');
+    if (!currentSearchQuery) {
+      searchCount.textContent = '';
+      return;
+    }
+
+    let count = 0;
+    if (activeTab === 'categories') {
+      count = filteredTerms.length;
+    } else if (activeTab === 'examples') {
+      count = filteredExampleCategories.length;
+    } else if (activeTab === 'toxicity') {
+      count = filteredToxicityCategories.length;
+    }
+    searchCount.textContent = count;
   }
 
   function switchTab(tab) {
@@ -1378,18 +1505,13 @@
       t.classList.toggle('active', t.dataset.tab === tab);
     });
 
+    // Keep search bar visible on all tabs
     const searchContainer = document.getElementById('glossary-search-container');
-    searchContainer.style.display = tab === 'categories' ? 'block' : 'none';
+    searchContainer.style.display = 'block';
 
-    if (tab === 'categories') {
-      renderCategoriesPage(document.getElementById('glossary-search-input').value);
-    } else if (tab === 'examples') {
-      activeExampleCategory = null;
-      renderExamplesOverview();
-    } else if (tab === 'toxicity') {
-      activeToxicityCategory = null;
-      renderToxicityOverview();
-    }
+    // Apply current search to the new tab
+    const query = document.getElementById('glossary-search-input').value;
+    handleSearch(query);
   }
 
   function openModal() {
@@ -1402,15 +1524,22 @@
     document.body.style.overflow = 'hidden';
 
     input.value = '';
+    currentSearchQuery = '';
     filteredTerms = [...allTerms];
+    filteredExampleCategories = RESPONSE_EXAMPLES.categories.filter(cat => !cat.id.startsWith('toxicity-'));
+    filteredToxicityCategories = RESPONSE_EXAMPLES.categories.filter(cat => cat.id.startsWith('toxicity-'));
     currentPage = 1;
+    examplePage = 1;
+    toxicityPage = 1;
     activeTab = 'categories';
     activeExampleCategory = null;
+    activeToxicityCategory = null;
 
     document.querySelectorAll('.glossary-tab').forEach(t => {
       t.classList.toggle('active', t.dataset.tab === 'categories');
     });
     document.getElementById('glossary-search-container').style.display = 'block';
+    document.getElementById('glossary-search-count').textContent = '';
 
     renderCategoriesPage();
     setTimeout(() => input.focus(), 100);
@@ -1479,6 +1608,10 @@
     allTerms = Object.keys(GLOSSARY).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
     filteredTerms = [...allTerms];
 
+    // Initialize filtered example categories
+    filteredExampleCategories = RESPONSE_EXAMPLES.categories.filter(cat => !cat.id.startsWith('toxicity-'));
+    filteredToxicityCategories = RESPONSE_EXAMPLES.categories.filter(cat => cat.id.startsWith('toxicity-'));
+
     injectStyles();
     createTriggerButton();
     createModal();
@@ -1493,9 +1626,7 @@
     });
 
     document.getElementById('glossary-search-input').addEventListener('input', (e) => {
-      if (activeTab === 'categories') {
-        handleSearch(e.target.value);
-      }
+      handleSearch(e.target.value);
     });
 
     document.getElementById('glossary-prev').addEventListener('click', () => {
