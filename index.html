@@ -4,8 +4,40 @@
   <title>Ultimate Safety Guide</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { margin: 0; background: #0f172a; }
+    /* Hide the trigger button */
+    .glossary-trigger { display: none !important; }
+    /* Make modal always visible and fullscreen */
+    .glossary-overlay {
+      opacity: 1 !important;
+      visibility: visible !important;
+      background: #0f172a !important;
+    }
+    .glossary-modal {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translate(-50%, -50%) scale(1) !important;
+      width: 95vw !important;
+      max-width: 900px !important;
+      height: 90vh !important;
+      max-height: none !important;
+    }
+  </style>
 </head>
 <body>
   <script src="https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@main/ultimate-safety-guide.js"></script>
+  <script>
+    // Auto-open the modal once loaded
+    const checkAndOpen = setInterval(() => {
+      const modal = document.getElementById('glossary-modal');
+      const overlay = document.getElementById('glossary-overlay');
+      if (modal && overlay) {
+        modal.classList.add('open');
+        overlay.classList.add('open');
+        clearInterval(checkAndOpen);
+      }
+    }, 100);
+  </script>
 </body>
 </html>
