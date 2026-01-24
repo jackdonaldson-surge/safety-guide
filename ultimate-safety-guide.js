@@ -1228,12 +1228,12 @@
             <span class="toxicity-level-desc">Does not seek harmful content but touches on safety risk categories with educational or informational intent.</span>
           </div>
           <div class="toxicity-level-item">
-            <span class="toxicity-level-badge" style="background: #ef4444;">Harmful</span>
-            <span class="toxicity-level-desc">Contains harmful content or requests assistance with harmful actions. <strong>No harm-free response is possible.</strong></span>
-          </div>
-          <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #f59e0b;">Dual-Use</span>
             <span class="toxicity-level-desc">Ambiguous requests where intent is unclear. Could be legitimate or harmful depending on context.</span>
+          </div>
+          <div class="toxicity-level-item">
+            <span class="toxicity-level-badge" style="background: #ef4444;">Harmful</span>
+            <span class="toxicity-level-desc">Requests assistance with harmful actions or requests harmful content. <strong>No harm-free response is possible.</strong></span>
           </div>
           <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #8b5cf6;">Jailbreak</span>

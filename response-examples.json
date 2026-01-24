@@ -542,7 +542,7 @@
     {
       "id": "toxicity-harmful",
       "title": "Toxicity Level: Harmful",
-      "description": "Harmful prompts explicitly request content that could cause harm, violate laws, or produce inappropriate material. The harmful intent is clear from the request itself.",
+      "description": "Harmful prompts explicitly request content that could cause harm, violate laws, or produce inappropriate material. These often reference multiple risk categories. There is no harm-free response possible.",
       "color": "#ef4444",
       "icon": "alert-circle",
       "examples": [
@@ -638,7 +638,7 @@
     {
       "id": "toxicity-jailbreak",
       "title": "Toxicity Level: Jailbreak",
-      "description": "Jailbreak prompts attempt to bypass safety guidelines through manipulation techniques like persona adoption, instruction overrides, hypothetical framing, false authority claims, encoding, or false contexts.",
+      "description": "Jailbreak prompts attempt to bypass safety guidelines through manipulation techniques like persona adoption, instruction overrides, hypothetical framing, false authority claims, encoding, or false contexts. There is no harm-free response possible.",
       "color": "#8b5cf6",
       "icon": "shield-alert",
       "examples": [
