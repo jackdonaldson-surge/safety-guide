@@ -1287,8 +1287,14 @@
     const nextBtn = document.getElementById('glossary-next');
 
     // Use filtered categories from search, separated by section
-    const examplesCategories = filteredExampleCategories.filter(cat => cat.section === 'examples');
-    const guidanceCategories = filteredExampleCategories.filter(cat => cat.section === 'guidance');
+    // Default to 'examples' if section field is missing (for backwards compatibility)
+    const guidanceIds = ['harmful-non-generative', 'redirects-vs-refusals'];
+    const examplesCategories = filteredExampleCategories.filter(cat =>
+      cat.section === 'examples' || (!cat.section && !guidanceIds.includes(cat.id))
+    );
+    const guidanceCategories = filteredExampleCategories.filter(cat =>
+      cat.section === 'guidance' || (!cat.section && guidanceIds.includes(cat.id))
+    );
 
     const renderCategoryCard = (cat) => `
       <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
