@@ -639,7 +639,7 @@
       align-items: center;
       gap: 0.4rem;
     }
-    .example-label.prompt { color: #dc2626; }
+    .example-label.prompt { color: #475569; }
     .example-label.response { color: #16a34a; }
     .example-label.full-refusal { color: #ea580c; }
     .example-label.redirect { color: #0891b2; }
@@ -1147,7 +1147,7 @@
     if (category.id === 'redirects-vs-refusals') {
       examplesHtml = pageExamples.map(ex => `
         <div class="example-item">
-          <div class="example-label prompt">${ICONS.info} Prompt</div>
+          <div class="example-label prompt">Prompt</div>
           <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
           <div class="redirect-comparison">
             <div>
@@ -1166,7 +1166,7 @@
     } else if (category.id === 'harmful-non-generative') {
       examplesHtml = pageExamples.map(ex => `
         <div class="example-item">
-          <div class="example-label prompt">${ICONS.info} Prompt</div>
+          <div class="example-label prompt">Prompt</div>
           <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
           <div class="example-label response">${ICONS.check} Ideal Response</div>
           <div class="example-text response-text">${escapeHtml(ex.response)}</div>
@@ -1182,7 +1182,7 @@
     } else {
       examplesHtml = pageExamples.map((ex, i) => `
         <div class="example-item">
-          <div class="example-label prompt">${ICONS.info} Prompt</div>
+          <div class="example-label prompt">Prompt</div>
           <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
           <div class="example-label response">${ICONS.check} Ideal Response</div>
           <div class="example-text response-text">${escapeHtml(ex.response)}</div>
@@ -1309,7 +1309,7 @@
 
     const examplesHtml = pageExamples.map(ex => `
       <div class="example-item">
-        <div class="example-label prompt">${ICONS.info} Prompt</div>
+        <div class="example-label prompt">Prompt</div>
         <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
         <div class="toxicity-info">
           <div class="toxicity-badge" style="background: ${category.color}">${escapeHtml(ex.toxicityLevel)}</div>
