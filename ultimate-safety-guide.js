@@ -3576,7 +3576,7 @@
       'partial-refusal': null,
       'grounded-engagement': { tab: 'examples', category: 'harmful-non-generative' },
       'harm-free-engagement': { tab: 'examples', category: 'engagement-examples' },
-      'harmful-engagement': { tab: 'toxicity', category: 'toxicity-harmful' },
+      'harmful-engagement': { tab: 'harmful-output', category: null },
       'quality-checklist': null
     };
 
@@ -3882,6 +3882,8 @@
           activeToxicityCategory = targetCategory;
           toxicityPage = 1;
           renderToxicityDetail();
+        } else if (targetTab === 'harmful-output') {
+          renderHarmfulOutput();
         }
         document.getElementById('glossary-content').scrollTop = 0;
       });
