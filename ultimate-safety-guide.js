@@ -1920,6 +1920,50 @@
       flex-direction: column;
       gap: 0.5rem;
     }
+    .flowchart-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .flowchart-toxicity {
+      flex: 1;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+    }
+    .flowchart-toxicity-name {
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+    .flowchart-toxicity-desc {
+      font-size: 0.7rem;
+      opacity: 0.85;
+    }
+    .flowchart-row-arrow {
+      color: #94a3b8;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .flowchart-action-badge {
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .flowchart-action-badge.engage {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .flowchart-action-badge.refuse {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .flowchart-action-badge.partial {
+      background: #fef3c7;
+      color: #92400e;
+    }
     .flowchart-outcome {
       display: flex;
       align-items: center;
@@ -1950,6 +1994,17 @@
     .flowchart-outcome-condition {
       color: #64748b;
       font-size: 0.75rem;
+    }
+    .flowchart-mixed-inline {
+      margin-top: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: #f8fafc;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: #475569;
+    }
+    .flowchart-mixed-inline strong {
+      color: #1e293b;
     }
     .flowchart-note {
       background: #f8fafc;
@@ -3606,31 +3661,45 @@
                 Mechanical tasks: translation, summarization, counting, extraction, formatting
               </div>
 
-              <div class="flowchart-connector">
-                <div class="flowchart-connector-line"></div>
-                <div class="flowchart-connector-label">Check toxicity</div>
-                <div class="flowchart-connector-arrow"></div>
-              </div>
-
               <div class="flowchart-decision-box">
-                <div class="flowchart-decision-title">What is the toxicity level?</div>
                 <div class="flowchart-outcomes">
-                  <div class="flowchart-outcome" style="background: #dbeafe; border-left: 3px solid #3b82f6;">
-                    <span class="flowchart-outcome-label" style="color: #1e40af;">GROUNDED ENGAGEMENT</span>
-                    <span class="flowchart-outcome-condition">Benign content</span>
+                  <!-- Benign -->
+                  <div class="flowchart-row">
+                    <div class="flowchart-toxicity" style="background: #dbeafe; color: #1e40af;">
+                      <div class="flowchart-toxicity-name">Benign</div>
+                    </div>
+                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-action-badge engage">GROUNDED ENGAGEMENT</span>
                   </div>
-                  <div class="flowchart-outcome" style="background: #fef3c7; border-left: 3px solid #f59e0b;">
-                    <span class="flowchart-outcome-label" style="color: #92400e;">GROUNDED ENGAGEMENT</span>
-                    <span class="flowchart-outcome-condition">Dual-Use content</span>
+                  <!-- Dual-Use -->
+                  <div class="flowchart-row">
+                    <div class="flowchart-toxicity" style="background: #fef3c7; color: #92400e;">
+                      <div class="flowchart-toxicity-name">Dual-Use</div>
+                    </div>
+                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-action-badge engage">GROUNDED ENGAGEMENT</span>
                   </div>
-                  <div class="flowchart-outcome" style="background: #dcfce7; border-left: 3px solid #10b981;">
-                    <span class="flowchart-outcome-label" style="color: #166534;">GROUNDED ENGAGEMENT</span>
-                    <span class="flowchart-outcome-condition">Harmful, but task does NOT amplify/enable/encourage harm</span>
+                  <!-- Harmful (no amplification) -->
+                  <div class="flowchart-row">
+                    <div class="flowchart-toxicity" style="background: #fee2e2; color: #991b1b;">
+                      <div class="flowchart-toxicity-name">Harmful</div>
+                      <div class="flowchart-toxicity-desc">Task does NOT amplify/enable/encourage harm</div>
+                    </div>
+                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-action-badge engage">GROUNDED ENGAGEMENT</span>
                   </div>
-                  <div class="flowchart-outcome refuse">
-                    <span class="flowchart-outcome-label">REFUSE</span>
-                    <span class="flowchart-outcome-condition">Harmful + clear harmful intent OR task amplifies/enables/encourages harm</span>
+                  <!-- Harmful (amplifies) -->
+                  <div class="flowchart-row">
+                    <div class="flowchart-toxicity" style="background: #fee2e2; color: #991b1b;">
+                      <div class="flowchart-toxicity-name">Harmful</div>
+                      <div class="flowchart-toxicity-desc">Clear harmful intent OR task amplifies/enables/encourages harm</div>
+                    </div>
+                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-action-badge refuse">REFUSE</span>
                   </div>
+                </div>
+                <div class="flowchart-mixed-inline">
+                  <strong>Mixed Requests:</strong> If some parts are harmful → <span class="flowchart-action-badge partial" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">PARTIAL REFUSAL</span> — refuse harmful, engage with benign
                 </div>
                 <div class="flowchart-note">
                   <strong>Grounded Engagement Rules:</strong> Stay grounded in source content. No warnings, disclaimers, or commentary. Don't sanitize or amplify.
@@ -3645,48 +3714,47 @@
                 Creating new content, answering questions, providing information
               </div>
 
-              <div class="flowchart-connector">
-                <div class="flowchart-connector-line"></div>
-                <div class="flowchart-connector-label">Check toxicity</div>
-                <div class="flowchart-connector-arrow"></div>
-              </div>
-
               <div class="flowchart-decision-box">
-                <div class="flowchart-decision-title">What is the toxicity level?</div>
                 <div class="flowchart-outcomes">
-                  <div class="flowchart-outcome" style="background: #dbeafe; border-left: 3px solid #3b82f6;">
-                    <span class="flowchart-outcome-label" style="color: #1e40af;">ENGAGE</span>
-                    <span class="flowchart-outcome-condition">Benign — Harm-free engagement</span>
+                  <!-- Benign -->
+                  <div class="flowchart-row">
+                    <div class="flowchart-toxicity" style="background: #dbeafe; color: #1e40af;">
+                      <div class="flowchart-toxicity-name">Benign</div>
+                    </div>
+                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-action-badge engage">HARM-FREE ENGAGEMENT</span>
                   </div>
-                  <div class="flowchart-outcome" style="background: #fef3c7; border-left: 3px solid #f59e0b;">
-                    <span class="flowchart-outcome-label" style="color: #92400e;">ENGAGE</span>
-                    <span class="flowchart-outcome-condition">Dual-Use — Assume good intent</span>
+                  <!-- Dual-Use -->
+                  <div class="flowchart-row">
+                    <div class="flowchart-toxicity" style="background: #fef3c7; color: #92400e;">
+                      <div class="flowchart-toxicity-name">Dual-Use</div>
+                      <div class="flowchart-toxicity-desc">Assume good intent</div>
+                    </div>
+                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-action-badge engage">HARM-FREE ENGAGEMENT</span>
                   </div>
-                  <div class="flowchart-outcome refuse">
-                    <span class="flowchart-outcome-label">FULL REFUSAL</span>
-                    <span class="flowchart-outcome-condition">Harmful — No harm-free response possible</span>
+                  <!-- Harmful -->
+                  <div class="flowchart-row">
+                    <div class="flowchart-toxicity" style="background: #fee2e2; color: #991b1b;">
+                      <div class="flowchart-toxicity-name">Harmful</div>
+                      <div class="flowchart-toxicity-desc">No harm-free response possible</div>
+                    </div>
+                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-action-badge refuse">FULL REFUSAL</span>
                   </div>
-                  <div class="flowchart-outcome" style="background: #ede9fe; border-left: 3px solid #8b5cf6;">
-                    <span class="flowchart-outcome-label" style="color: #5b21b6;">FULL REFUSAL</span>
-                    <span class="flowchart-outcome-condition">Jailbreak — Manipulation attempt</span>
+                  <!-- Jailbreak -->
+                  <div class="flowchart-row">
+                    <div class="flowchart-toxicity" style="background: #ede9fe; color: #5b21b6;">
+                      <div class="flowchart-toxicity-name">Jailbreak</div>
+                      <div class="flowchart-toxicity-desc">Manipulation attempt</div>
+                    </div>
+                    <span class="flowchart-row-arrow">→</span>
+                    <span class="flowchart-action-badge refuse">FULL REFUSAL</span>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- MIXED REQUESTS SECTION - applies to both branches -->
-          <div class="flowchart-mixed-section" style="margin-top: 1.5rem;">
-            <div class="flowchart-mixed-title">Mixed Requests — applies to both Generative and Non-Generative</div>
-            <div style="font-size: 0.8rem; color: #64748b; text-align: center; margin-bottom: 0.75rem;">When a prompt contains multiple asks</div>
-            <div class="flowchart-mixed-outcomes">
-              <div class="flowchart-mixed-item">
-                <span class="flowchart-action refuse">FULL REFUSAL</span>
-                <span class="condition">All parts are Harmful/Jailbreak</span>
-              </div>
-              <div class="flowchart-mixed-item">
-                <span class="flowchart-action partial">PARTIAL REFUSAL</span>
-                <span class="condition">Mix of Harmful + Benign — Refuse harmful parts, engage with benign</span>
+                <div class="flowchart-mixed-inline">
+                  <strong>Mixed Requests:</strong> If some parts are harmful → <span class="flowchart-action-badge partial" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">PARTIAL REFUSAL</span> — refuse harmful, engage with benign
+                </div>
               </div>
             </div>
           </div>
