@@ -3548,7 +3548,8 @@
       'examples': '#059669',
       'toxicity': '#7c3aed',
       'harmful-output': '#dc2626',
-      'request-types': '#0891b2'
+      'request-types': '#0891b2',
+      'writing-guide': '#6366f1'
     };
 
     const tabLabels = {
@@ -3556,7 +3557,8 @@
       'examples': 'Response Examples',
       'toxicity': 'Toxicity Levels',
       'harmful-output': 'Response Characteristics',
-      'request-types': 'Request Types'
+      'request-types': 'Request Types',
+      'writing-guide': 'Writing Guide'
     };
 
     // Search Risk Categories (GLOSSARY)
@@ -3765,6 +3767,60 @@
       }
     });
 
+    // Search Writing Guide
+    WRITING_GUIDE.sections.forEach(section => {
+      const inTitle = section.title.toLowerCase().includes(normalizedQuery);
+      const inDescription = section.description && section.description.toLowerCase().includes(normalizedQuery);
+      const inRequiredComponents = section.requiredComponents && section.requiredComponents.some(comp =>
+        comp.toLowerCase().includes(normalizedQuery)
+      );
+      const inCommonMistakes = section.commonMistakes && section.commonMistakes.some(mistake =>
+        mistake.toLowerCase().includes(normalizedQuery)
+      );
+      const inExamples = section.examples && section.examples.some(ex =>
+        (ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery)) ||
+        (ex.response && ex.response.toLowerCase().includes(normalizedQuery))
+      );
+      const inHarmModification = section.harmModification && (
+        section.harmModification.title.toLowerCase().includes(normalizedQuery) ||
+        (section.harmModification.description && section.harmModification.description.toLowerCase().includes(normalizedQuery)) ||
+        (section.harmModification.rules && section.harmModification.rules.some(rule => rule.toLowerCase().includes(normalizedQuery))) ||
+        (section.harmModification.types && section.harmModification.types.some(type =>
+          type.type.toLowerCase().includes(normalizedQuery) ||
+          (type.description && type.description.toLowerCase().includes(normalizedQuery)) ||
+          (type.indicators && type.indicators.some(ind => ind.toLowerCase().includes(normalizedQuery)))
+        ))
+      );
+
+      if (inTitle || inDescription || inRequiredComponents || inCommonMistakes || inExamples || inHarmModification) {
+        results.push({
+          tab: 'writing-guide',
+          tabColor: tabColors['writing-guide'],
+          tabLabel: tabLabels['writing-guide'],
+          title: section.title,
+          snippet: section.description ? section.description.substring(0, 150) + (section.description.length > 150 ? '...' : '') : '',
+          data: { sectionId: section.id }
+        });
+      }
+    });
+
+    // Also search Writing Guide intro rules
+    if (WRITING_GUIDE.intro.importantRules) {
+      const inRules = WRITING_GUIDE.intro.importantRules.some(rule =>
+        rule.toLowerCase().includes(normalizedQuery)
+      );
+      if (inRules) {
+        results.push({
+          tab: 'writing-guide',
+          tabColor: tabColors['writing-guide'],
+          tabLabel: tabLabels['writing-guide'],
+          title: 'Important Rules',
+          snippet: 'General guidelines for writing ideal responses',
+          data: { sectionId: 'intro' }
+        });
+      }
+    }
+
     return results;
   }
 
@@ -3949,6 +4005,16 @@
         } else {
           activeRequestTypeCategory = null;
           renderRequestTypesOverview();
+        }
+        break;
+
+      case 'writing-guide':
+        if (result.data.sectionId && result.data.sectionId !== 'intro') {
+          activeWritingGuideSection = result.data.sectionId;
+          renderWritingGuideDetail();
+        } else {
+          activeWritingGuideSection = null;
+          renderWritingGuideOverview();
         }
         break;
     }
