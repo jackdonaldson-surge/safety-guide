@@ -963,78 +963,58 @@
       color: #7f1d1d;
       line-height: 1.5;
     }
-    .harmful-output-category {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      overflow: hidden;
-    }
-    .harmful-output-category-header {
-      padding: 1rem 1.25rem;
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      border-bottom: 1px solid #e2e8f0;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-    .harmful-output-category-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .harmful-output-category-icon svg {
-      width: 20px;
-      height: 20px;
-      color: white;
-    }
-    .harmful-output-category-info {
-      flex: 1;
-    }
-    .harmful-output-category-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1e293b;
-      margin: 0 0 0.25rem 0;
-    }
-    .harmful-output-category-desc {
+    /* Table styles for Harmful Output */
+    .harmful-output-table {
+      width: 100%;
+      border-collapse: collapse;
       font-size: 0.85rem;
-      color: #64748b;
-      line-height: 1.5;
-      margin: 0;
+      margin-bottom: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
     }
-    .harmful-output-characteristics {
-      padding: 0;
-      margin: 0;
-      list-style: none;
+    .harmful-output-table th {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: #1e293b;
+      border-bottom: 2px solid #e2e8f0;
     }
-    .harmful-output-characteristic {
-      padding: 0.85rem 1.25rem;
+    .harmful-output-table td {
+      padding: 0.65rem 1rem;
       border-bottom: 1px solid #f1f5f9;
-      font-size: 0.88rem;
-      color: #475569;
-      line-height: 1.5;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
+      vertical-align: top;
+      line-height: 1.4;
     }
-    .harmful-output-characteristic:last-child {
+    .harmful-output-table tr:last-child td {
       border-bottom: none;
     }
-    .harmful-output-checkbox {
-      width: 18px;
-      height: 18px;
-      border: 2px solid #cbd5e1;
-      border-radius: 4px;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
+    .harmful-output-table tr:hover {
+      background: #f8fafc;
     }
-    .harmful-output-characteristic-text {
-      flex: 1;
+    .harmful-output-category-cell {
+      font-weight: 600;
+      white-space: nowrap;
+      width: 140px;
+    }
+    .harmful-output-category-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: white;
+    }
+    .harmful-output-category-badge svg {
+      width: 14px;
+      height: 14px;
+    }
+    .harmful-output-desc-cell {
+      color: #475569;
     }
   `;
 
@@ -1306,13 +1286,9 @@
     const prevBtn = document.getElementById('glossary-prev');
     const nextBtn = document.getElementById('glossary-next');
 
-    // Use filtered categories from search
-    const specialIds = ['harmful-non-generative', 'redirects-vs-refusals'];
-    const mainCategories = filteredExampleCategories.filter(cat =>
-      !specialIds.includes(cat.id)
-    );
-    const harmfulNonGen = filteredExampleCategories.find(cat => cat.id === 'harmful-non-generative');
-    const redirectsVsRefusals = filteredExampleCategories.find(cat => cat.id === 'redirects-vs-refusals');
+    // Use filtered categories from search, separated by section
+    const examplesCategories = filteredExampleCategories.filter(cat => cat.section === 'examples');
+    const guidanceCategories = filteredExampleCategories.filter(cat => cat.section === 'guidance');
 
     const renderCategoryCard = (cat) => `
       <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
@@ -1320,8 +1296,6 @@
         <span class="see-examples-link">See examples →</span>
       </div>
     `;
-
-    const mainCategoriesHtml = mainCategories.map(renderCategoryCard).join('');
 
     // Check if there are no results
     if (filteredExampleCategories.length === 0) {
@@ -1341,29 +1315,22 @@
 
     let sectionsHtml = '';
 
-    if (mainCategories.length > 0) {
+    if (examplesCategories.length > 0) {
+      const examplesCategoriesHtml = examplesCategories.map(renderCategoryCard).join('');
       sectionsHtml += `
         <div class="examples-section">
-          <h3 class="examples-section-title">${ICONS.clipboard} Response Examples</h3>
-          <div class="example-categories-grid">${mainCategoriesHtml}</div>
+          <h3 class="examples-section-title">${ICONS.clipboard} Full Examples</h3>
+          <div class="example-categories-grid">${examplesCategoriesHtml}</div>
         </div>
       `;
     }
 
-    if (harmfulNonGen) {
+    if (guidanceCategories.length > 0) {
+      const guidanceCategoriesHtml = guidanceCategories.map(renderCategoryCard).join('');
       sectionsHtml += `
         <div class="examples-section">
-          <h3 class="examples-section-title">${ICONS['alert-circle']} Non-Generative Harmful</h3>
-          <div class="example-categories-grid">${renderCategoryCard(harmfulNonGen)}</div>
-        </div>
-      `;
-    }
-
-    if (redirectsVsRefusals) {
-      sectionsHtml += `
-        <div class="examples-section">
-          <h3 class="examples-section-title">${ICONS.info} Redirects vs. Refusals</h3>
-          <div class="example-categories-grid">${renderCategoryCard(redirectsVsRefusals)}</div>
+          <h3 class="examples-section-title">${ICONS.info} Guidance</h3>
+          <div class="example-categories-grid">${guidanceCategoriesHtml}</div>
         </div>
       `;
     }
@@ -1818,36 +1785,43 @@
       return;
     }
 
-    const categoriesHtml = categoriesToShow.map(cat => {
-      const characteristicsHtml = cat.characteristics.map(char => `
-        <li class="harmful-output-characteristic">
-          <span class="harmful-output-checkbox"></span>
-          <span class="harmful-output-characteristic-text">${currentSearchQuery ? highlightTerm(escapeHtml(char), currentSearchQuery) : escapeHtml(char)}</span>
-        </li>
-      `).join('');
+    // Build table rows - each characteristic becomes a row
+    const tableRows = categoriesToShow.flatMap(cat =>
+      cat.characteristics.map((char, index) => ({
+        category: cat,
+        characteristic: char,
+        isFirst: index === 0
+      }))
+    );
 
-      return `
-        <div class="harmful-output-category">
-          <div class="harmful-output-category-header">
-            <div class="harmful-output-category-icon" style="background: ${cat.color}">
+    const tableRowsHtml = tableRows.map(({ category: cat, characteristic: char, isFirst }) => `
+      <tr>
+        <td class="harmful-output-category-cell">
+          ${isFirst ? `
+            <span class="harmful-output-category-badge" style="background: ${cat.color}">
               ${ICONS[cat.icon] || ICONS['alert-circle']}
-            </div>
-            <div class="harmful-output-category-info">
-              <h4 class="harmful-output-category-title">${currentSearchQuery ? highlightTerm(escapeHtml(cat.title), currentSearchQuery) : escapeHtml(cat.title)}</h4>
-              <p class="harmful-output-category-desc">${currentSearchQuery ? highlightTerm(escapeHtml(cat.description), currentSearchQuery) : escapeHtml(cat.description)}</p>
-            </div>
-          </div>
-          <ul class="harmful-output-characteristics">
-            ${characteristicsHtml}
-          </ul>
-        </div>
-      `;
-    }).join('');
+              ${currentSearchQuery ? highlightTerm(escapeHtml(cat.title), currentSearchQuery) : escapeHtml(cat.title)}
+            </span>
+          ` : ''}
+        </td>
+        <td class="harmful-output-desc-cell">${currentSearchQuery ? highlightTerm(escapeHtml(char), currentSearchQuery) : escapeHtml(char)}</td>
+      </tr>
+    `).join('');
 
     content.innerHTML = `
       <div style="padding: 1.25rem;">
         ${introHtml}
-        ${categoriesHtml}
+        <table class="harmful-output-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Characteristic</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableRowsHtml}
+          </tbody>
+        </table>
       </div>
     `;
 
