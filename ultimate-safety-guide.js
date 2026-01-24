@@ -182,6 +182,8 @@
   let currentSearchQuery = '';
   let filteredExampleCategories = [];
   let filteredToxicityCategories = [];
+  let filteredExampleResults = [];  // Individual matched examples with category context
+  let filteredToxicityResults = []; // Individual matched toxicity examples with category context
 
   // ============================================
   // STYLES
@@ -1069,6 +1071,12 @@
   }
 
   function renderExamplesOverview() {
+    // If there's an active search, show individual matching examples instead of category cards
+    if (currentSearchQuery) {
+      renderExampleSearchResults();
+      return;
+    }
+
     const content = document.getElementById('glossary-content');
     const pageInfo = document.getElementById('glossary-page-info');
     const prevBtn = document.getElementById('glossary-prev');
@@ -1149,6 +1157,95 @@
         renderExampleDetail();
       });
     });
+  }
+
+  function renderExampleSearchResults() {
+    const content = document.getElementById('glossary-content');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
+    const searchCount = document.getElementById('glossary-search-count');
+
+    // Paginate the search results
+    const totalPages = Math.ceil(filteredExampleResults.length / CONFIG.itemsPerPage);
+    const startIndex = (examplePage - 1) * CONFIG.itemsPerPage;
+    const endIndex = startIndex + CONFIG.itemsPerPage;
+    const pageResults = filteredExampleResults.slice(startIndex, endIndex);
+
+    searchCount.textContent = `${filteredExampleResults.length} result${filteredExampleResults.length !== 1 ? 's' : ''}`;
+
+    if (filteredExampleResults.length === 0) {
+      content.innerHTML = `
+        <div class="glossary-no-results">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <p>No matching response examples found</p>
+        </div>
+      `;
+      pageInfo.textContent = 'No results';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
+    const resultsHtml = pageResults.map(({ example: ex, category }) => {
+      const categoryBadge = `<span class="search-result-category" style="background: ${category.color}; color: white; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">${escapeHtml(category.title)}</span>`;
+
+      if (category.id === 'redirects-vs-refusals') {
+        return `
+          <div class="example-item">
+            <div style="margin-bottom: 0.75rem;">${categoryBadge}</div>
+            <div class="example-label prompt">Prompt</div>
+            <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.prompt), currentSearchQuery)}</div>
+            <div class="redirect-comparison">
+              <div>
+                <div class="example-label full-refusal">${ICONS.shield} Full Refusal</div>
+                <div class="example-text full-refusal-text">${highlightTerm(escapeHtml(ex.fullRefusalWithRedirect), currentSearchQuery)}</div>
+              </div>
+              <div>
+                <div class="example-label redirect">${ICONS.arrows} Redirect</div>
+                <div class="example-text redirect-text">${highlightTerm(escapeHtml(ex.redirect), currentSearchQuery)}</div>
+              </div>
+            </div>
+            ${ex.explanation ? `<div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.explanation), currentSearchQuery)}</div>` : ''}
+            ${ex.note ? `<div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.note), currentSearchQuery)}</div>` : ''}
+          </div>
+        `;
+      } else if (category.id === 'harmful-non-generative') {
+        return `
+          <div class="example-item">
+            <div style="margin-bottom: 0.75rem;">${categoryBadge}</div>
+            <div class="example-label prompt">Prompt</div>
+            <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.prompt), currentSearchQuery)}</div>
+            <div class="example-label response">${ICONS.check} Ideal Response</div>
+            <div class="example-text response-text">${highlightTerm(escapeHtml(ex.response), currentSearchQuery)}</div>
+            ${ex.verdict ? `
+              <div class="example-label verdict">${ICONS.shield} Verdict</div>
+              <div class="example-verdict ${ex.verdict.toLowerCase().includes('grounded') ? 'grounded' : 'refusal'}">${escapeHtml(ex.verdict)}</div>
+            ` : ''}
+            ${ex.reasoning ? `<div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.reasoning), currentSearchQuery)}</div>` : ''}
+          </div>
+        `;
+      } else {
+        return `
+          <div class="example-item">
+            <div style="margin-bottom: 0.75rem;">${categoryBadge}</div>
+            <div class="example-label prompt">Prompt</div>
+            <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.prompt), currentSearchQuery)}</div>
+            <div class="example-label response">${ICONS.check} Ideal Response</div>
+            <div class="example-text response-text">${highlightTerm(escapeHtml(ex.response), currentSearchQuery)}</div>
+            ${ex.explanation ? `<div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.explanation), currentSearchQuery)}</div>` : ''}
+            ${ex.note ? `<div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.note), currentSearchQuery)}</div>` : ''}
+          </div>
+        `;
+      }
+    }).join('');
+
+    content.innerHTML = resultsHtml;
+    pageInfo.textContent = totalPages > 0 ? `Page ${examplePage} of ${totalPages}` : 'No results';
+    prevBtn.disabled = examplePage <= 1;
+    nextBtn.disabled = examplePage >= totalPages;
   }
 
   function renderExampleDetail() {
@@ -1248,6 +1345,12 @@
   // TOXICITY LEVEL RENDERING
   // ============================================
   function renderToxicityOverview() {
+    // If there's an active search, show individual matching examples instead of category cards
+    if (currentSearchQuery) {
+      renderToxicitySearchResults();
+      return;
+    }
+
     const content = document.getElementById('glossary-content');
     const pageInfo = document.getElementById('glossary-page-info');
     const prevBtn = document.getElementById('glossary-prev');
@@ -1331,6 +1434,61 @@
         renderToxicityDetail();
       });
     });
+  }
+
+  function renderToxicitySearchResults() {
+    const content = document.getElementById('glossary-content');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
+    const searchCount = document.getElementById('glossary-search-count');
+
+    // Paginate the search results
+    const totalPages = Math.ceil(filteredToxicityResults.length / CONFIG.itemsPerPage);
+    const startIndex = (toxicityPage - 1) * CONFIG.itemsPerPage;
+    const endIndex = startIndex + CONFIG.itemsPerPage;
+    const pageResults = filteredToxicityResults.slice(startIndex, endIndex);
+
+    searchCount.textContent = `${filteredToxicityResults.length} result${filteredToxicityResults.length !== 1 ? 's' : ''}`;
+
+    if (filteredToxicityResults.length === 0) {
+      content.innerHTML = `
+        <div class="glossary-no-results">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <p>No matching toxicity examples found</p>
+        </div>
+      `;
+      pageInfo.textContent = 'No results';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
+    const resultsHtml = pageResults.map(({ example: ex, category }) => `
+      <div class="example-item">
+        <div class="example-label prompt">Prompt</div>
+        <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.prompt), currentSearchQuery)}</div>
+        <div class="toxicity-info">
+          <div class="toxicity-badge" style="background: ${category.color}">${escapeHtml(ex.toxicityLevel)}</div>
+          ${ex.safetyRiskCategories && ex.safetyRiskCategories !== 'None' ? `
+            <div class="safety-categories">
+              <span class="safety-categories-label">${ICONS.shield} Risk Categories:</span>
+              <span class="safety-categories-list">${highlightTerm(escapeHtml(ex.safetyRiskCategories), currentSearchQuery)}</span>
+            </div>
+          ` : ''}
+        </div>
+        ${ex.explanation ? `
+          <div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.explanation), currentSearchQuery)}</div>
+        ` : ''}
+      </div>
+    `).join('');
+
+    content.innerHTML = resultsHtml;
+    pageInfo.textContent = totalPages > 0 ? `Page ${toxicityPage} of ${totalPages}` : 'No results';
+    prevBtn.disabled = toxicityPage <= 1;
+    nextBtn.disabled = toxicityPage >= totalPages;
   }
 
   function renderToxicityDetail() {
@@ -1418,7 +1576,30 @@
 
     if (!normalizedQuery) {
       filteredExampleCategories = allExampleCategories;
+      filteredExampleResults = [];
     } else {
+      // Collect individual matching examples with category context
+      filteredExampleResults = [];
+      allExampleCategories.forEach(cat => {
+        if (cat.examples) {
+          cat.examples.forEach((ex, index) => {
+            const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+            const inResponse = ex.response && ex.response.toLowerCase().includes(normalizedQuery);
+            const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
+            const inRedirect = ex.redirect && ex.redirect.toLowerCase().includes(normalizedQuery);
+            const inFullRefusal = ex.fullRefusalWithRedirect && ex.fullRefusalWithRedirect.toLowerCase().includes(normalizedQuery);
+            if (inPrompt || inResponse || inExplanation || inRedirect || inFullRefusal) {
+              filteredExampleResults.push({
+                example: ex,
+                category: cat,
+                exampleIndex: index
+              });
+            }
+          });
+        }
+      });
+
+      // Still filter categories for backwards compatibility
       filteredExampleCategories = allExampleCategories.filter(cat => {
         const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
         const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
@@ -1441,7 +1622,28 @@
 
     if (!normalizedQuery) {
       filteredToxicityCategories = allToxicityCategories;
+      filteredToxicityResults = [];
     } else {
+      // Collect individual matching toxicity examples with category context
+      filteredToxicityResults = [];
+      allToxicityCategories.forEach(cat => {
+        if (cat.examples) {
+          cat.examples.forEach((ex, index) => {
+            const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+            const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
+            const inCategories = ex.safetyRiskCategories && ex.safetyRiskCategories.toLowerCase().includes(normalizedQuery);
+            if (inPrompt || inExplanation || inCategories) {
+              filteredToxicityResults.push({
+                example: ex,
+                category: cat,
+                exampleIndex: index
+              });
+            }
+          });
+        }
+      });
+
+      // Still filter categories for backwards compatibility
       filteredToxicityCategories = allToxicityCategories.filter(cat => {
         const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
         const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
@@ -1492,11 +1694,13 @@
     if (activeTab === 'categories') {
       count = filteredTerms.length;
     } else if (activeTab === 'examples') {
-      count = filteredExampleCategories.length;
+      // Show count of individual examples, not categories
+      count = filteredExampleResults.length;
     } else if (activeTab === 'toxicity') {
-      count = filteredToxicityCategories.length;
+      // Show count of individual toxicity examples, not categories
+      count = filteredToxicityResults.length;
     }
-    searchCount.textContent = count;
+    searchCount.textContent = `${count} result${count !== 1 ? 's' : ''}`;
   }
 
   function switchTab(tab) {
@@ -1528,6 +1732,8 @@
     filteredTerms = [...allTerms];
     filteredExampleCategories = RESPONSE_EXAMPLES.categories.filter(cat => !cat.id.startsWith('toxicity-'));
     filteredToxicityCategories = RESPONSE_EXAMPLES.categories.filter(cat => cat.id.startsWith('toxicity-'));
+    filteredExampleResults = [];
+    filteredToxicityResults = [];
     currentPage = 1;
     examplePage = 1;
     toxicityPage = 1;
@@ -1636,16 +1842,28 @@
           renderCategoriesPage(document.getElementById('glossary-search-input').value);
           document.getElementById('glossary-content').scrollTop = 0;
         }
-      } else if (activeTab === 'examples' && activeExampleCategory) {
-        if (examplePage > 1) {
+      } else if (activeTab === 'examples') {
+        if (activeExampleCategory) {
+          if (examplePage > 1) {
+            examplePage--;
+            renderExampleDetail();
+            document.getElementById('glossary-content').scrollTop = 0;
+          }
+        } else if (currentSearchQuery && examplePage > 1) {
           examplePage--;
-          renderExampleDetail();
+          renderExampleSearchResults();
           document.getElementById('glossary-content').scrollTop = 0;
         }
-      } else if (activeTab === 'toxicity' && activeToxicityCategory) {
-        if (toxicityPage > 1) {
+      } else if (activeTab === 'toxicity') {
+        if (activeToxicityCategory) {
+          if (toxicityPage > 1) {
+            toxicityPage--;
+            renderToxicityDetail();
+            document.getElementById('glossary-content').scrollTop = 0;
+          }
+        } else if (currentSearchQuery && toxicityPage > 1) {
           toxicityPage--;
-          renderToxicityDetail();
+          renderToxicitySearchResults();
           document.getElementById('glossary-content').scrollTop = 0;
         }
       }
@@ -1659,21 +1877,39 @@
           renderCategoriesPage(document.getElementById('glossary-search-input').value);
           document.getElementById('glossary-content').scrollTop = 0;
         }
-      } else if (activeTab === 'examples' && activeExampleCategory) {
-        const category = RESPONSE_EXAMPLES.categories.find(c => c.id === activeExampleCategory);
-        const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
-        if (examplePage < totalPages) {
-          examplePage++;
-          renderExampleDetail();
-          document.getElementById('glossary-content').scrollTop = 0;
+      } else if (activeTab === 'examples') {
+        if (activeExampleCategory) {
+          const category = RESPONSE_EXAMPLES.categories.find(c => c.id === activeExampleCategory);
+          const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
+          if (examplePage < totalPages) {
+            examplePage++;
+            renderExampleDetail();
+            document.getElementById('glossary-content').scrollTop = 0;
+          }
+        } else if (currentSearchQuery) {
+          const totalPages = Math.ceil(filteredExampleResults.length / CONFIG.itemsPerPage);
+          if (examplePage < totalPages) {
+            examplePage++;
+            renderExampleSearchResults();
+            document.getElementById('glossary-content').scrollTop = 0;
+          }
         }
-      } else if (activeTab === 'toxicity' && activeToxicityCategory) {
-        const category = RESPONSE_EXAMPLES.categories.find(c => c.id === activeToxicityCategory);
-        const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
-        if (toxicityPage < totalPages) {
-          toxicityPage++;
-          renderToxicityDetail();
-          document.getElementById('glossary-content').scrollTop = 0;
+      } else if (activeTab === 'toxicity') {
+        if (activeToxicityCategory) {
+          const category = RESPONSE_EXAMPLES.categories.find(c => c.id === activeToxicityCategory);
+          const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
+          if (toxicityPage < totalPages) {
+            toxicityPage++;
+            renderToxicityDetail();
+            document.getElementById('glossary-content').scrollTop = 0;
+          }
+        } else if (currentSearchQuery) {
+          const totalPages = Math.ceil(filteredToxicityResults.length / CONFIG.itemsPerPage);
+          if (toxicityPage < totalPages) {
+            toxicityPage++;
+            renderToxicitySearchResults();
+            document.getElementById('glossary-content').scrollTop = 0;
+          }
         }
       }
     });
