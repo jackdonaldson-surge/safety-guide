@@ -1370,7 +1370,7 @@
       border-radius: 12px;
       padding: 1.25rem;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
       position: relative;
       overflow: hidden;
     }
@@ -2100,7 +2100,7 @@
       padding: 1rem;
       margin-bottom: 0.75rem;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .global-search-result:hover {
       border-color: #94a3b8;
@@ -2264,7 +2264,7 @@
       margin-bottom: 1rem;
       overflow: hidden;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .request-type-card:hover {
       border-color: #94a3b8;
@@ -2518,7 +2518,7 @@
       border-radius: 12px;
       padding: 1rem 1.25rem;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -3597,23 +3597,11 @@
         </div>
 
         <div class="policy-flowchart">
-          <!-- START NODE -->
-          <div class="flowchart-node start">
-            <div class="flowchart-node-title">Incoming Request</div>
-            <div class="flowchart-node-subtitle" style="color: #94a3b8;">What type of request is this?</div>
-          </div>
-
-          <!-- Connector with split -->
-          <div class="flowchart-connector">
-            <div class="flowchart-connector-line"></div>
-            <div class="flowchart-connector-arrow"></div>
-          </div>
-
           <!-- TWO BRANCHES -->
           <div class="flowchart-branch-container">
             <!-- NON-GENERATIVE PATH -->
             <div class="flowchart-branch-path">
-              <div class="flowchart-branch-header" style="background: #8b5cf6;">NON-GENERATIVE</div>
+              <div class="flowchart-branch-header" style="background: #10b981;">NON-GENERATIVE</div>
               <div style="font-size: 0.75rem; color: #64748b; text-align: center; margin: 0.5rem 0; padding: 0 0.5rem;">
                 Mechanical tasks: translation, summarization, counting, extraction, formatting
               </div>
@@ -3627,12 +3615,16 @@
               <div class="flowchart-decision-box">
                 <div class="flowchart-decision-title">What is the toxicity level?</div>
                 <div class="flowchart-outcomes">
-                  <div class="flowchart-outcome engage">
-                    <span class="flowchart-outcome-label">GROUNDED ENGAGEMENT</span>
-                    <span class="flowchart-outcome-condition">Benign or Dual-Use content</span>
+                  <div class="flowchart-outcome" style="background: #dbeafe; border-left: 3px solid #3b82f6;">
+                    <span class="flowchart-outcome-label" style="color: #1e40af;">GROUNDED ENGAGEMENT</span>
+                    <span class="flowchart-outcome-condition">Benign content</span>
                   </div>
-                  <div class="flowchart-outcome engage">
-                    <span class="flowchart-outcome-label">GROUNDED ENGAGEMENT</span>
+                  <div class="flowchart-outcome" style="background: #fef3c7; border-left: 3px solid #f59e0b;">
+                    <span class="flowchart-outcome-label" style="color: #92400e;">GROUNDED ENGAGEMENT</span>
+                    <span class="flowchart-outcome-condition">Dual-Use content</span>
+                  </div>
+                  <div class="flowchart-outcome" style="background: #dcfce7; border-left: 3px solid #10b981;">
+                    <span class="flowchart-outcome-label" style="color: #166534;">GROUNDED ENGAGEMENT</span>
                     <span class="flowchart-outcome-condition">Harmful, but task does NOT amplify/enable/encourage harm</span>
                   </div>
                   <div class="flowchart-outcome refuse">
@@ -3662,20 +3654,20 @@
               <div class="flowchart-decision-box">
                 <div class="flowchart-decision-title">What is the toxicity level?</div>
                 <div class="flowchart-outcomes">
-                  <div class="flowchart-outcome engage">
-                    <span class="flowchart-outcome-label">ENGAGE</span>
+                  <div class="flowchart-outcome" style="background: #dbeafe; border-left: 3px solid #3b82f6;">
+                    <span class="flowchart-outcome-label" style="color: #1e40af;">ENGAGE</span>
                     <span class="flowchart-outcome-condition">Benign — Harm-free engagement</span>
                   </div>
-                  <div class="flowchart-outcome engage">
-                    <span class="flowchart-outcome-label">ENGAGE</span>
+                  <div class="flowchart-outcome" style="background: #fef3c7; border-left: 3px solid #f59e0b;">
+                    <span class="flowchart-outcome-label" style="color: #92400e;">ENGAGE</span>
                     <span class="flowchart-outcome-condition">Dual-Use — Assume good intent</span>
                   </div>
                   <div class="flowchart-outcome refuse">
                     <span class="flowchart-outcome-label">FULL REFUSAL</span>
                     <span class="flowchart-outcome-condition">Harmful — No harm-free response possible</span>
                   </div>
-                  <div class="flowchart-outcome refuse">
-                    <span class="flowchart-outcome-label">FULL REFUSAL</span>
+                  <div class="flowchart-outcome" style="background: #ede9fe; border-left: 3px solid #8b5cf6;">
+                    <span class="flowchart-outcome-label" style="color: #5b21b6;">FULL REFUSAL</span>
                     <span class="flowchart-outcome-condition">Jailbreak — Manipulation attempt</span>
                   </div>
                 </div>
@@ -3683,13 +3675,10 @@
             </div>
           </div>
 
-          <!-- MIXED REQUESTS SECTION -->
-          <div class="flowchart-connector">
-            <div class="flowchart-connector-line" style="height: 30px;"></div>
-          </div>
-
-          <div class="flowchart-mixed-section">
-            <div class="flowchart-mixed-title">Mixed Requests (multiple asks in one prompt)</div>
+          <!-- MIXED REQUESTS SECTION - applies to both branches -->
+          <div class="flowchart-mixed-section" style="margin-top: 1.5rem;">
+            <div class="flowchart-mixed-title">Mixed Requests — applies to both Generative and Non-Generative</div>
+            <div style="font-size: 0.8rem; color: #64748b; text-align: center; margin-bottom: 0.75rem;">When a prompt contains multiple asks</div>
             <div class="flowchart-mixed-outcomes">
               <div class="flowchart-mixed-item">
                 <span class="flowchart-action refuse">FULL REFUSAL</span>
