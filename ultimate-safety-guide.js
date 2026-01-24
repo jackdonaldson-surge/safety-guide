@@ -1236,7 +1236,7 @@
     const guideHtml = `
       <div class="toxicity-guide">
         <h3>${ICONS.info} Understanding Toxicity Levels</h3>
-        <p class="toxicity-guide-intro">Toxicity classification is not simply about user content or their intent—it depends heavily on <strong>whether a harm-free response is possible</strong>. A prompt touching on sensitive topics may still be safe to answer if the information can be provided without enabling harm or providing harmful content. When we say "harm-free", we mean a response that does not meet any of the "Harmful Output Characteristics".</p>
+        <p class="toxicity-guide-intro">Toxicity classification is not simply about user content or their intent—it depends heavily on <strong>whether a harm-free response is possible</strong>. A prompt touching on sensitive topics may still be safe to answer if the information can be provided without enabling harm or producing harmful content. When we say "harm-free", we mean a response that does not meet any of the "Harmful Output Characteristics".</p>
         <div class="toxicity-levels-list">
           <div class="toxicity-level-item">
             <span class="toxicity-level-badge" style="background: #10b981;">Safe</span>
