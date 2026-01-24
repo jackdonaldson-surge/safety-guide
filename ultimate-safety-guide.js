@@ -1147,6 +1147,11 @@
       justify-content: center;
       text-align: center;
     }
+    .glossary-header h2 svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
     .glossary-close {
       background: rgba(255,255,255,0.15);
       border: none;
