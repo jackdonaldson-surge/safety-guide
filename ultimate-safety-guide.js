@@ -3814,7 +3814,7 @@
 
         <div class="about-section">
           <h3>Why Safety Training Matters</h3>
-          <p>Even when a topic may not seem sensitive or obviously harmful, it is important that LLMs respond appropriately, safely, and in a harm-free way.</p>
+          <p>Even when a topic may not seem sensitive or obviously harmful, it is important that LLMs respond appropriately and in a harm-free way.</p>
         </div>
 
         <div class="about-tips">
