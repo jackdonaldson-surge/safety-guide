@@ -2151,6 +2151,7 @@
     .tree-distress-left {
       position: absolute;
       right: calc(50% + 2.5rem);
+      top: 0;
       display: flex;
       align-items: center;
       gap: 0.25rem;
