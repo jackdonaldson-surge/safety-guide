@@ -1013,7 +1013,7 @@
   let currentPage = 1;
   let filteredTerms = [];
   let allTerms = [];
-  let activeTab = 'categories';
+  let activeTab = 'about';
   let activeExampleCategory = null;
   let activeToxicityCategory = null;
   let examplePage = 1;
@@ -1243,6 +1243,110 @@
     .glossary-content::-webkit-scrollbar { width: 8px; }
     .glossary-content::-webkit-scrollbar-track { background: transparent; }
     .glossary-content::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+
+    /* About Page Styles */
+    .about-page {
+      padding: 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .about-welcome {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .about-welcome h2 {
+      font-size: 1.5rem;
+      color: #1e293b;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .about-welcome h2 svg {
+      width: 28px;
+      height: 28px;
+      color: #22c55e;
+    }
+    .about-welcome p {
+      color: #475569;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+    .about-note {
+      display: flex;
+      gap: 1rem;
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 1px solid #f59e0b;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .about-note-icon {
+      flex-shrink: 0;
+    }
+    .about-note-icon svg {
+      width: 24px;
+      height: 24px;
+      color: #d97706;
+    }
+    .about-note-content {
+      color: #92400e;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .about-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .about-section h3 {
+      font-size: 1.1rem;
+      color: #1e293b;
+      margin-bottom: 0.75rem;
+    }
+    .about-section p {
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .about-section p:last-child {
+      margin-bottom: 0;
+    }
+    .about-link {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .about-link:hover {
+      text-decoration: underline;
+    }
+    .about-tips {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .about-tips h3 {
+      font-size: 1.1rem;
+      color: #1e293b;
+      margin-bottom: 0.75rem;
+    }
+    .about-tips ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .about-tips li {
+      color: #475569;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .about-tips li:last-child {
+      border-bottom: none;
+    }
 
     @keyframes glossaryFadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -3491,7 +3595,11 @@
           </div>
         </div>
         <div class="glossary-tabs">
-          <button class="glossary-tab active" data-tab="categories">
+          <button class="glossary-tab active" data-tab="about">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            About
+          </button>
+          <button class="glossary-tab" data-tab="categories">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
             Risk Categories
           </button>
@@ -3616,6 +3724,50 @@
     if (!query) return text;
     const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
     return text.replace(regex, '<span class="glossary-highlight">$1</span>');
+  }
+
+  function renderAboutPage() {
+    const content = document.getElementById('glossary-content');
+    const searchCount = document.getElementById('glossary-search-count');
+
+    searchCount.textContent = '';
+    hidePagination();
+
+    content.innerHTML = `
+      <div class="about-page">
+        <div class="about-welcome">
+          <h2>${ICONS.shieldCheck} Welcome to the Safety Risk Guide</h2>
+          <p>This guide is an easy-to-use resource for searching definitions, safety risk categories, response types, and finding examples of ideal responses.</p>
+        </div>
+
+        <div class="about-note">
+          <div class="about-note-icon">${ICONS.info}</div>
+          <div class="about-note-content">
+            <strong>Important:</strong> This guide is not meant to be read front-to-back or to replace project instructions. Its most powerful use is for you to quickly find answers or reference important information when you need it.
+          </div>
+        </div>
+
+        <div class="about-section">
+          <h3>Why Safety Training Matters</h3>
+          <p>Even when a topic may not seem sensitive or obviously harmful, it is important that LLMs respond appropriately, safely, and in a harm-free way. Training models to handle all types of requests thoughtfully helps ensure they are helpful while avoiding potential harms.</p>
+          <p>
+            <a href="#" class="about-link" onclick="switchTab('harmful-output'); return false;">
+              Check out the Response Characteristics tab →
+            </a>
+            to learn more about what harm-free, appropriate responses look like.
+          </p>
+        </div>
+
+        <div class="about-tips">
+          <h3>Quick Tips</h3>
+          <ul>
+            <li><strong>Search:</strong> Use the search bar to find any term, category, or example</li>
+            <li><strong>Tabs:</strong> Navigate between different sections using the tabs above</li>
+            <li><strong>Keyboard:</strong> Press 1-7 to quickly switch between tabs</li>
+          </ul>
+        </div>
+      </div>
+    `;
   }
 
   function renderCategoriesPage(query = '') {
@@ -4564,6 +4716,7 @@
 
     // Tab colors for badges
     const tabColors = {
+      'about': '#6366f1',
       'categories': '#1e40af',
       'examples': '#059669',
       'toxicity': '#7c3aed',
@@ -4573,6 +4726,7 @@
     };
 
     const tabLabels = {
+      'about': 'About',
       'categories': 'Risk Categories',
       'examples': 'Response Examples',
       'toxicity': 'Toxicity Levels',
@@ -6015,7 +6169,9 @@
 
     // No search query - render based on active tab
     globalSearchResults = [];
-    if (activeTab === 'categories') {
+    if (activeTab === 'about') {
+      renderAboutPage();
+    } else if (activeTab === 'categories') {
       renderCategoriesPage(query);
     } else if (activeTab === 'examples') {
       if (activeExampleCategory) {
@@ -6132,20 +6288,20 @@
     toxicityPage = 1;
     requestTypePage = 1;
     globalSearchPage = 1;
-    activeTab = 'categories';
+    activeTab = 'about';
     activeExampleCategory = null;
     activeToxicityCategory = null;
     activeRequestTypeCategory = null;
     activeWritingGuideSection = null;
 
     document.querySelectorAll('.glossary-tab').forEach(t => {
-      t.classList.toggle('active', t.dataset.tab === 'categories');
+      t.classList.toggle('active', t.dataset.tab === 'about');
     });
     document.getElementById('glossary-search-container').style.display = 'block';
     document.getElementById('glossary-search-count').textContent = '';
 
     // Reset breadcrumbs to initial state
-    updateBreadcrumbs(getBreadcrumbsForTab('categories'));
+    updateBreadcrumbs(getBreadcrumbsForTab('about'));
 
     // Show TOC toggle button
     const tocToggle = document.getElementById('toc-toggle-btn');
@@ -6343,6 +6499,7 @@
 
   function getBreadcrumbsForTab(tabId) {
     const tabNames = {
+      'about': 'About',
       'categories': 'Risk Categories',
       'toxicity': 'Toxicity Levels',
       'request-types': 'Request Types',
@@ -6590,10 +6747,10 @@
     }
 
     // Tab navigation with number keys
-    if (e.key >= '1' && e.key <= '6' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    if (e.key >= '1' && e.key <= '7' && !e.ctrlKey && !e.metaKey && !e.altKey) {
       const searchInput = document.getElementById('glossary-search-input');
       if (document.activeElement !== searchInput) {
-        const tabs = ['categories', 'toxicity', 'request-types', 'writing-guide', 'examples', 'harmful-output'];
+        const tabs = ['about', 'categories', 'toxicity', 'request-types', 'writing-guide', 'examples', 'harmful-output'];
         const tabIndex = parseInt(e.key) - 1;
         if (tabs[tabIndex]) {
           switchTab(tabs[tabIndex]);
