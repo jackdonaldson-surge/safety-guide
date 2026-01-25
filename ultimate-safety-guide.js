@@ -2219,14 +2219,15 @@
       border-radius: 6px 6px 0 0;
       width: 100%;
       text-align: center;
+      border: 2px solid transparent;
+      border-bottom: none;
     }
-    .tree-bucket-header.benign-dual { background: #dbeafe; color: #1e40af; }
-    .tree-bucket-header.jailbreak { background: #ede9fe; color: #5b21b6; }
-    .tree-bucket-header.harmful { background: #fee2e2; color: #991b1b; }
+    .tree-bucket-header.benign-dual { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+    .tree-bucket-header.jailbreak { background: #ede9fe; color: #5b21b6; border-color: #c4b5fd; }
+    .tree-bucket-header.harmful { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
     .tree-bucket-body {
       background: #f5f7fa;
       border: 2px solid #cbd5e1;
-      border-top: none;
       border-radius: 0 0 8px 8px;
       padding: 0.65rem;
       width: 100%;
