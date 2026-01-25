@@ -2158,8 +2158,9 @@
       gap: 0.25rem;
     }
     .tree-distress-left .tree-outcome {
-      font-size: 0.65rem;
-      padding: 0.25rem 0.4rem;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.6rem;
+      white-space: nowrap;
     }
     .tree-arrow-left {
       color: #94a3b8;
