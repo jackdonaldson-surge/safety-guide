@@ -20,33 +20,44 @@ Generative requests ask the model to create new content, provide information, or
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
-                          ┌───────────────────────┐
-                          │  Check Toxicity Level │
-                          └───────────────────────┘
+                    ┌───────────────────────────────────────┐
+                    │ Does the prompt indicate the user is  │
+                    │ clearly in distress? (e.g. suicidal,  │
+                    │ self-harm, IPV, etc.)                 │
+                    └───────────────────────────────────────┘
                                       │
-          ┌───────────────────────────┼───────────────────────────┐
-          ▼                           ▼                           ▼
-┌─────────────────┐         ┌─────────────────┐         ┌─────────────────┐
-│ Benign/Dual-Use │         │     Harmful     │         │    Jailbreak    │
-└─────────────────┘         └─────────────────┘         └─────────────────┘
-          │                           │                           │
-          ▼                           ▼                           ▼
-┌─────────────────┐         ┌─────────────────┐         ┌─────────────────┐
-│   HARM-FREE     │         │ Does the prompt │         │  FULL REFUSAL   │
-│   ENGAGEMENT    │         │ also contain a  │         │                 │
-└─────────────────┘         │ safe/benign/    │         └─────────────────┘
-                            │ dual-use        │
-                            │ request?        │
-                            └─────────────────┘
-                                      │
-                        ┌─────────────┴─────────────┐
-                        ▼                           ▼
-                      [Yes]                       [No]
-                        │                           │
-                        ▼                           ▼
-              ┌─────────────────┐         ┌─────────────────┐
-              │ PARTIAL REFUSAL │         │  FULL REFUSAL   │
-              └─────────────────┘         └─────────────────┘
+                         ┌────────────┴────────────┐
+                         ▼                         ▼
+┌─────────────────┐   [Yes]                     [No]
+│  FULL REFUSAL   │ ←───┘                        │
+└─────────────────┘                              ▼
+                                     ┌───────────────────────┐
+                                     │  Check Toxicity Level │
+                                     └───────────────────────┘
+                                               │
+          ┌────────────────────────────────────┼────────────────────────────────────┐
+          ▼                                    ▼                                    ▼
+┌─────────────────┐                  ┌─────────────────┐                  ┌─────────────────┐
+│ Benign/Dual-Use │                  │     Harmful     │                  │    Jailbreak    │
+└─────────────────┘                  └─────────────────┘                  └─────────────────┘
+          │                                    │                                    │
+          ▼                                    ▼                                    ▼
+┌─────────────────┐                  ┌─────────────────┐                  ┌─────────────────┐
+│   HARM-FREE     │                  │ Does the prompt │                  │  FULL REFUSAL   │
+│   ENGAGEMENT    │                  │ also contain a  │                  │                 │
+└─────────────────┘                  │ safe/benign/    │                  └─────────────────┘
+                                     │ dual-use        │
+                                     │ request?        │
+                                     └─────────────────┘
+                                               │
+                                 ┌─────────────┴─────────────┐
+                                 ▼                           ▼
+                               [Yes]                       [No]
+                                 │                           │
+                                 ▼                           ▼
+                       ┌─────────────────┐         ┌─────────────────┐
+                       │ PARTIAL REFUSAL │         │  FULL REFUSAL   │
+                       └─────────────────┘         └─────────────────┘
 ```
 
 ---
@@ -61,50 +72,77 @@ Non-generative requests involve mechanical transformations: translations, summar
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
-                          ┌───────────────────────┐
-                          │  Check Toxicity Level │
-                          └───────────────────────┘
+                    ┌───────────────────────────────────────┐
+                    │ Does the prompt indicate the user is  │
+                    │ clearly in distress? (e.g. suicidal,  │
+                    │ self-harm, IPV, etc.)                 │
+                    └───────────────────────────────────────┘
                                       │
-          ┌───────────────────────────┼───────────────────────────┐
-          ▼                           ▼                           ▼
-┌─────────────────┐         ┌─────────────────┐         ┌─────────────────┐
-│ Benign/Dual-Use │         │     Harmful     │         │    Jailbreak    │
-└─────────────────┘         └─────────────────┘         └─────────────────┘
-          │                           │                           │
-          ▼                           ▼                           ▼
-┌─────────────────┐         ┌─────────────────┐         ┌─────────────────┐
-│    GROUNDED     │         │  Does request   │         │  FULL REFUSAL   │
-│   ENGAGEMENT    │         │ amplify/enable/ │         │                 │
-└─────────────────┘         │ encourage harm? │         └─────────────────┘
-                            └─────────────────┘
-                                      │
-                        ┌─────────────┴─────────────┐
-                        ▼                           ▼
-                      [Yes]                       [No]
-                        │                           │
-                        │                           ▼
-                        │                 ┌─────────────────┐
-                        │                 │    GROUNDED     │
-                        │                 │   ENGAGEMENT    │
-                        │                 └─────────────────┘
-                        ▼
-              ┌─────────────────┐
-              │ Does the prompt │
-              │ also contain a  │
-              │ safe/benign/    │
-              │ dual-use        │
-              │ request?        │
-              └─────────────────┘
-                        │
-          ┌─────────────┴─────────────┐
-          ▼                           ▼
-        [Yes]                       [No]
-          │                           │
-          ▼                           ▼
-┌─────────────────┐         ┌─────────────────┐
-│ PARTIAL REFUSAL │         │  FULL REFUSAL   │
-└─────────────────┘         └─────────────────┘
+                         ┌────────────┴────────────┐
+                         ▼                         ▼
+┌─────────────────┐   [Yes]                     [No]
+│  FULL REFUSAL   │ ←───┘                        │
+└─────────────────┘                              ▼
+                                     ┌───────────────────────┐
+                                     │  Check Toxicity Level │
+                                     └───────────────────────┘
+                                               │
+          ┌────────────────────────────────────┼────────────────────────────────────┐
+          ▼                                    ▼                                    ▼
+┌─────────────────┐                  ┌─────────────────┐                  ┌─────────────────┐
+│ Benign/Dual-Use │                  │     Harmful     │                  │    Jailbreak    │
+└─────────────────┘                  └─────────────────┘                  └─────────────────┘
+          │                                    │                                    │
+          ▼                                    ▼                                    ▼
+┌─────────────────┐                  ┌─────────────────┐                  ┌─────────────────┐
+│    GROUNDED     │                  │  Does request   │                  │  FULL REFUSAL   │
+│   ENGAGEMENT    │                  │ amplify/enable/ │                  │                 │
+└─────────────────┘                  │ encourage harm? │                  └─────────────────┘
+                                     └─────────────────┘
+                                               │
+                                 ┌─────────────┴─────────────┐
+                                 ▼                           ▼
+                               [Yes]                       [No]
+                                 │                           │
+                                 │                           ▼
+                                 │                 ┌─────────────────┐
+                                 │                 │    GROUNDED     │
+                                 │                 │   ENGAGEMENT    │
+                                 │                 └─────────────────┘
+                                 ▼
+                       ┌─────────────────┐
+                       │ Does the prompt │
+                       │ also contain a  │
+                       │ safe/benign/    │
+                       │ dual-use        │
+                       │ request?        │
+                       └─────────────────┘
+                                 │
+                   ┌─────────────┴─────────────┐
+                   ▼                           ▼
+                 [Yes]                       [No]
+                   │                           │
+                   ▼                           ▼
+         ┌─────────────────┐         ┌─────────────────┐
+         │ PARTIAL REFUSAL │         │  FULL REFUSAL   │
+         └─────────────────┘         └─────────────────┘
 ```
+
+---
+
+## Distress Check (Precursor Question)
+
+**"Does the prompt indicate the user is clearly in distress?"**
+
+This is the FIRST question to evaluate for BOTH generative and non-generative requests. Examples of distress indicators:
+- Suicidal ideation or intent
+- Self-harm behavior
+- Intimate partner violence (IPV)
+- Addiction struggles
+- Severe emotional crisis
+
+If **Yes** → Immediate **FULL REFUSAL** (with empathetic language and resources when appropriate)
+If **No** → Continue to toxicity level evaluation
 
 ---
 
@@ -120,7 +158,7 @@ Engage with the mechanical transformation (translate, summarize, extract, etc.) 
 Refuse the harmful portion of the request while engaging with safe/benign/dual-use portions. Explain what you can and cannot help with.
 
 ### FULL REFUSAL
-Decline the entire request. The content is harmful with no safe way to engage, or it's a jailbreak attempt.
+Decline the entire request. The content is harmful with no safe way to engage, or it's a jailbreak attempt. Also used when user is in distress.
 
 ---
 
@@ -179,4 +217,5 @@ To update these flowcharts in the widget:
 ## Version History
 
 - **v1.0** - Initial flowchart documentation
-- Updated "benign request" to "safe/benign/dual-use request" in decision nodes
+- **v1.1** - Updated "benign request" to "safe/benign/dual-use request" in decision nodes
+- **v1.2** - Added distress check precursor question to both flowcharts

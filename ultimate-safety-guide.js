@@ -2117,6 +2117,57 @@
       color: #475569;
       text-align: center;
     }
+    /* Distress check precursor */
+    .tree-distress-check {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      max-width: 340px;
+    }
+    .tree-distress-question {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #92400e;
+      line-height: 1.4;
+    }
+    .tree-distress-examples {
+      display: block;
+      font-weight: 400;
+      font-size: 0.75rem;
+      color: #b45309;
+      margin-top: 0.25rem;
+    }
+    .tree-distress-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 0.25rem 0;
+    }
+    .tree-distress-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tree-arrow-left {
+      color: #94a3b8;
+      font-size: 1.2rem;
+    }
+    .tree-distress-options {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+    .tree-distress-yes,
+    .tree-distress-no {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.5rem;
+    }
     /* Horizontal toxicity buckets */
     .tree-toxicity-row {
       display: flex;
@@ -4159,6 +4210,30 @@
               <span class="tree-type-badge generative">GENERATIVE</span>
             </div>
             <div class="tree-vline"></div>
+            <!-- Distress Check Precursor -->
+            <div class="tree-distress-check">
+              <div class="tree-distress-question">
+                Does the prompt indicate the user is clearly in distress?
+                <span class="tree-distress-examples">(e.g. suicidal, self-harm, IPV, etc.)</span>
+              </div>
+            </div>
+            <div class="tree-vline"></div>
+            <div class="tree-distress-row">
+              <div class="tree-distress-left">
+                <span class="tree-outcome refuse">FULL REFUSAL</span>
+                <span class="tree-arrow-left">←</span>
+              </div>
+              <div class="tree-distress-options">
+                <div class="tree-distress-yes">
+                  <span class="tree-sub-option-label">Yes</span>
+                </div>
+                <div class="tree-distress-no">
+                  <span class="tree-sub-option-label">No</span>
+                  <span class="tree-bucket-arrow">↓</span>
+                </div>
+              </div>
+            </div>
+            <div class="tree-vline"></div>
             <div class="tree-check-node">Check Toxicity Level</div>
             <div class="tree-vline"></div>
 
@@ -4209,6 +4284,30 @@
           <div class="tree-section">
             <div class="tree-section-header">
               <span class="tree-type-badge non-generative">NON-GENERATIVE</span>
+            </div>
+            <div class="tree-vline"></div>
+            <!-- Distress Check Precursor -->
+            <div class="tree-distress-check">
+              <div class="tree-distress-question">
+                Does the prompt indicate the user is clearly in distress?
+                <span class="tree-distress-examples">(e.g. suicidal, self-harm, IPV, etc.)</span>
+              </div>
+            </div>
+            <div class="tree-vline"></div>
+            <div class="tree-distress-row">
+              <div class="tree-distress-left">
+                <span class="tree-outcome refuse">FULL REFUSAL</span>
+                <span class="tree-arrow-left">←</span>
+              </div>
+              <div class="tree-distress-options">
+                <div class="tree-distress-yes">
+                  <span class="tree-sub-option-label">Yes</span>
+                </div>
+                <div class="tree-distress-no">
+                  <span class="tree-sub-option-label">No</span>
+                  <span class="tree-bucket-arrow">↓</span>
+                </div>
+              </div>
             </div>
             <div class="tree-vline"></div>
             <div class="tree-check-node">Check Toxicity Level</div>
