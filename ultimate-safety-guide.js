@@ -4177,7 +4177,7 @@
                 <div class="tree-bucket-header harmful">Harmful</div>
                 <div class="tree-bucket-body">
                   <div class="tree-bucket-arrow">↓</div>
-                  <div class="tree-sub-decision">Does the prompt also contain a benign request?</div>
+                  <div class="tree-sub-decision">Does the prompt also contain a safe/benign/dual-use request?</div>
                   <div class="tree-sub-vertical">
                     <div class="tree-sub-vertical-option">
                       <span class="tree-sub-option-label">Yes</span>
@@ -4234,7 +4234,7 @@
                     <div class="tree-path-yes">
                       <span class="tree-sub-option-label">Yes</span>
                       <span class="tree-bucket-arrow">↓</span>
-                      <div class="tree-sub-nested-question">Does the prompt also contain a benign request?</div>
+                      <div class="tree-sub-nested-question">Does the prompt also contain a safe/benign/dual-use request?</div>
                       <div class="tree-sub-vertical">
                         <div class="tree-sub-vertical-option">
                           <span class="tree-sub-option-label">Yes</span>
