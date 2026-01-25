@@ -4991,7 +4991,9 @@
       resultEl.addEventListener('click', () => {
         const index = parseInt(resultEl.getAttribute('data-result-index'));
         const result = globalSearchResults[index];
-        navigateToSearchResult(result);
+        if (result) {
+          navigateToSearchResult(result);
+        }
       });
     });
   }
