@@ -1227,7 +1227,7 @@
       transform: translateY(-50%);
       font-size: 0.75rem;
       color: #64748b;
-      background: #e2e8f0;
+      background: #cbd5e1;
       padding: 0.25em 0.6em;
       border-radius: 6px;
       font-weight: 500;
@@ -1243,7 +1243,7 @@
     }
     .glossary-content::-webkit-scrollbar { width: 8px; }
     .glossary-content::-webkit-scrollbar-track { background: transparent; }
-    .glossary-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .glossary-content::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
 
     @keyframes glossaryFadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -1252,7 +1252,7 @@
 
     .glossary-entry {
       padding: 1.5rem;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
       background: #f5f7fa;
     }
     .glossary-term {
@@ -1290,7 +1290,7 @@
     .glossary-examples-header svg { width: 14px; height: 14px; }
     .glossary-examples-list {
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 10px;
       padding: 0;
       margin: 0;
@@ -1300,7 +1300,7 @@
     }
     .glossary-example-item {
       padding: 0.9rem 1rem 0.9rem 2.5rem;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
       font-size: 0.95rem;
       color: #334155;
       line-height: 1.6;
@@ -1317,7 +1317,7 @@
       font-size: 0.7rem;
       font-weight: 700;
       color: #64748b;
-      background: #e2e8f0;
+      background: #cbd5e1;
       width: 20px;
       height: 20px;
       border-radius: 50%;
@@ -1331,7 +1331,7 @@
       font-size: 0.85rem;
       color: #64748b;
       padding-top: 0.75rem;
-      border-top: 1px dashed #e2e8f0;
+      border-top: 1px dashed #cbd5e1;
     }
     .glossary-see-also span { color: #2563eb; cursor: pointer; font-weight: 500; }
     .glossary-see-also span:hover { text-decoration: underline; }
@@ -1341,7 +1341,7 @@
 
     .glossary-footer {
       padding: 1rem 1.5rem;
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid #cbd5e1;
       background: #f5f7fa;
       display: flex;
       justify-content: space-between;
@@ -1352,7 +1352,7 @@
     .glossary-pagination { display: flex; gap: 0.5rem; }
     .glossary-btn {
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       color: #475569;
       padding: 0.6em 1.1em;
       font-family: inherit;
@@ -1365,7 +1365,7 @@
       gap: 0.4rem;
       font-weight: 600;
     }
-    .glossary-btn:hover:not(:disabled) { background: #f5f7fa; border-color: #cbd5e1; }
+    .glossary-btn:hover:not(:disabled) { background: #f5f7fa; border-color: #94a3b8; }
     .glossary-btn:disabled { opacity: 0.4; cursor: not-allowed; }
     .glossary-btn svg { width: 14px; height: 14px; }
 
@@ -1380,7 +1380,7 @@
     }
     .example-category-card {
       background: #f5f7fa;
-      border: 2px solid #e2e8f0;
+      border: 2px solid #cbd5e1;
       border-radius: 12px;
       padding: 1.25rem;
       cursor: pointer;
@@ -1475,7 +1475,7 @@
     .example-detail-header {
       padding: 1rem 1.5rem;
       background: #f5f7fa;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -1490,7 +1490,7 @@
     }
     .example-back-btn {
       background: #eef1f5;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       color: #475569;
       padding: 0.5rem 0.9rem;
       font-family: inherit;
@@ -1503,7 +1503,7 @@
       font-weight: 600;
       transition: background 0.2s ease, color 0.2s ease;
     }
-    .example-back-btn:hover { background: #e2e8f0; color: #1e293b; }
+    .example-back-btn:hover { background: #cbd5e1; color: #1e293b; }
     .example-back-btn svg { width: 16px; height: 16px; }
     .example-detail-title {
       font-size: 1.1rem;
@@ -1518,7 +1518,7 @@
 
     .example-item {
       padding: 1.5rem;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
       background: #f5f7fa;
     }
     .example-label {
@@ -1540,7 +1540,7 @@
     .example-label svg { width: 14px; height: 14px; }
     .example-text {
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
       padding: 1rem;
       font-size: 0.98rem;
@@ -1650,7 +1650,7 @@
     /* Toxicity Guide Styles */
     .toxicity-guide {
       background: linear-gradient(135deg, #f5f7fa 0%, #eef1f5 100%);
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
       padding: 1.25rem;
       margin-bottom: 1.5rem;
@@ -1716,7 +1716,7 @@
     /* Harmful Output Characteristics Styles */
     .harmful-output-intro {
       background: linear-gradient(135deg, #f5f7fa 0%, #eef1f5 100%);
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
       padding: 1.25rem;
       margin-bottom: 1.5rem;
@@ -1750,7 +1750,7 @@
       background: #f5f7fa;
       border-radius: 8px;
       overflow: hidden;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
     }
     .harmful-output-table th {
       background: linear-gradient(135deg, #f5f7fa 0%, #eef1f5 100%);
@@ -1758,7 +1758,7 @@
       text-align: left;
       font-weight: 600;
       color: #1e293b;
-      border-bottom: 2px solid #e2e8f0;
+      border-bottom: 2px solid #cbd5e1;
     }
     .harmful-output-table td {
       padding: 0.65rem 1rem;
@@ -1773,7 +1773,7 @@
       background: #f5f7fa;
     }
     .harmful-output-table tr.category-first-row td {
-      border-top: 2px solid #cbd5e1;
+      border-top: 2px solid #94a3b8;
       padding-top: 0.85rem;
     }
     .harmful-output-table tbody tr:first-child.category-first-row td {
@@ -1806,7 +1806,7 @@
     .output-section {
       margin-bottom: 2.5rem;
       padding-bottom: 1.5rem;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
       contain: layout style;
     }
     .output-section:last-child {
@@ -1825,7 +1825,7 @@
     }
     .flowchart-node {
       background: #f5f7fa;
-      border: 2px solid #e2e8f0;
+      border: 2px solid #cbd5e1;
       border-radius: 12px;
       padding: 1rem 1.5rem;
       text-align: center;
@@ -1877,14 +1877,14 @@
     .flowchart-connector-line {
       width: 2px;
       height: 20px;
-      background: #cbd5e1;
+      background: #94a3b8;
     }
     .flowchart-connector-arrow {
       width: 0;
       height: 0;
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
-      border-top: 8px solid #cbd5e1;
+      border-top: 8px solid #94a3b8;
     }
     .flowchart-connector-label {
       font-size: 0.75rem;
@@ -1917,7 +1917,7 @@
     }
     .flowchart-decision-box {
       background: #f5f7fa;
-      border: 2px solid #e2e8f0;
+      border: 2px solid #cbd5e1;
       border-radius: 10px;
       padding: 1rem;
       width: 100%;
@@ -1988,7 +1988,7 @@
       flex-direction: column;
       gap: 0.4rem;
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
       padding: 0.5rem 0.6rem;
     }
@@ -1998,7 +1998,7 @@
       color: #475569;
       text-align: center;
       padding-bottom: 0.3rem;
-      border-bottom: 1px dashed #cbd5e1;
+      border-bottom: 1px dashed #94a3b8;
     }
     .flowchart-decision-options {
       display: flex;
@@ -2089,7 +2089,7 @@
     .tree-section + .tree-section {
       margin-top: 2rem;
       padding-top: 2rem;
-      border-top: 1px solid #cbd5e1;
+      border-top: 1px solid #94a3b8;
     }
     .tree-section-header {
       display: flex;
@@ -2114,7 +2114,7 @@
     }
     .tree-check-node {
       background: #eef1f5;
-      border: 2px solid #cbd5e1;
+      border: 2px solid #94a3b8;
       border-radius: 6px;
       padding: 0.3rem 0.6rem;
       font-weight: 600;
@@ -2225,7 +2225,7 @@
     .tree-bucket-header.harmful { background: #fee2e2; color: #991b1b; }
     .tree-bucket-body {
       background: #f5f7fa;
-      border: 2px solid #e2e8f0;
+      border: 2px solid #cbd5e1;
       border-top: none;
       border-radius: 0 0 8px 8px;
       padding: 0.65rem;
@@ -2280,13 +2280,13 @@
       width: 1px;
       height: 100%;
       min-height: 55px;
-      background: #e2e8f0;
+      background: #cbd5e1;
       margin: 0;
     }
     .tree-sub-nested {
       margin-top: 0.5rem;
       padding-top: 0.5rem;
-      border-top: 1px dashed #e2e8f0;
+      border-top: 1px dashed #cbd5e1;
     }
     .tree-sub-nested-question {
       font-size: 0.75rem;
@@ -2316,7 +2316,7 @@
     .tree-paths-divider {
       width: 1px;
       min-height: 120px;
-      background: #e2e8f0;
+      background: #cbd5e1;
       align-self: stretch;
     }
     .tree-note {
@@ -2467,7 +2467,7 @@
     .global-search-header {
       margin-bottom: 1.25rem;
       padding-bottom: 0.75rem;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
     }
     .global-search-header h3 {
       margin: 0;
@@ -2484,7 +2484,7 @@
     }
     .global-search-result {
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 10px;
       padding: 1rem;
       margin-bottom: 0.75rem;
@@ -2558,7 +2558,7 @@
     /* Request Types Styles */
     .request-types-intro {
       background: linear-gradient(135deg, #f5f7fa 0%, #eef1f5 100%);
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
       padding: 1.25rem;
       margin-bottom: 1.5rem;
@@ -2584,7 +2584,7 @@
     }
     .request-type-definition {
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
       margin-bottom: 1rem;
       overflow: hidden;
@@ -2630,7 +2630,7 @@
       gap: 0.4rem;
       padding: 0.5rem 0.9rem;
       background: #eef1f5;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
       color: #475569;
       font-size: 0.85rem;
@@ -2639,7 +2639,7 @@
       transition: background 0.2s ease, color 0.2s ease;
     }
     .request-type-examples-link:hover {
-      background: #e2e8f0;
+      background: #cbd5e1;
       color: #1e293b;
     }
     .request-type-examples-link svg {
@@ -2648,7 +2648,7 @@
     }
     .request-type-card {
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
       margin-bottom: 1rem;
       overflow: hidden;
@@ -2705,7 +2705,7 @@
       gap: 1rem;
       margin-bottom: 1.5rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
     }
     .request-type-detail-icon {
       width: 48px;
@@ -2782,7 +2782,7 @@
     }
     .request-type-example {
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
       padding: 1rem;
       margin-bottom: 0.75rem;
@@ -2823,7 +2823,7 @@
       gap: 0.5rem;
       padding: 0.5rem 1rem;
       background: #eef1f5;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
       color: #475569;
       font-size: 0.85rem;
@@ -2831,7 +2831,7 @@
       transition: background 0.2s ease, color 0.2s ease;
     }
     .request-type-back-btn:hover {
-      background: #e2e8f0;
+      background: #cbd5e1;
       color: #1e293b;
     }
     .request-type-back-btn svg {
@@ -2865,7 +2865,7 @@
     }
     .writing-guide-rules {
       background: #eef1f5;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #94a3b8;
       border-radius: 12px;
       padding: 1.25rem;
       margin-bottom: 1.5rem;
@@ -2903,7 +2903,7 @@
     }
     .writing-guide-section-card {
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
       padding: 1rem 1.25rem;
       cursor: pointer;
@@ -3026,7 +3026,7 @@
     }
     .writing-guide-example {
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
       padding: 1rem;
       margin-bottom: 0.75rem;
@@ -3043,7 +3043,7 @@
       font-size: 0.95rem;
       margin-bottom: 0.75rem;
       padding-bottom: 0.75rem;
-      border-bottom: 1px dashed #e2e8f0;
+      border-bottom: 1px dashed #cbd5e1;
     }
     .writing-guide-example-response {
       color: #047857;
@@ -3092,11 +3092,11 @@
       text-align: left;
       font-weight: 600;
       color: #1e293b;
-      border-bottom: 2px solid #e2e8f0;
+      border-bottom: 2px solid #cbd5e1;
     }
     .writing-guide-table td {
       padding: 0.75rem;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
       color: #334155;
     }
     .writing-guide-table tr:last-child td {
@@ -3162,7 +3162,7 @@
     }
     .writing-guide-harmful-table td {
       padding: 0.75rem;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
       color: #334155;
       vertical-align: top;
     }
@@ -3183,7 +3183,7 @@
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
       background: #f5f7fa;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
       font-size: 0.85rem;
       flex-wrap: wrap;
     }
@@ -3214,7 +3214,7 @@
       left: 0;
       right: 0;
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
       max-height: 320px;
@@ -3269,7 +3269,7 @@
       font-size: 0.7rem;
       padding: 0.2rem 0.5rem;
       border-radius: 4px;
-      background: #e2e8f0;
+      background: #cbd5e1;
       color: #475569;
       flex-shrink: 0;
     }
@@ -3286,7 +3286,7 @@
       width: 220px;
       min-width: 220px;
       background: #f5f7fa;
-      border-right: 1px solid #e2e8f0;
+      border-right: 1px solid #cbd5e1;
       overflow-y: auto;
       transition: width 0.25s ease, min-width 0.25s ease, opacity 0.25s ease;
     }
@@ -3301,7 +3301,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 1rem;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
       font-weight: 600;
       font-size: 0.85rem;
       color: #475569;
@@ -3320,7 +3320,7 @@
       justify-content: center;
     }
     .toc-close-btn:hover {
-      background: #e2e8f0;
+      background: #cbd5e1;
       color: #1e293b;
     }
     .toc-close-btn svg {
@@ -3339,7 +3339,7 @@
       transition: all 0.15s ease;
     }
     .toc-item:hover {
-      background: #e2e8f0;
+      background: #cbd5e1;
       color: #1e293b;
     }
     .toc-item.active {
@@ -3359,7 +3359,7 @@
       transform: translateY(-50%);
       z-index: 10001;
       background: #f5f7fa;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 0 8px 8px 0;
       padding: 0.5rem 0.35rem;
       cursor: pointer;
@@ -5534,7 +5534,7 @@
       if (section.harmModification) {
         const harmMod = section.harmModification;
         detailContentHtml += `
-          <div class="writing-guide-subsection" id="writing-guide-harm-modification" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+          <div class="writing-guide-subsection" id="writing-guide-harm-modification" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #cbd5e1;">
             <div class="writing-guide-subsection-title">
               ${ICONS.edit} ${escapeHtml(harmMod.title)}
             </div>
