@@ -3219,6 +3219,142 @@
       background: var(--bg-tertiary);
       color: var(--text-primary);
     }
+    /* Additional dark mode overrides for complete coverage */
+    .glossary-modal[data-theme="dark"] .glossary-body-wrapper {
+      background: var(--bg-primary);
+    }
+    .glossary-modal[data-theme="dark"] .example-category-card {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .example-category-card h3 {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .see-examples-link {
+      color: var(--accent);
+    }
+    .glossary-modal[data-theme="dark"] .example-item,
+    .glossary-modal[data-theme="dark"] .toxicity-example-item {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .example-prompt,
+    .glossary-modal[data-theme="dark"] .example-response {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .example-label {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-definition {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-see-also span {
+      background: var(--bg-tertiary);
+      color: var(--accent);
+    }
+    .glossary-modal[data-theme="dark"] .harmful-output-section {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .harmful-output-section h3 {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .harmful-output-table {
+      background: var(--bg-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .harmful-output-table th {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .harmful-output-table td {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .tree-branch {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .tree-bucket {
+      background: var(--bg-tertiary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .tree-bucket-title {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .tree-question {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .tree-answer {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .tree-outcome {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .request-type-card {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .request-type-card h3 {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .request-type-card p {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .section-divider {
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .section-title {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .guidance-card {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .writing-guide-content {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .writing-guide-checklist {
+      background: var(--bg-tertiary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .writing-guide-checklist h4 {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .writing-guide-checklist li {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .writing-guide-harmful-table th {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .writing-guide-harmful-table td {
+      color: var(--text-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .global-search-result {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .global-search-result:hover {
+      border-color: var(--accent);
+    }
+    .glossary-modal[data-theme="dark"] .search-result-title {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .search-result-preview {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .search-result-badge {
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+    }
 
     /* Dark mode toggle button */
     .dark-mode-toggle {
@@ -6546,6 +6682,50 @@
       }
     }
 
+    // Search Response Characteristics sections
+    const responseCharSections = [
+      { title: 'Harm-Free Output', section: 'harm-free-output-table', tab: 'harmful-output' },
+      { title: 'Harmful Output', section: 'harmful-output-table', tab: 'harmful-output' },
+      { title: 'Harm Modification', section: 'harm-modification-section', tab: 'harmful-output' },
+      { title: 'Policy Compliance Decision Tree', section: 'decision-tree-section', tab: 'harmful-output' },
+      { title: 'Policy Compliance', section: 'decision-tree-section', tab: 'harmful-output' },
+      { title: 'Decision Tree', section: 'decision-tree-section', tab: 'harmful-output' },
+      { title: 'Grounded Engagement', section: 'grounded-engagement', tab: 'harmful-output' }
+    ];
+    for (const section of responseCharSections) {
+      if (section.title.toLowerCase().includes(q) || fuzzyMatch(query, section.title).match) {
+        results.push({
+          title: section.title,
+          subtitle: 'Response Characteristics',
+          type: 'section',
+          score: section.title.toLowerCase().includes(q) ? 1 : 11,
+          action: () => {
+            switchTab(section.tab);
+            setTimeout(() => scrollToSection(section.section), 100);
+          }
+        });
+      }
+    }
+
+    // Search example categories from RESPONSE_EXAMPLES
+    const exampleCategories = RESPONSE_EXAMPLES.categories.filter(cat => !cat.id.startsWith('toxicity-'));
+    for (const cat of exampleCategories) {
+      if (cat.title.toLowerCase().includes(q) || fuzzyMatch(query, cat.title).match) {
+        results.push({
+          title: cat.title,
+          subtitle: 'Response Examples',
+          type: 'examples',
+          score: cat.title.toLowerCase().includes(q) ? 2 : 12,
+          action: () => {
+            switchTab('examples');
+            activeExampleCategory = cat.id;
+            examplePage = 1;
+            renderExampleDetail();
+          }
+        });
+      }
+    }
+
     // Sort by score (lower is better)
     results.sort((a, b) => a.score - b.score);
 
@@ -6936,6 +7116,26 @@
     searchInput.addEventListener('blur', () => {
       // Delay to allow click on autocomplete items
       setTimeout(hideAutocomplete, 200);
+    });
+    // Handle arrow keys specifically in search input for autocomplete navigation
+    searchInput.addEventListener('keydown', (e) => {
+      if (!autocompleteVisible) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        keyboardFocusIndex = Math.min(keyboardFocusIndex + 1, autocompleteResults.length - 1);
+        renderAutocomplete();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        keyboardFocusIndex = Math.max(keyboardFocusIndex - 1, -1);
+        renderAutocomplete();
+      } else if (e.key === 'Enter' && keyboardFocusIndex >= 0) {
+        e.preventDefault();
+        selectAutocompleteItem(keyboardFocusIndex);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        hideAutocomplete();
+      }
     });
 
     // TOC toggle and close
