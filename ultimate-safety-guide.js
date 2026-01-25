@@ -2164,25 +2164,41 @@
     .tree-outcome.partial { background: #fef3c7; color: #92400e; }
     .tree-outcome.grounded { background: #e0f2fe; color: #0369a1; }
     .tree-sub-decision {
-      font-size: 0.78rem;
-      color: #64748b;
-      margin: 0.5rem 0 0.25rem 0;
-      text-align: left;
+      font-size: 0.8rem;
+      color: #475569;
+      margin: 0.25rem 0;
+      text-align: center;
+      font-weight: 500;
     }
-    .tree-sub-option {
+    .tree-sub-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+    .tree-sub-vertical-option {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      font-size: 0.78rem;
-      margin-bottom: 0.25rem;
-      padding-left: 0.5rem;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
     }
     .tree-sub-option-label {
       color: #64748b;
-      min-width: 75px;
+      font-weight: 600;
+      min-width: 35px;
+      text-align: right;
     }
-    .tree-sub-arrow {
-      color: #94a3b8;
+    .tree-sub-nested {
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px dashed #e2e8f0;
+    }
+    .tree-sub-nested-question {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-bottom: 0.35rem;
+      text-align: center;
     }
     .tree-note {
       background: #f1f5f9;
@@ -3871,30 +3887,31 @@
                 </div>
               </div>
 
+              <!-- Harmful bucket -->
+              <div class="tree-bucket">
+                <div class="tree-bucket-header harmful">Harmful</div>
+                <div class="tree-bucket-body">
+                  <div class="tree-sub-decision">Does the prompt also contain a benign request?</div>
+                  <div class="tree-bucket-arrow">↓</div>
+                  <div class="tree-sub-vertical">
+                    <div class="tree-sub-vertical-option">
+                      <span class="tree-sub-option-label">No:</span>
+                      <span class="tree-outcome refuse">FULL REFUSAL</span>
+                    </div>
+                    <div class="tree-sub-vertical-option">
+                      <span class="tree-sub-option-label">Yes:</span>
+                      <span class="tree-outcome partial">PARTIAL REFUSAL</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <!-- Jailbreak bucket -->
               <div class="tree-bucket">
                 <div class="tree-bucket-header jailbreak">Jailbreak</div>
                 <div class="tree-bucket-body">
                   <div class="tree-bucket-arrow">↓</div>
                   <div class="tree-outcome refuse">FULL REFUSAL</div>
-                </div>
-              </div>
-
-              <!-- Harmful bucket -->
-              <div class="tree-bucket">
-                <div class="tree-bucket-header harmful">Harmful</div>
-                <div class="tree-bucket-body">
-                  <div class="tree-sub-decision">Mixed request?</div>
-                  <div class="tree-sub-option">
-                    <span class="tree-sub-option-label">All harmful:</span>
-                    <span class="tree-sub-arrow">→</span>
-                    <span class="tree-outcome refuse">FULL REFUSAL</span>
-                  </div>
-                  <div class="tree-sub-option">
-                    <span class="tree-sub-option-label">Some benign:</span>
-                    <span class="tree-sub-arrow">→</span>
-                    <span class="tree-outcome partial">PARTIAL REFUSAL</span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -3920,40 +3937,44 @@
                 </div>
               </div>
 
+              <!-- Harmful bucket -->
+              <div class="tree-bucket">
+                <div class="tree-bucket-header harmful">Harmful</div>
+                <div class="tree-bucket-body">
+                  <div class="tree-sub-decision">Does request amplify/enable/encourage harm?</div>
+                  <div class="tree-bucket-arrow">↓</div>
+                  <div class="tree-sub-vertical">
+                    <div class="tree-sub-vertical-option">
+                      <span class="tree-sub-option-label">No:</span>
+                      <span class="tree-outcome grounded">GROUNDED ENGAGEMENT</span>
+                    </div>
+                    <div class="tree-sub-vertical-option">
+                      <span class="tree-sub-option-label">Yes:</span>
+                      <span style="font-size: 0.75rem; color: #64748b;">↓</span>
+                    </div>
+                  </div>
+                  <div class="tree-sub-nested">
+                    <div class="tree-sub-nested-question">Does the prompt also contain a benign request?</div>
+                    <div class="tree-sub-vertical">
+                      <div class="tree-sub-vertical-option">
+                        <span class="tree-sub-option-label">No:</span>
+                        <span class="tree-outcome refuse">FULL REFUSAL</span>
+                      </div>
+                      <div class="tree-sub-vertical-option">
+                        <span class="tree-sub-option-label">Yes:</span>
+                        <span class="tree-outcome partial">PARTIAL REFUSAL</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <!-- Jailbreak bucket -->
               <div class="tree-bucket">
                 <div class="tree-bucket-header jailbreak">Jailbreak</div>
                 <div class="tree-bucket-body">
                   <div class="tree-bucket-arrow">↓</div>
                   <div class="tree-outcome refuse">FULL REFUSAL</div>
-                </div>
-              </div>
-
-              <!-- Harmful bucket -->
-              <div class="tree-bucket">
-                <div class="tree-bucket-header harmful">Harmful</div>
-                <div class="tree-bucket-body">
-                  <div class="tree-sub-decision">Does request amplify/enable/encourage harm?</div>
-                  <div class="tree-sub-option">
-                    <span class="tree-sub-option-label">No:</span>
-                    <span class="tree-sub-arrow">→</span>
-                    <span class="tree-outcome grounded">GROUNDED ENGAGEMENT</span>
-                  </div>
-                  <div class="tree-sub-option">
-                    <span class="tree-sub-option-label">Yes:</span>
-                    <span class="tree-sub-arrow">→</span>
-                    <span style="font-size: 0.75rem; color: #64748b;">Includes benign?</span>
-                  </div>
-                  <div class="tree-sub-option" style="padding-left: 1rem;">
-                    <span class="tree-sub-option-label">No:</span>
-                    <span class="tree-sub-arrow">→</span>
-                    <span class="tree-outcome refuse">FULL REFUSAL</span>
-                  </div>
-                  <div class="tree-sub-option" style="padding-left: 1rem;">
-                    <span class="tree-sub-option-label">Yes:</span>
-                    <span class="tree-sub-arrow">→</span>
-                    <span class="tree-outcome partial">PARTIAL REFUSAL</span>
-                  </div>
                 </div>
               </div>
             </div>
