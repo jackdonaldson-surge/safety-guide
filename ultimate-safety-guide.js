@@ -1075,9 +1075,9 @@
       position: fixed;
       bottom: 1.5rem;
       left: 1.5rem;
-      background: linear-gradient(135deg, #0d0845 0%, #1a1070 100%);
-      color: #c0c8d0;
-      border: 2px solid rgba(40, 30, 120, 0.5);
+      background: linear-gradient(135deg, #0e7490 0%, #0891b2 100%);
+      color: #e0f7fa;
+      border: 2px solid rgba(14, 116, 144, 0.6);
       border-radius: 50px;
       padding: 0 28px;
       height: 56px;
@@ -1089,18 +1089,18 @@
       align-items: center;
       gap: 0.6rem;
       z-index: ${CONFIG.zIndex};
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(30, 20, 100, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 2px 10px rgba(8, 145, 178, 0.3);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .glossary-trigger:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 4px 15px rgba(40, 30, 120, 0.5);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3), 0 4px 15px rgba(8, 145, 178, 0.4);
     }
     .glossary-trigger:hover,
     .glossary-trigger.shining {
-      background: linear-gradient(90deg, #0d0845 0%, #2a1a90 30%, rgba(180,180,220,0.3) 50%, #2a1a90 70%, #0d0845 100%);
+      background: linear-gradient(90deg, #0e7490 0%, #0891b2 35%, rgba(34, 211, 238, 0.15) 50%, #0891b2 65%, #0e7490 100%);
       background-size: 300% auto;
-      animation: glossaryShine 1.2s ease-in-out;
+      animation: glossaryShine 2s ease-in-out;
     }
     .glossary-trigger svg { width: 22px; height: 22px; }
 
@@ -6393,6 +6393,10 @@
           type: 'toxicity',
           score: level.toLowerCase().includes(q) ? 0 : 10,
           action: () => {
+            // Clear search input first so switchTab renders tab content, not search results
+            document.getElementById('glossary-search-input').value = '';
+            currentSearchQuery = '';
+            globalSearchResults = [];
             switchTab('toxicity');
             const cat = RESPONSE_EXAMPLES.categories.find(c => c.id === `toxicity-${level.toLowerCase()}`);
             if (cat) {
@@ -6415,6 +6419,10 @@
           type: 'request-type',
           score: type.toLowerCase().includes(q) ? 0 : 10,
           action: () => {
+            // Clear search input first so switchTab renders tab content, not search results
+            document.getElementById('glossary-search-input').value = '';
+            currentSearchQuery = '';
+            globalSearchResults = [];
             switchTab('request-types');
             const cat = REQUEST_TYPES.categories.find(c => c.name.toLowerCase().includes(type.toLowerCase()));
             if (cat) {
@@ -6444,6 +6452,10 @@
           type: 'section',
           score: section.title.toLowerCase().includes(q) ? 1 : 11,
           action: () => {
+            // Clear search input first so switchTab renders tab content, not search results
+            document.getElementById('glossary-search-input').value = '';
+            currentSearchQuery = '';
+            globalSearchResults = [];
             switchTab(section.tab);
             setTimeout(() => scrollToSection(section.section), 100);
           }
@@ -6461,6 +6473,10 @@
           type: 'examples',
           score: cat.title.toLowerCase().includes(q) ? 2 : 12,
           action: () => {
+            // Clear search input first so switchTab renders tab content, not search results
+            document.getElementById('glossary-search-input').value = '';
+            currentSearchQuery = '';
+            globalSearchResults = [];
             switchTab('examples');
             activeExampleCategory = cat.id;
             examplePage = 1;
