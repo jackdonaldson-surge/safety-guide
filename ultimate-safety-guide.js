@@ -2184,7 +2184,7 @@
       align-items: center;
       font-size: 0.7rem;
       padding: 0.15rem 0.3rem;
-      margin-top: 0.5rem;
+      margin-top: 0.85rem;
     }
     .tree-distress-yes .tree-sub-option-label,
     .tree-distress-no .tree-sub-option-label {
