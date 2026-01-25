@@ -6277,6 +6277,10 @@
     // Apply current search to the new tab
     const query = document.getElementById('glossary-search-input').value;
     handleSearch(query);
+
+    // Reset scroll position to top
+    const content = document.getElementById('glossary-content');
+    if (content) content.scrollTop = 0;
   }
 
   function openModal() {
