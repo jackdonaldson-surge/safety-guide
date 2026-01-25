@@ -1267,7 +1267,7 @@
       font-weight: 600;
       text-transform: uppercase;
     }
-    .glossary-definition { color: #334155; font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.25rem; }
+    .glossary-definition { color: #1e293b; font-size: 1rem; line-height: 1.7; margin-bottom: 1.25rem; }
 
     .glossary-examples-header {
       font-size: 0.8rem;
@@ -1294,8 +1294,8 @@
     .glossary-example-item {
       padding: 0.9rem 1rem 0.9rem 2.5rem;
       border-bottom: 1px solid #e2e8f0;
-      font-size: 0.88rem;
-      color: #475569;
+      font-size: 0.95rem;
+      color: #334155;
       line-height: 1.6;
       position: relative;
       background: #fff;
@@ -1406,7 +1406,7 @@
       gap: 0.5rem;
     }
     .example-category-card h3 svg { width: 18px; height: 18px; color: var(--card-color, #3b82f6); }
-    .example-category-card p { font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5; }
+    .example-category-card p { font-size: 0.92rem; color: #475569; margin: 0; line-height: 1.55; }
     .example-category-card .example-count {
       position: absolute;
       top: 1rem;
@@ -1536,9 +1536,9 @@
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       padding: 1rem;
-      font-size: 0.9rem;
-      line-height: 1.65;
-      color: #334155;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #1e293b;
       margin-bottom: 1rem;
       white-space: pre-wrap;
     }
@@ -1565,9 +1565,9 @@
       padding: 1rem 1.25rem;
       margin: 1rem 0 1.5rem 0;
       border-radius: 8px;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: #475569;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: #334155;
     }
 
     .example-note {
@@ -1636,8 +1636,8 @@
       height: 14px;
     }
     .safety-categories-list {
-      font-size: 0.8rem;
-      color: #64748b;
+      font-size: 0.88rem;
+      color: #475569;
     }
 
     /* Toxicity Guide Styles */
@@ -1664,9 +1664,9 @@
     }
     .toxicity-guide-intro {
       margin: 0 0 1rem 0;
-      font-size: 0.9rem;
-      color: #64748b;
-      line-height: 1.5;
+      font-size: 0.95rem;
+      color: #475569;
+      line-height: 1.55;
     }
     .toxicity-harmful-link {
       color: #dc2626;
@@ -1701,9 +1701,9 @@
       flex-shrink: 0;
     }
     .toxicity-level-desc {
-      font-size: 0.85rem;
-      color: #475569;
-      line-height: 1.4;
+      font-size: 0.92rem;
+      color: #334155;
+      line-height: 1.5;
     }
 
     /* Harmful Output Characteristics Styles */
@@ -1730,15 +1730,15 @@
     }
     .harmful-output-intro p {
       margin: 0;
-      font-size: 0.9rem;
-      color: #475569;
-      line-height: 1.5;
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.55;
     }
     /* Table styles for Harmful Output */
     .harmful-output-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
+      font-size: 0.92rem;
       margin-bottom: 1rem;
       background: #fff;
       border-radius: 8px;
@@ -1793,7 +1793,7 @@
       height: 14px;
     }
     .harmful-output-desc-cell {
-      color: #475569;
+      color: #334155;
     }
     /* Output Section Spacing */
     .output-section {
@@ -2792,9 +2792,9 @@
       flex-shrink: 0;
     }
     .writing-guide-description {
-      color: #64748b;
-      font-size: 0.95rem;
-      line-height: 1.6;
+      color: #475569;
+      font-size: 1rem;
+      line-height: 1.65;
       margin-bottom: 1.5rem;
     }
     .writing-guide-rules {
@@ -2822,8 +2822,8 @@
       padding-left: 1.25rem;
     }
     .writing-guide-rules li {
-      color: #475569;
-      font-size: 0.9rem;
+      color: #334155;
+      font-size: 0.95rem;
       line-height: 1.6;
       margin-bottom: 0.5rem;
     }
@@ -2874,9 +2874,9 @@
       margin-bottom: 0.25rem;
     }
     .writing-guide-section-description {
-      font-size: 0.85rem;
-      color: #64748b;
-      line-height: 1.4;
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.5;
     }
     .writing-guide-section-arrow {
       color: #94a3b8;
@@ -2913,9 +2913,9 @@
       color: #1e293b;
     }
     .writing-guide-detail-description {
-      color: #475569;
-      font-size: 0.95rem;
-      line-height: 1.6;
+      color: #334155;
+      font-size: 1rem;
+      line-height: 1.65;
       margin-bottom: 1.5rem;
       padding: 1rem;
       background: #f8fafc;
@@ -2943,8 +2943,8 @@
       padding-left: 1.25rem;
     }
     .writing-guide-list li {
-      color: #475569;
-      font-size: 0.9rem;
+      color: #334155;
+      font-size: 0.95rem;
       line-height: 1.6;
       margin-bottom: 0.4rem;
     }
@@ -2974,14 +2974,14 @@
     }
     .writing-guide-example-prompt {
       color: #1e293b;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       margin-bottom: 0.75rem;
       padding-bottom: 0.75rem;
       border-bottom: 1px dashed #e2e8f0;
     }
     .writing-guide-example-response {
-      color: #059669;
-      font-size: 0.9rem;
+      color: #047857;
+      font-size: 0.95rem;
       line-height: 1.6;
       white-space: pre-wrap;
     }
@@ -3010,15 +3010,15 @@
     }
     .writing-guide-mistakes li {
       color: #991b1b;
-      font-size: 0.85rem;
-      line-height: 1.5;
+      font-size: 0.92rem;
+      line-height: 1.55;
       margin-bottom: 0.4rem;
     }
     .writing-guide-table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 1rem;
-      font-size: 0.85rem;
+      font-size: 0.92rem;
     }
     .writing-guide-table th {
       background: #f1f5f9;
@@ -3031,7 +3031,7 @@
     .writing-guide-table td {
       padding: 0.75rem;
       border-bottom: 1px solid #e2e8f0;
-      color: #475569;
+      color: #334155;
     }
     .writing-guide-table tr:last-child td {
       border-bottom: none;
@@ -3055,8 +3055,8 @@
     }
     .writing-guide-note-text {
       color: #1e40af;
-      font-size: 0.9rem;
-      line-height: 1.5;
+      font-size: 0.95rem;
+      line-height: 1.55;
     }
     .writing-guide-checklist {
       background: #f0fdf4;
@@ -3076,15 +3076,15 @@
       padding-left: 1.25rem;
     }
     .writing-guide-checklist li {
-      color: #15803d;
-      font-size: 0.85rem;
-      line-height: 1.5;
+      color: #166534;
+      font-size: 0.92rem;
+      line-height: 1.55;
       margin-bottom: 0.3rem;
     }
     .writing-guide-harmful-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
+      font-size: 0.92rem;
     }
     .writing-guide-harmful-table th {
       background: #fef2f2;
@@ -3097,7 +3097,7 @@
     .writing-guide-harmful-table td {
       padding: 0.75rem;
       border-bottom: 1px solid #e2e8f0;
-      color: #475569;
+      color: #334155;
       vertical-align: top;
     }
     .writing-guide-harmful-table tr:last-child td {
