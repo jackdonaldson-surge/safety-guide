@@ -2063,206 +2063,137 @@
     .flowchart-outcome.refuse .flowchart-outcome-label { color: #991b1b; }
     .flowchart-outcome.partial .flowchart-outcome-label { color: #92400e; }
 
-    /* Decision Tree Styles - Visual Tree with Connectors */
+    /* Decision Tree Styles - Vertical Flow with Horizontal Spread */
     .decision-tree {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 1.5rem 0.5rem;
+      gap: 1.5rem;
+      padding: 1.5rem;
       background: #f8fafc;
       border-radius: 12px;
     }
-    .tree-top-row {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      width: 100%;
-      max-width: 850px;
-      flex-wrap: wrap;
-    }
-    .tree-top-node {
+    .tree-section {
       display: flex;
       flex-direction: column;
       align-items: center;
-      flex: 1;
-      max-width: 340px;
     }
-    .tree-root-node {
-      background: #166534;
-      color: white;
+    .tree-section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .tree-type-badge {
       font-weight: 700;
       font-size: 0.95rem;
-      padding: 0.6rem 1.25rem;
+      padding: 0.5rem 1rem;
       border-radius: 8px;
-      border: 2px solid #14532d;
-      text-align: center;
-      position: relative;
-      z-index: 1;
+      color: white;
     }
-    .tree-root-node.generative { background: #1d4ed8; border-color: #1e40af; }
-    .tree-root-node.non-generative { background: #059669; border-color: #047857; }
-    .tree-root-desc {
-      font-size: 0.7rem;
+    .tree-type-badge.generative { background: #1d4ed8; }
+    .tree-type-badge.non-generative { background: #059669; }
+    .tree-type-desc {
+      font-size: 0.85rem;
       color: #64748b;
-      text-align: center;
-      margin-top: 0.4rem;
-      padding: 0 0.5rem;
     }
-    /* Vertical connector from root to children */
     .tree-vline {
       width: 2px;
-      height: 20px;
+      height: 16px;
       background: #94a3b8;
     }
-    .tree-internal-node {
-      background: #dcfce7;
-      border: 2px solid #86efac;
+    .tree-check-node {
+      background: #f1f5f9;
+      border: 2px solid #cbd5e1;
       border-radius: 8px;
-      padding: 0.5rem 0.75rem;
+      padding: 0.5rem 1rem;
       font-weight: 600;
-      font-size: 0.8rem;
-      color: #166534;
+      font-size: 0.9rem;
+      color: #475569;
       text-align: center;
-      position: relative;
     }
-    .tree-internal-node.question {
-      background: #e0f2fe;
-      border-color: #7dd3fc;
-      color: #0369a1;
-    }
-    /* Container for child nodes with connector lines */
-    .tree-children {
+    /* Horizontal toxicity buckets */
+    .tree-toxicity-row {
       display: flex;
       justify-content: center;
       gap: 0.75rem;
-      position: relative;
-      margin-top: 0;
       flex-wrap: wrap;
+      margin-top: 0.5rem;
     }
-    .tree-children::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 20%;
-      right: 20%;
-      height: 2px;
-      background: #94a3b8;
-    }
-    .tree-child {
+    .tree-bucket {
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-width: 140px;
+      flex: 1;
+      max-width: 200px;
     }
-    .tree-leaf {
-      background: #fef9c3;
-      border: 2px solid #fde047;
-      border-radius: 8px;
-      padding: 0.4rem 0.6rem;
-      font-weight: 600;
-      font-size: 0.75rem;
-      color: #854d0e;
+    .tree-bucket-header {
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px 6px 0 0;
+      width: 100%;
       text-align: center;
-      white-space: nowrap;
     }
-    .tree-leaf.engage {
-      background: #dcfce7;
-      border-color: #86efac;
-      color: #166534;
-    }
-    .tree-leaf.refuse {
-      background: #fee2e2;
-      border-color: #fca5a5;
-      color: #991b1b;
-    }
-    .tree-leaf.partial {
-      background: #fef3c7;
-      border-color: #fcd34d;
-      color: #92400e;
-    }
-    .tree-leaf.grounded {
-      background: #e0f2fe;
-      border-color: #7dd3fc;
-      color: #0369a1;
-    }
-    /* Compact branch for complex trees */
-    .tree-branch-box {
+    .tree-bucket-header.benign-dual { background: #dbeafe; color: #1e40af; }
+    .tree-bucket-header.jailbreak { background: #ede9fe; color: #5b21b6; }
+    .tree-bucket-header.harmful { background: #fee2e2; color: #991b1b; }
+    .tree-bucket-body {
       background: white;
       border: 2px solid #e2e8f0;
-      border-radius: 10px;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
       padding: 0.75rem;
-      margin-top: 0.5rem;
       width: 100%;
+      text-align: center;
     }
-    .tree-row {
+    .tree-bucket-arrow {
+      color: #94a3b8;
+      font-size: 1.2rem;
+      margin: 0.25rem 0;
+    }
+    .tree-outcome {
+      display: inline-block;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .tree-outcome.engage { background: #dcfce7; color: #166534; }
+    .tree-outcome.refuse { background: #fee2e2; color: #991b1b; }
+    .tree-outcome.partial { background: #fef3c7; color: #92400e; }
+    .tree-outcome.grounded { background: #e0f2fe; color: #0369a1; }
+    .tree-sub-decision {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin: 0.5rem 0 0.25rem 0;
+      text-align: left;
+    }
+    .tree-sub-option {
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      padding: 0.35rem 0.5rem;
-      border-radius: 6px;
-      margin-bottom: 0.35rem;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
+      margin-bottom: 0.25rem;
+      padding-left: 0.5rem;
     }
-    .tree-row:last-child { margin-bottom: 0; }
-    .tree-row.benign { background: #dbeafe; }
-    .tree-row.dual-use { background: #fef3c7; }
-    .tree-row.jailbreak { background: #ede9fe; }
-    .tree-row.harmful { background: #fee2e2; }
-    .tree-row-label {
-      font-weight: 600;
-      min-width: 65px;
-    }
-    .tree-row.benign .tree-row-label { color: #1e40af; }
-    .tree-row.dual-use .tree-row-label { color: #92400e; }
-    .tree-row.jailbreak .tree-row-label { color: #5b21b6; }
-    .tree-row.harmful .tree-row-label { color: #991b1b; }
-    .tree-row-arrow {
-      color: #94a3b8;
-      font-weight: bold;
-    }
-    .tree-row-result {
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-weight: 700;
-      font-size: 0.7rem;
-      white-space: nowrap;
-    }
-    .tree-row-result.engage { background: #dcfce7; color: #166534; }
-    .tree-row-result.refuse { background: #fee2e2; color: #991b1b; }
-    .tree-row-result.partial { background: #fef3c7; color: #92400e; }
-    .tree-row-result.grounded { background: #e0f2fe; color: #0369a1; }
-    .tree-sub-row {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding-left: 1rem;
-      font-size: 0.7rem;
-      margin-top: 0.2rem;
-    }
-    .tree-sub-row-label {
+    .tree-sub-option-label {
       color: #64748b;
-      min-width: 70px;
+      min-width: 75px;
+    }
+    .tree-sub-arrow {
+      color: #94a3b8;
     }
     .tree-note {
       background: #f1f5f9;
       border-radius: 6px;
-      padding: 0.5rem 0.6rem;
-      margin-top: 0.5rem;
-      font-size: 0.7rem;
+      padding: 0.6rem 0.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
       color: #475569;
+      text-align: center;
     }
     .tree-note strong { color: #1e293b; }
-    .tree-section-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #64748b;
-      margin-bottom: 0.3rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .flowchart-outcome-condition {
-      color: #64748b;
-      font-size: 0.75rem;
-    }
     .flowchart-mixed-inline {
       margin-top: 0.5rem;
       padding: 0.5rem 0.75rem;
@@ -3920,108 +3851,116 @@
         </div>
 
         <div class="decision-tree">
-          <!-- Two Top-Level Branches -->
-          <div class="tree-top-row">
+          <!-- GENERATIVE SECTION -->
+          <div class="tree-section">
+            <div class="tree-section-header">
+              <span class="tree-type-badge generative">GENERATIVE</span>
+              <span class="tree-type-desc">Creating new content, answering questions</span>
+            </div>
+            <div class="tree-vline"></div>
+            <div class="tree-check-node">Check Toxicity Level</div>
+            <div class="tree-vline"></div>
 
-            <!-- GENERATIVE BRANCH -->
-            <div class="tree-top-node">
-              <div class="tree-root-node generative">GENERATIVE</div>
-              <div class="tree-root-desc">Creating new content, answering questions</div>
-              <div class="tree-vline"></div>
-              <div class="tree-internal-node">Check Toxicity Level</div>
-              <div class="tree-vline"></div>
+            <div class="tree-toxicity-row">
+              <!-- Benign + Dual-Use bucket -->
+              <div class="tree-bucket">
+                <div class="tree-bucket-header benign-dual">Benign / Dual-Use</div>
+                <div class="tree-bucket-body">
+                  <div class="tree-bucket-arrow">↓</div>
+                  <div class="tree-outcome engage">HARM-FREE ENGAGEMENT</div>
+                </div>
+              </div>
 
-              <div class="tree-branch-box">
-                <div class="tree-row benign">
-                  <span class="tree-row-label">Benign</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result engage">HARM-FREE ENGAGEMENT</span>
+              <!-- Jailbreak bucket -->
+              <div class="tree-bucket">
+                <div class="tree-bucket-header jailbreak">Jailbreak</div>
+                <div class="tree-bucket-body">
+                  <div class="tree-bucket-arrow">↓</div>
+                  <div class="tree-outcome refuse">FULL REFUSAL</div>
                 </div>
-                <div class="tree-row dual-use">
-                  <span class="tree-row-label">Dual-Use</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result engage">HARM-FREE ENGAGEMENT</span>
+              </div>
+
+              <!-- Harmful bucket -->
+              <div class="tree-bucket">
+                <div class="tree-bucket-header harmful">Harmful</div>
+                <div class="tree-bucket-body">
+                  <div class="tree-sub-decision">Mixed request?</div>
+                  <div class="tree-sub-option">
+                    <span class="tree-sub-option-label">All harmful:</span>
+                    <span class="tree-sub-arrow">→</span>
+                    <span class="tree-outcome refuse">FULL REFUSAL</span>
+                  </div>
+                  <div class="tree-sub-option">
+                    <span class="tree-sub-option-label">Some benign:</span>
+                    <span class="tree-sub-arrow">→</span>
+                    <span class="tree-outcome partial">PARTIAL REFUSAL</span>
+                  </div>
                 </div>
-                <div class="tree-row jailbreak">
-                  <span class="tree-row-label">Jailbreak</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result refuse">FULL REFUSAL</span>
-                  <span style="font-size: 0.6rem; color: #64748b;">(always)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- NON-GENERATIVE SECTION -->
+          <div class="tree-section">
+            <div class="tree-section-header">
+              <span class="tree-type-badge non-generative">NON-GENERATIVE</span>
+              <span class="tree-type-desc">Mechanical tasks on provided content</span>
+            </div>
+            <div class="tree-vline"></div>
+            <div class="tree-check-node">Check Toxicity Level</div>
+            <div class="tree-vline"></div>
+
+            <div class="tree-toxicity-row">
+              <!-- Benign + Dual-Use bucket -->
+              <div class="tree-bucket">
+                <div class="tree-bucket-header benign-dual">Benign / Dual-Use</div>
+                <div class="tree-bucket-body">
+                  <div class="tree-bucket-arrow">↓</div>
+                  <div class="tree-outcome grounded">GROUNDED ENGAGEMENT</div>
                 </div>
-                <div class="tree-row harmful" style="flex-wrap: wrap;">
-                  <span class="tree-row-label">Harmful</span>
-                  <span style="font-size: 0.65rem; color: #991b1b; flex: 1;">→ Check: Mixed request?</span>
+              </div>
+
+              <!-- Jailbreak bucket -->
+              <div class="tree-bucket">
+                <div class="tree-bucket-header jailbreak">Jailbreak</div>
+                <div class="tree-bucket-body">
+                  <div class="tree-bucket-arrow">↓</div>
+                  <div class="tree-outcome refuse">FULL REFUSAL</div>
                 </div>
-                <div class="tree-sub-row">
-                  <span class="tree-sub-row-label">All harmful:</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result refuse">FULL REFUSAL</span>
-                </div>
-                <div class="tree-sub-row">
-                  <span class="tree-sub-row-label">Some benign:</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result partial">PARTIAL REFUSAL</span>
+              </div>
+
+              <!-- Harmful bucket -->
+              <div class="tree-bucket">
+                <div class="tree-bucket-header harmful">Harmful</div>
+                <div class="tree-bucket-body">
+                  <div class="tree-sub-decision">Does request amplify/enable/encourage harm?</div>
+                  <div class="tree-sub-option">
+                    <span class="tree-sub-option-label">No:</span>
+                    <span class="tree-sub-arrow">→</span>
+                    <span class="tree-outcome grounded">GROUNDED ENGAGEMENT</span>
+                  </div>
+                  <div class="tree-sub-option">
+                    <span class="tree-sub-option-label">Yes:</span>
+                    <span class="tree-sub-arrow">→</span>
+                    <span style="font-size: 0.75rem; color: #64748b;">Includes benign?</span>
+                  </div>
+                  <div class="tree-sub-option" style="padding-left: 1rem;">
+                    <span class="tree-sub-option-label">No:</span>
+                    <span class="tree-sub-arrow">→</span>
+                    <span class="tree-outcome refuse">FULL REFUSAL</span>
+                  </div>
+                  <div class="tree-sub-option" style="padding-left: 1rem;">
+                    <span class="tree-sub-option-label">Yes:</span>
+                    <span class="tree-sub-arrow">→</span>
+                    <span class="tree-outcome partial">PARTIAL REFUSAL</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- NON-GENERATIVE BRANCH -->
-            <div class="tree-top-node">
-              <div class="tree-root-node non-generative">NON-GENERATIVE</div>
-              <div class="tree-root-desc">Mechanical tasks on provided content</div>
-              <div class="tree-vline"></div>
-              <div class="tree-internal-node">Check Toxicity Level</div>
-              <div class="tree-vline"></div>
-
-              <div class="tree-branch-box">
-                <!-- Benign/Dual-Use path -->
-                <div class="tree-row benign">
-                  <span class="tree-row-label">Benign</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result grounded">GROUNDED ENGAGEMENT</span>
-                </div>
-                <div class="tree-row dual-use">
-                  <span class="tree-row-label">Dual-Use</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result grounded">GROUNDED ENGAGEMENT</span>
-                </div>
-                <div class="tree-row jailbreak">
-                  <span class="tree-row-label">Jailbreak</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result refuse">FULL REFUSAL</span>
-                </div>
-
-                <!-- Harmful path with sub-decision -->
-                <div class="tree-row harmful" style="flex-wrap: wrap;">
-                  <span class="tree-row-label">Harmful</span>
-                  <span style="font-size: 0.65rem; color: #991b1b; flex: 1;">→ Does request amplify/enable/encourage harm?</span>
-                </div>
-                <div class="tree-sub-row">
-                  <span class="tree-sub-row-label">No:</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result grounded">GROUNDED ENGAGEMENT</span>
-                </div>
-                <div class="tree-sub-row" style="flex-wrap: wrap;">
-                  <span class="tree-sub-row-label">Yes:</span>
-                  <span style="font-size: 0.65rem; color: #64748b;">→ Includes benign requests?</span>
-                </div>
-                <div class="tree-sub-row" style="padding-left: 2rem;">
-                  <span class="tree-sub-row-label">No:</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result refuse">FULL REFUSAL</span>
-                </div>
-                <div class="tree-sub-row" style="padding-left: 2rem;">
-                  <span class="tree-sub-row-label">Yes:</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result partial">PARTIAL REFUSAL</span>
-                </div>
-
-                <div class="tree-note">
-                  <strong>Grounded Engagement:</strong> Complete the task without warnings or commentary. Don't sanitize or amplify.
-                </div>
-              </div>
+            <div class="tree-note">
+              <strong>Grounded Engagement:</strong> Complete the task without warnings or commentary. Don't sanitize or amplify.
             </div>
-
           </div>
         </div>
       </div>
