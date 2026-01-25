@@ -1323,6 +1323,53 @@
     .about-link:hover {
       text-decoration: underline;
     }
+    .about-toc {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .about-toc h3 {
+      font-size: 1.1rem;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+    .about-toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .about-toc-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .about-toc-list li:last-child {
+      border-bottom: none;
+    }
+    .about-toc-link {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .about-toc-link:hover {
+      text-decoration: underline;
+    }
+    .about-toc-link svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .about-toc-desc {
+      display: block;
+      color: #64748b;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+      padding-left: 26px;
+    }
     .about-tips {
       background: #fff;
       border-radius: 12px;
@@ -3753,15 +3800,21 @@
           </div>
         </div>
 
+        <div class="about-toc">
+          <h3>Table of Contents</h3>
+          <ul class="about-toc-list">
+            <li><a href="#" class="about-toc-link" data-tab="categories">${ICONS['clipboard']} Risk Categories</a><span class="about-toc-desc">Definitions of safety risk categories and their meanings</span></li>
+            <li><a href="#" class="about-toc-link" data-tab="toxicity">${ICONS['alert-triangle']} Toxicity Levels</a><span class="about-toc-desc">Safe, Benign, Dual-Use, Harmful, and Jailbreak classifications</span></li>
+            <li><a href="#" class="about-toc-link" data-tab="request-types">${ICONS['split']} Request Types</a><span class="about-toc-desc">Generative vs Non-generative request handling</span></li>
+            <li><a href="#" class="about-toc-link" data-tab="writing-guide">${ICONS['book-open']} Ideal Response Writing Guide</a><span class="about-toc-desc">Guidelines for writing ideal model responses</span></li>
+            <li><a href="#" class="about-toc-link" data-tab="examples">${ICONS['clipboard-check']} Response Types and Examples</a><span class="about-toc-desc">Full Refusal, Partial Refusal, Harm-Free, and Grounded Engagement examples</span></li>
+            <li><a href="#" class="about-toc-link" data-tab="harmful-output">${ICONS['shield']} Response Characteristics</a><span class="about-toc-desc">What makes a response harm-free, harmful, or modified</span></li>
+          </ul>
+        </div>
+
         <div class="about-section">
           <h3>Why Safety Training Matters</h3>
           <p>Even when a topic may not seem sensitive or obviously harmful, it is important that LLMs respond appropriately, safely, and in a harm-free way.</p>
-          <p>
-            <a href="#" class="about-link" id="about-link-characteristics">
-              Check out the Response Characteristics tab →
-            </a>
-            to learn more about what harm-free, appropriate responses look like.
-          </p>
         </div>
 
         <div class="about-tips">
@@ -3775,14 +3828,14 @@
       </div>
     `;
 
-    // Add click handler for the Response Characteristics link
-    const charLink = document.getElementById('about-link-characteristics');
-    if (charLink) {
-      charLink.addEventListener('click', (e) => {
+    // Add click handlers for all TOC links
+    document.querySelectorAll('.about-toc-link').forEach(link => {
+      link.addEventListener('click', (e) => {
         e.preventDefault();
-        switchTab('harmful-output');
+        const tab = link.dataset.tab;
+        if (tab) switchTab(tab);
       });
-    }
+    });
   }
 
   function renderCategoriesPage(query = '') {
