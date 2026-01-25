@@ -3923,6 +3923,9 @@
   }
 
   function renderExamplesOverview() {
+    // Reset breadcrumbs to tab level
+    updateBreadcrumbs(getBreadcrumbsForTab('examples'));
+
     // If there's an active search, show individual matching examples instead of category cards
     if (currentSearchQuery) {
       renderExampleSearchResults();
@@ -4102,6 +4105,12 @@
     const category = RESPONSE_EXAMPLES.categories.find(c => c.id === activeExampleCategory);
     if (!category) return;
 
+    // Update breadcrumbs
+    updateBreadcrumbs([
+      { label: 'Response Examples', action: 'back', param: '' },
+      { label: category.title }
+    ]);
+
     const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
     const startIndex = (examplePage - 1) * CONFIG.itemsPerPage;
     const endIndex = startIndex + CONFIG.itemsPerPage;
@@ -4194,6 +4203,9 @@
   // TOXICITY LEVEL RENDERING
   // ============================================
   function renderToxicityOverview() {
+    // Reset breadcrumbs to tab level
+    updateBreadcrumbs(getBreadcrumbsForTab('toxicity'));
+
     // If there's an active search, show individual matching examples instead of category cards
     if (currentSearchQuery) {
       renderToxicitySearchResults();
@@ -4368,6 +4380,12 @@
 
     const category = RESPONSE_EXAMPLES.categories.find(c => c.id === activeToxicityCategory);
     if (!category) return;
+
+    // Update breadcrumbs
+    updateBreadcrumbs([
+      { label: 'Toxicity Levels', action: 'back', param: '' },
+      { label: category.name || category.title }
+    ]);
 
     const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
     const startIndex = (toxicityPage - 1) * CONFIG.itemsPerPage;
@@ -5870,6 +5888,9 @@
   // REQUEST TYPES RENDERING
   // ============================================
   function renderRequestTypesOverview() {
+    // Reset breadcrumbs to tab level
+    updateBreadcrumbs(getBreadcrumbsForTab('request-types'));
+
     const content = document.getElementById('glossary-content');
     const pageInfo = document.getElementById('glossary-page-info');
     const prevBtn = document.getElementById('glossary-prev');
@@ -5963,6 +5984,12 @@
       renderRequestTypesOverview();
       return;
     }
+
+    // Update breadcrumbs
+    updateBreadcrumbs([
+      { label: 'Request Types', action: 'back', param: '' },
+      { label: category.title }
+    ]);
 
     const totalPages = Math.ceil(category.examples.length / CONFIG.itemsPerPage);
     const startIndex = (requestTypePage - 1) * CONFIG.itemsPerPage;
