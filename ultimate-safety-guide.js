@@ -6312,7 +6312,7 @@
       renderTOC();
     }
 
-    renderCategoriesPage();
+    handleSearch('');
     setTimeout(() => input.focus(), 100);
   }
 
