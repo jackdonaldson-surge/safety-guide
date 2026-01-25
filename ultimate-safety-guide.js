@@ -2145,14 +2145,15 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      gap: 0.5rem;
       margin: 0.15rem 0;
+      position: relative;
     }
     .tree-distress-left {
+      position: absolute;
+      right: calc(50% + 2.5rem);
       display: flex;
       align-items: center;
       gap: 0.25rem;
-      padding-top: 0.15rem;
     }
     .tree-distress-left .tree-outcome {
       font-size: 0.65rem;
