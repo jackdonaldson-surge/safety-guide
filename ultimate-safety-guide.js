@@ -1075,9 +1075,9 @@
       position: fixed;
       bottom: 1.5rem;
       left: 1.5rem;
-      background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
-      color: #fff;
-      border: 2px solid rgba(16, 185, 129, 0.3);
+      background: linear-gradient(135deg, #0a1628 0%, #1a3050 100%);
+      color: #c0c8d0;
+      border: 2px solid rgba(45, 90, 123, 0.5);
       border-radius: 50px;
       padding: 0 28px;
       height: 56px;
@@ -1089,16 +1089,16 @@
       align-items: center;
       gap: 0.6rem;
       z-index: ${CONFIG.zIndex};
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 2px 10px rgba(59, 130, 246, 0.25);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(26, 48, 80, 0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .glossary-trigger:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2), 0 4px 15px rgba(59, 130, 246, 0.35);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 4px 15px rgba(45, 90, 123, 0.5);
     }
     .glossary-trigger:hover,
     .glossary-trigger.shining {
-      background: linear-gradient(90deg, #10b981 0%, #3b82f6 30%, rgba(255,255,255,0.2) 50%, #3b82f6 70%, #10b981 100%);
+      background: linear-gradient(90deg, #0a1628 0%, #2d5a7b 30%, rgba(192,200,208,0.3) 50%, #2d5a7b 70%, #0a1628 100%);
       background-size: 300% auto;
       animation: glossaryShine 1.2s ease-in-out;
     }
@@ -1123,7 +1123,7 @@
       transform: translate(-50%, -50%) scale(0.95);
       width: min(94vw, 1100px);
       max-height: 90vh;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 16px;
       z-index: ${CONFIG.zIndex + 2};
       opacity: 0;
@@ -1143,7 +1143,7 @@
 
     .glossary-header {
       padding: 1.25rem 1.5rem 1rem;
-      background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+      background: linear-gradient(135deg, #0a1628 0%, #1a3050 100%);
       flex-shrink: 0;
     }
     .glossary-header-top {
@@ -1203,7 +1203,7 @@
       gap: 0.4rem;
     }
     .glossary-tab:hover { background: rgba(255,255,255,0.25); color: #fff; border-color: rgba(255,255,255,0.5); }
-    .glossary-tab.active { background: #f8fafc; color: #1e40af; border-color: #f8fafc; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .glossary-tab.active { background: #e8ecf0; color: #0a1628; border-color: #e8ecf0; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
     .glossary-tab svg { width: 16px; height: 16px; }
 
     .glossary-search { position: relative; }
@@ -1218,7 +1218,7 @@
       font-size: 0.95em;
       box-sizing: border-box;
     }
-    .glossary-search input:focus { outline: none; background: #f8fafc; box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
+    .glossary-search input:focus { outline: none; background: #e8ecf2; box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
     .glossary-search-icon { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #64748b; }
     .glossary-search-count {
       position: absolute;
@@ -1236,7 +1236,7 @@
     .glossary-content {
       flex: 1;
       overflow-y: auto;
-      background: #f8fafc;
+      background: #e8ecf2;
       -webkit-overflow-scrolling: touch;
       transform: translateZ(0);
       will-change: scroll-position;
@@ -1253,7 +1253,7 @@
     .glossary-entry {
       padding: 1.5rem;
       border-bottom: 1px solid #e2e8f0;
-      background: #f8fafc;
+      background: #e8ecf2;
     }
     .glossary-term {
       font-size: 1.15rem;
@@ -1289,7 +1289,7 @@
     }
     .glossary-examples-header svg { width: 14px; height: 14px; }
     .glossary-examples-list {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
       padding: 0;
@@ -1305,7 +1305,7 @@
       color: #334155;
       line-height: 1.6;
       position: relative;
-      background: #f8fafc;
+      background: #e8ecf2;
     }
     .glossary-example-item:last-child { border-bottom: none; }
     .glossary-example-item::before {
@@ -1342,7 +1342,7 @@
     .glossary-footer {
       padding: 1rem 1.5rem;
       border-top: 1px solid #e2e8f0;
-      background: #f8fafc;
+      background: #e8ecf2;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1351,7 +1351,7 @@
     .glossary-page-info { font-size: 0.85rem; color: #64748b; font-weight: 500; }
     .glossary-pagination { display: flex; gap: 0.5rem; }
     .glossary-btn {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       color: #475569;
       padding: 0.6em 1.1em;
@@ -1365,7 +1365,7 @@
       gap: 0.4rem;
       font-weight: 600;
     }
-    .glossary-btn:hover:not(:disabled) { background: #f8fafc; border-color: #cbd5e1; }
+    .glossary-btn:hover:not(:disabled) { background: #e8ecf2; border-color: #cbd5e1; }
     .glossary-btn:disabled { opacity: 0.4; cursor: not-allowed; }
     .glossary-btn svg { width: 14px; height: 14px; }
 
@@ -1379,7 +1379,7 @@
       padding: 1.25rem;
     }
     .example-category-card {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 2px solid #e2e8f0;
       border-radius: 12px;
       padding: 1.25rem;
@@ -1474,7 +1474,7 @@
 
     .example-detail-header {
       padding: 1rem 1.5rem;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-bottom: 1px solid #e2e8f0;
       display: flex;
       align-items: center;
@@ -1489,7 +1489,7 @@
       z-index: 10;
     }
     .example-back-btn {
-      background: #f1f5f9;
+      background: #dfe4eb;
       border: 1px solid #e2e8f0;
       color: #475569;
       padding: 0.5rem 0.9rem;
@@ -1519,7 +1519,7 @@
     .example-item {
       padding: 1.5rem;
       border-bottom: 1px solid #e2e8f0;
-      background: #f8fafc;
+      background: #e8ecf2;
     }
     .example-label {
       font-size: 0.75rem;
@@ -1539,7 +1539,7 @@
     .example-label.explanation { color: #64748b; }
     .example-label svg { width: 14px; height: 14px; }
     .example-text {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       padding: 1rem;
@@ -1567,7 +1567,7 @@
     .example-verdict.refusal { background: #fee2e2; color: #991b1b; }
 
     .category-description-box {
-      background: #f1f5f9;
+      background: #dfe4eb;
       border-left: 4px solid var(--card-color, #3b82f6);
       padding: 1rem 1.25rem;
       margin: 1rem 0 1.5rem 0;
@@ -1609,7 +1609,7 @@
       gap: 0.75rem;
       margin-top: 0.75rem;
       padding: 0.75rem;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 8px;
     }
     .toxicity-badge {
@@ -1649,7 +1649,7 @@
 
     /* Toxicity Guide Styles */
     .toxicity-guide {
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      background: linear-gradient(135deg, #e8ecf2 0%, #dfe4eb 100%);
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       padding: 1.25rem;
@@ -1715,7 +1715,7 @@
 
     /* Harmful Output Characteristics Styles */
     .harmful-output-intro {
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      background: linear-gradient(135deg, #e8ecf2 0%, #dfe4eb 100%);
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       padding: 1.25rem;
@@ -1747,13 +1747,13 @@
       border-collapse: collapse;
       font-size: 0.92rem;
       margin-bottom: 1rem;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid #e2e8f0;
     }
     .harmful-output-table th {
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      background: linear-gradient(135deg, #e8ecf2 0%, #dfe4eb 100%);
       padding: 0.75rem 1rem;
       text-align: left;
       font-weight: 600;
@@ -1762,7 +1762,7 @@
     }
     .harmful-output-table td {
       padding: 0.65rem 1rem;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid #dfe4eb;
       vertical-align: top;
       line-height: 1.4;
     }
@@ -1770,7 +1770,7 @@
       border-bottom: none;
     }
     .harmful-output-table tr:hover {
-      background: #f8fafc;
+      background: #e8ecf2;
     }
     .harmful-output-table tr.category-first-row td {
       border-top: 2px solid #cbd5e1;
@@ -1824,7 +1824,7 @@
       padding: 1rem 0;
     }
     .flowchart-node {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 2px solid #e2e8f0;
       border-radius: 12px;
       padding: 1rem 1.5rem;
@@ -1890,7 +1890,7 @@
       font-size: 0.75rem;
       font-weight: 600;
       padding: 0.25rem 0.5rem;
-      background: #f1f5f9;
+      background: #dfe4eb;
       border-radius: 4px;
       margin: 4px 0;
     }
@@ -1916,7 +1916,7 @@
       margin-bottom: 0;
     }
     .flowchart-decision-box {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 2px solid #e2e8f0;
       border-radius: 10px;
       padding: 1rem;
@@ -1987,7 +1987,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       padding: 0.5rem 0.6rem;
@@ -2076,7 +2076,7 @@
       flex-direction: column;
       gap: 2rem;
       padding: 1.5rem;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 12px;
       overflow-x: auto;
     }
@@ -2095,25 +2095,25 @@
     }
     .tree-type-badge {
       font-weight: 700;
-      font-size: 0.85rem;
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
       color: white;
     }
     .tree-type-badge.generative { background: #1d4ed8; }
     .tree-type-badge.non-generative { background: #059669; }
     .tree-vline {
       width: 2px;
-      height: 12px;
+      height: 10px;
       background: #94a3b8;
     }
     .tree-check-node {
-      background: #f1f5f9;
+      background: #dfe4eb;
       border: 2px solid #cbd5e1;
       border-radius: 6px;
-      padding: 0.35rem 0.75rem;
+      padding: 0.3rem 0.6rem;
       font-weight: 600;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: #475569;
       text-align: center;
     }
@@ -2121,85 +2121,90 @@
     .tree-distress-check {
       background: #fef3c7;
       border: 1px solid #f59e0b;
-      border-radius: 5px;
-      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
       text-align: center;
     }
     .tree-distress-question {
       font-weight: 600;
-      font-size: 0.55rem;
+      font-size: 0.7rem;
       color: #92400e;
-      line-height: 1.2;
+      line-height: 1.3;
     }
     .tree-distress-examples {
       font-weight: 400;
-      font-size: 0.5rem;
+      font-size: 0.6rem;
       color: #b45309;
     }
     .tree-distress-row {
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
+      gap: 0.5rem;
       margin: 0.15rem 0;
     }
     .tree-distress-left {
       display: flex;
       align-items: center;
-      gap: 0.15rem;
-      margin-right: 0.3rem;
+      gap: 0.25rem;
     }
     .tree-distress-left .tree-outcome {
-      font-size: 0.55rem;
-      padding: 0.2rem 0.35rem;
+      font-size: 0.65rem;
+      padding: 0.25rem 0.4rem;
     }
     .tree-arrow-left {
       color: #94a3b8;
-      font-size: 0.75rem;
+      font-size: 0.85rem;
     }
     .tree-distress-options {
       display: flex;
       gap: 0.75rem;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
     }
-    .tree-distress-yes,
+    .tree-distress-yes {
+      display: flex;
+      align-items: center;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.3rem;
+    }
     .tree-distress-no {
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 0.55rem;
-      padding: 0.15rem 0.25rem;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.3rem;
     }
     .tree-distress-yes .tree-sub-option-label,
     .tree-distress-no .tree-sub-option-label {
-      font-size: 0.55rem;
+      font-size: 0.7rem;
     }
     .tree-distress-no .tree-bucket-arrow {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
+      margin-top: 0.1rem;
     }
     /* Horizontal toxicity buckets */
     .tree-toxicity-row {
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.25rem;
       flex-wrap: nowrap;
-      margin-top: 0.35rem;
+      margin-top: 0.4rem;
       width: 100%;
     }
     .tree-bucket {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 140px;
+      min-width: 160px;
       flex: 0 1 auto;
-      width: 160px;
+      width: 180px;
     }
     .tree-bucket-header {
       font-weight: 700;
-      font-size: 0.75rem;
-      padding: 0.3rem 0.5rem;
-      border-radius: 5px 5px 0 0;
+      font-size: 0.85rem;
+      padding: 0.4rem 0.65rem;
+      border-radius: 6px 6px 0 0;
       width: 100%;
       text-align: center;
     }
@@ -2207,34 +2212,34 @@
     .tree-bucket-header.jailbreak { background: #ede9fe; color: #5b21b6; }
     .tree-bucket-header.harmful { background: #fee2e2; color: #991b1b; }
     .tree-bucket-body {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 2px solid #e2e8f0;
       border-top: none;
-      border-radius: 0 0 6px 6px;
-      padding: 0.5rem;
+      border-radius: 0 0 8px 8px;
+      padding: 0.65rem;
       width: 100%;
       text-align: center;
     }
     .tree-bucket-arrow {
       color: #94a3b8;
-      font-size: 1rem;
-      margin: 0.15rem 0;
+      font-size: 1.1rem;
+      margin: 0.2rem 0;
     }
     .tree-outcome {
       display: inline-block;
-      padding: 0.3rem 0.5rem;
-      border-radius: 5px;
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
       font-weight: 700;
-      font-size: 0.7rem;
+      font-size: 0.8rem;
     }
     .tree-outcome.engage { background: #dcfce7; color: #166534; }
     .tree-outcome.refuse { background: #fee2e2; color: #991b1b; }
     .tree-outcome.partial { background: #fef3c7; color: #92400e; }
     .tree-outcome.grounded { background: #e0f2fe; color: #0369a1; }
     .tree-sub-decision {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       color: #475569;
-      margin: 0.15rem 0;
+      margin: 0.2rem 0;
       text-align: center;
       font-weight: 500;
     }
@@ -2243,26 +2248,26 @@
       flex-direction: row;
       justify-content: center;
       align-items: flex-start;
-      gap: 0.5rem;
-      margin-top: 0.15rem;
+      gap: 0.65rem;
+      margin-top: 0.2rem;
     }
     .tree-sub-vertical-option {
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 0.7rem;
-      padding: 0.25rem 0.35rem;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.4rem;
     }
     .tree-sub-option-label {
       color: #64748b;
       font-weight: 600;
-      font-size: 0.65rem;
-      margin-bottom: 0.15rem;
+      font-size: 0.75rem;
+      margin-bottom: 0.2rem;
     }
     .tree-sub-divider {
       width: 1px;
       height: 100%;
-      min-height: 50px;
+      min-height: 55px;
       background: #e2e8f0;
       margin: 0;
     }
@@ -2272,14 +2277,14 @@
       border-top: 1px dashed #e2e8f0;
     }
     .tree-sub-nested-question {
-      font-size: 0.65rem;
+      font-size: 0.75rem;
       color: #64748b;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.3rem;
       text-align: center;
     }
     .tree-bucket-wide {
-      width: 360px;
-      min-width: 320px;
+      width: 400px;
+      min-width: 360px;
       flex: 0 0 auto;
     }
     .tree-two-paths {
@@ -2287,7 +2292,7 @@
       flex-direction: row;
       justify-content: center;
       align-items: flex-start;
-      gap: 0.75rem;
+      gap: 0.85rem;
       margin-top: 0.5rem;
     }
     .tree-path-yes, .tree-path-no {
@@ -2303,7 +2308,7 @@
       align-self: stretch;
     }
     .tree-note {
-      background: #f1f5f9;
+      background: #dfe4eb;
       border-radius: 6px;
       padding: 0.6rem 0.75rem;
       margin-top: 1rem;
@@ -2315,7 +2320,7 @@
     .flowchart-mixed-inline {
       margin-top: 0.5rem;
       padding: 0.5rem 0.75rem;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 6px;
       font-size: 0.75rem;
       color: #475569;
@@ -2324,7 +2329,7 @@
       color: #1e293b;
     }
     .flowchart-note {
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 8px;
       padding: 0.75rem;
       margin-top: 1rem;
@@ -2336,7 +2341,7 @@
       color: #1e293b;
     }
     .flowchart-mixed-section {
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 10px;
       padding: 1rem;
       width: 100%;
@@ -2361,7 +2366,7 @@
       align-items: center;
       gap: 0.25rem;
       padding: 0.75rem;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 8px;
       flex: 1;
       max-width: 200px;
@@ -2412,7 +2417,7 @@
       gap: 0.75rem;
     }
     .flowchart-toxicity-item {
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 8px;
       border: 2px solid;
       overflow: hidden;
@@ -2434,7 +2439,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 8px;
       padding: 0.75rem;
     }
@@ -2466,7 +2471,7 @@
       color: #3b82f6;
     }
     .global-search-result {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
       padding: 1rem;
@@ -2540,7 +2545,7 @@
 
     /* Request Types Styles */
     .request-types-intro {
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      background: linear-gradient(135deg, #e8ecf2 0%, #dfe4eb 100%);
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       padding: 1.25rem;
@@ -2566,7 +2571,7 @@
       line-height: 1.5;
     }
     .request-type-definition {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       margin-bottom: 1rem;
@@ -2577,7 +2582,7 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid #dfe4eb;
     }
     .request-type-definition-icon {
       width: 36px;
@@ -2612,7 +2617,7 @@
       align-items: center;
       gap: 0.4rem;
       padding: 0.5rem 0.9rem;
-      background: #f1f5f9;
+      background: #dfe4eb;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       color: #475569;
@@ -2630,7 +2635,7 @@
       height: 16px;
     }
     .request-type-card {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       margin-bottom: 1rem;
@@ -2709,7 +2714,7 @@
       color: #1e293b;
     }
     .request-type-description {
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 8px;
       padding: 1rem;
       margin-bottom: 1.5rem;
@@ -2764,7 +2769,7 @@
       color: #1d4ed8;
     }
     .request-type-example {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       padding: 1rem;
@@ -2805,7 +2810,7 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.5rem 1rem;
-      background: #f1f5f9;
+      background: #dfe4eb;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       color: #475569;
@@ -2847,7 +2852,7 @@
       margin-bottom: 1.5rem;
     }
     .writing-guide-rules {
-      background: #f1f5f9;
+      background: #dfe4eb;
       border: 1px solid #cbd5e1;
       border-radius: 12px;
       padding: 1.25rem;
@@ -2885,7 +2890,7 @@
       gap: 0.75rem;
     }
     .writing-guide-section-card {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       padding: 1rem 1.25rem;
@@ -2967,7 +2972,7 @@
       line-height: 1.65;
       margin-bottom: 1.5rem;
       padding: 1rem;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-radius: 8px;
     }
     .writing-guide-subsection {
@@ -2998,7 +3003,7 @@
       margin-bottom: 0.4rem;
     }
     .writing-guide-structure {
-      background: #f1f5f9;
+      background: #dfe4eb;
       border-radius: 8px;
       padding: 1rem;
       font-family: 'IBM Plex Mono', monospace;
@@ -3008,7 +3013,7 @@
       line-height: 1.5;
     }
     .writing-guide-example {
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       padding: 1rem;
@@ -3070,7 +3075,7 @@
       font-size: 0.92rem;
     }
     .writing-guide-table th {
-      background: #f1f5f9;
+      background: #dfe4eb;
       padding: 0.75rem;
       text-align: left;
       font-weight: 600;
@@ -3165,7 +3170,7 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-bottom: 1px solid #e2e8f0;
       font-size: 0.85rem;
       flex-wrap: wrap;
@@ -3196,7 +3201,7 @@
       top: calc(100% + 4px);
       left: 0;
       right: 0;
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -3210,7 +3215,7 @@
       gap: 0.75rem;
       padding: 0.75rem 1rem;
       cursor: pointer;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid #dfe4eb;
       transition: background 0.15s ease;
     }
     .autocomplete-item:last-child {
@@ -3218,7 +3223,7 @@
     }
     .autocomplete-item:hover,
     .autocomplete-item.focused {
-      background: #f1f5f9;
+      background: #dfe4eb;
     }
     .autocomplete-item.focused {
       outline: 2px solid #3b82f6;
@@ -3268,7 +3273,7 @@
     .toc-sidebar {
       width: 220px;
       min-width: 220px;
-      background: #f8fafc;
+      background: #e8ecf2;
       border-right: 1px solid #e2e8f0;
       overflow-y: auto;
       transition: width 0.25s ease, min-width 0.25s ease, opacity 0.25s ease;
@@ -3341,7 +3346,7 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 10001;
-      background: #f8fafc;
+      background: #e8ecf2;
       border: 1px solid #e2e8f0;
       border-radius: 0 8px 8px 0;
       padding: 0.5rem 0.35rem;
@@ -3359,7 +3364,7 @@
       transition: transform 0.25s ease;
     }
     .toc-toggle-btn:hover {
-      background: #f1f5f9;
+      background: #dfe4eb;
     }
     .toc-toggle-btn.toc-open svg {
       transform: rotate(180deg);
