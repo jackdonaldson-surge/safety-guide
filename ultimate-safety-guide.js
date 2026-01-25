@@ -2075,20 +2075,10 @@
     .tree-top-row {
       display: flex;
       justify-content: center;
-      gap: 3rem;
-      position: relative;
+      gap: 2rem;
       width: 100%;
-      max-width: 750px;
-    }
-    /* Horizontal connector line between top nodes */
-    .tree-top-row::before {
-      content: '';
-      position: absolute;
-      top: 22px;
-      left: calc(25% + 50px);
-      right: calc(25% + 50px);
-      height: 2px;
-      background: #94a3b8;
+      max-width: 850px;
+      flex-wrap: wrap;
     }
     .tree-top-node {
       display: flex;
@@ -3980,24 +3970,50 @@
               <div class="tree-root-node non-generative">NON-GENERATIVE</div>
               <div class="tree-root-desc">Mechanical tasks on provided content</div>
               <div class="tree-vline"></div>
-              <div class="tree-internal-node question">Is the REQUEST harmful?</div>
+              <div class="tree-internal-node">Check Toxicity Level</div>
               <div class="tree-vline"></div>
 
               <div class="tree-branch-box">
-                <div class="tree-section-label">If REQUEST is harmful:</div>
-                <div class="tree-row harmful">
-                  <span class="tree-row-label">Yes</span>
-                  <span style="font-size: 0.65rem; color: #64748b;">(amplifies/enables harm)</span>
+                <!-- Safe/Benign/Dual-Use path -->
+                <div class="tree-row benign">
+                  <span class="tree-row-label">Safe</span>
+                  <span class="tree-row-arrow">→</span>
+                  <span class="tree-row-result grounded">GROUNDED ENGAGEMENT</span>
+                </div>
+                <div class="tree-row benign">
+                  <span class="tree-row-label">Benign</span>
+                  <span class="tree-row-arrow">→</span>
+                  <span class="tree-row-result grounded">GROUNDED ENGAGEMENT</span>
+                </div>
+                <div class="tree-row dual-use">
+                  <span class="tree-row-label">Dual-Use</span>
+                  <span class="tree-row-arrow">→</span>
+                  <span class="tree-row-result grounded">GROUNDED ENGAGEMENT</span>
+                </div>
+
+                <!-- Harmful path with sub-decision -->
+                <div class="tree-row harmful" style="flex-wrap: wrap;">
+                  <span class="tree-row-label">Harmful</span>
+                  <span style="font-size: 0.65rem; color: #991b1b; flex: 1;">→ Does request amplify/enable/encourage harm?</span>
+                </div>
+                <div class="tree-sub-row">
+                  <span class="tree-sub-row-label">No:</span>
+                  <span class="tree-row-arrow">→</span>
+                  <span class="tree-row-result grounded">GROUNDED ENGAGEMENT</span>
+                </div>
+                <div class="tree-sub-row" style="flex-wrap: wrap;">
+                  <span class="tree-sub-row-label">Yes:</span>
+                  <span style="font-size: 0.65rem; color: #64748b;">→ Includes safe/benign requests?</span>
+                </div>
+                <div class="tree-sub-row" style="padding-left: 2rem;">
+                  <span class="tree-sub-row-label">No:</span>
                   <span class="tree-row-arrow">→</span>
                   <span class="tree-row-result refuse">FULL REFUSAL</span>
                 </div>
-
-                <div class="tree-section-label" style="margin-top: 0.6rem;">If REQUEST is safe/benign/dual-use:</div>
-                <div class="tree-row benign">
-                  <span class="tree-row-label">No</span>
-                  <span style="font-size: 0.65rem; color: #64748b;">(any content toxicity)</span>
+                <div class="tree-sub-row" style="padding-left: 2rem;">
+                  <span class="tree-sub-row-label">Yes:</span>
                   <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result grounded">GROUNDED ENGAGEMENT</span>
+                  <span class="tree-row-result partial">PARTIAL REFUSAL</span>
                 </div>
 
                 <div class="tree-note">
