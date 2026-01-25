@@ -4680,7 +4680,8 @@
 
     // Search Harmful Output
     // First check if the query matches "harmful output" to show the main section
-    if ('harmful output'.includes(normalizedQuery) || 'harmful-output'.includes(normalizedQuery)) {
+    if (normalizedQuery.includes('harmful output') || normalizedQuery.includes('harmful-output') ||
+        'harmful output'.includes(normalizedQuery) || 'harmful-output'.includes(normalizedQuery)) {
       results.push({
         tab: 'harmful-output',
         tabColor: tabColors['harmful-output'],
@@ -4787,7 +4788,8 @@
 
     // Search Harm-Free Output
     // First check if the query matches "harm-free" to show the main section
-    if ('harm-free'.includes(normalizedQuery) || 'harm free'.includes(normalizedQuery) ||
+    if (normalizedQuery.includes('harm-free') || normalizedQuery.includes('harm free') ||
+        'harm-free'.includes(normalizedQuery) || 'harm free'.includes(normalizedQuery) ||
         HARM_FREE_OUTPUT.description.toLowerCase().includes(normalizedQuery)) {
       results.push({
         tab: 'harmful-output',
@@ -4999,6 +5001,10 @@
     const searchInput = document.getElementById('glossary-search-input');
     searchInput.value = '';
     currentSearchQuery = '';
+
+    // Clear global search state
+    globalSearchResults = [];
+    globalSearchPage = 1;
 
     // Reset all filtered arrays to full content
     filteredTerms = [...allTerms];
