@@ -1075,9 +1075,9 @@
       position: fixed;
       bottom: 1.5rem;
       left: 1.5rem;
-      background: linear-gradient(135deg, #0e7490 0%, #0891b2 100%);
-      color: #e0f7fa;
-      border: 2px solid rgba(14, 116, 144, 0.6);
+      background: linear-gradient(90deg, #34d399 0%, #22d3ee 35%, #60a5fa 70%, #a78bfa 100%);
+      color: #ffffff;
+      border: none;
       border-radius: 50px;
       padding: 0 28px;
       height: 56px;
@@ -1089,16 +1089,15 @@
       align-items: center;
       gap: 0.6rem;
       z-index: ${CONFIG.zIndex};
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 2px 10px rgba(8, 145, 178, 0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(52, 211, 153, 0.3);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .glossary-trigger:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3), 0 4px 15px rgba(8, 145, 178, 0.4);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25), 0 4px 15px rgba(96, 165, 250, 0.4);
     }
-    .glossary-trigger:hover,
     .glossary-trigger.shining {
-      background: linear-gradient(90deg, #0e7490 0%, #0891b2 35%, rgba(34, 211, 238, 0.15) 50%, #0891b2 65%, #0e7490 100%);
+      background: linear-gradient(90deg, #34d399 0%, #22d3ee 25%, rgba(255,255,255,0.3) 50%, #60a5fa 75%, #a78bfa 100%);
       background-size: 300% auto;
       animation: glossaryShine 2s ease-in-out;
     }
@@ -3400,6 +3399,7 @@
   // ============================================
   const ICONS = {
     shield: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><linearGradient id="shieldGrad" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#3FAADD"/><stop offset="100%" stop-color="#7B68B8"/></linearGradient></defs><path fill="url(#shieldGrad)" stroke="#fff" stroke-width="1.5" d="M12 2.5c-2.5 1.2-5.5 2-8.5 2-.3 1.8-.5 3.6-.5 5.5 0 6 3.5 11 9 13 5.5-2 9-7 9-13 0-1.9-.2-3.7-.5-5.5-3 0-6-.8-8.5-2z"/></svg>',
+    shieldCheck: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
     heart: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>',
     lock: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>',
     split: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>',
@@ -3442,7 +3442,7 @@
     const btn = document.createElement('button');
     btn.className = 'glossary-trigger';
     btn.id = 'glossary-trigger';
-    btn.innerHTML = `${ICONS.shield} Ultimate Safety Guide`;
+    btn.innerHTML = `${ICONS.shieldCheck} Ultimate Safety Guide`;
     document.body.appendChild(btn);
     return btn;
   }
