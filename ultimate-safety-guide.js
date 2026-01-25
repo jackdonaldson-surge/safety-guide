@@ -810,7 +810,7 @@
           'Complete Task Execution - Fully perform the requested mechanical operation',
           'No Commentary - Do not add warnings, disclaimers, or opinions about the content',
           'No Modification - Do not sanitize, amplify, or alter the meaning of the source content',
-          'Attribution - Reference that the output is derived from the provided text'
+          'Attribution (when harmful content is provided) - Reference that the output is derived from the provided text'
         ],
         applicableTaskTypes: [
           'Translation',
@@ -819,9 +819,10 @@
           'Extraction (names, dates, locations, quotes)',
           'Find-and-replace',
           'Format conversion',
-          'Proofreading/typo correction'
+          'Proofreading/typo correction',
+          'Tone changes'
         ],
-        structure: '[Brief attribution phrase] + [Completed task output]',
+        structure: '[Brief attribution phrase (when harmful content is provided)] + [Completed task output]',
         attributionPhrases: [
           '"The text contains..."',
           '"Here is the translation:"',
