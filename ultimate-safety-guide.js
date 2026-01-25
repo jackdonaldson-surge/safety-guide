@@ -1075,9 +1075,9 @@
       position: fixed;
       bottom: 1.5rem;
       left: 1.5rem;
-      background: linear-gradient(135deg, #0f1d32 0%, #1e3a5c 100%);
+      background: linear-gradient(135deg, #1a2d45 0%, #2a5070 100%);
       color: #c0c8d0;
-      border: 2px solid rgba(45, 90, 123, 0.5);
+      border: 2px solid rgba(60, 110, 145, 0.5);
       border-radius: 50px;
       padding: 0 28px;
       height: 56px;
@@ -1089,16 +1089,16 @@
       align-items: center;
       gap: 0.6rem;
       z-index: ${CONFIG.zIndex};
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(26, 48, 80, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(40, 65, 100, 0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .glossary-trigger:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 4px 15px rgba(45, 90, 123, 0.5);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 4px 15px rgba(60, 110, 145, 0.5);
     }
     .glossary-trigger:hover,
     .glossary-trigger.shining {
-      background: linear-gradient(90deg, #0f1d32 0%, #2d5a7b 30%, rgba(192,200,208,0.3) 50%, #2d5a7b 70%, #0f1d32 100%);
+      background: linear-gradient(90deg, #1a2d45 0%, #3d6d90 30%, rgba(192,200,208,0.3) 50%, #3d6d90 70%, #1a2d45 100%);
       background-size: 300% auto;
       animation: glossaryShine 1.2s ease-in-out;
     }
@@ -1143,7 +1143,7 @@
 
     .glossary-header {
       padding: 1.25rem 1.5rem 1rem;
-      background: linear-gradient(135deg, #0f1d32 0%, #1e3a5c 100%);
+      background: linear-gradient(135deg, #1a2d45 0%, #2a5070 100%);
       flex-shrink: 0;
     }
     .glossary-header-top {
@@ -1203,7 +1203,7 @@
       gap: 0.4rem;
     }
     .glossary-tab:hover { background: rgba(255,255,255,0.25); color: #fff; border-color: rgba(255,255,255,0.5); }
-    .glossary-tab.active { background: #e8ecf0; color: #0f1d32; border-color: #e8ecf0; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .glossary-tab.active { background: #e8ecf0; color: #1a2d45; border-color: #e8ecf0; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
     .glossary-tab svg { width: 16px; height: 16px; }
 
     .glossary-search { position: relative; }
@@ -3398,7 +3398,7 @@
   // ICONS
   // ============================================
   const ICONS = {
-    shield: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>',
+    shield: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><linearGradient id="shieldGrad" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#3FAADD"/><stop offset="100%" stop-color="#7B68B8"/></linearGradient></defs><path fill="url(#shieldGrad)" stroke="#fff" stroke-width="1.5" d="M12 2.5c-2.5 1.2-5.5 2-8.5 2-.3 1.8-.5 3.6-.5 5.5 0 6 3.5 11 9 13 5.5-2 9-7 9-13 0-1.9-.2-3.7-.5-5.5-3 0-6-.8-8.5-2z"/></svg>',
     heart: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>',
     lock: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>',
     split: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>',
