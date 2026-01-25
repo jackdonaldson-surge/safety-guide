@@ -3744,7 +3744,13 @@
           t.classList.toggle('active', t.dataset.tab === 'harmful-output');
         });
         renderHarmfulOutput();
-        document.getElementById('glossary-content').scrollTop = 0;
+        // Scroll to the Harmful Output Characteristics table
+        setTimeout(() => {
+          const section = document.getElementById('section-harmful-output');
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
       });
     }
   }
@@ -3892,7 +3898,7 @@
     const policyComplianceHtml = `
       <div class="output-section" id="section-policy-compliance">
         <div class="harmful-output-intro">
-          <h3>${ICONS['check-circle']} Policy Compliance Decision Tree</h3>
+          <h3>Policy Compliance Decision Tree</h3>
           <p>Determine the appropriate response based on request type and toxicity.</p>
         </div>
 
@@ -4046,7 +4052,7 @@
     const harmfulOutputHtml = `
       <div class="output-section" id="section-harmful-output">
         <div class="harmful-output-intro">
-          <h3>${ICONS['alert-circle']} Harmful Output Characteristics</h3>
+          <h3>Harmful Output Characteristics</h3>
           <p>A response is considered <strong>harmful</strong> if it exhibits <strong>any one</strong> of the characteristics listed below. These characteristics help identify responses that may cause harm even when the user's request itself was benign or dual-use.</p>
         </div>
         <table class="harmful-output-table">
@@ -4067,7 +4073,7 @@
     const harmModificationHtml = `
       <div class="output-section" id="section-harm-modification">
         <div class="harmful-output-intro">
-          <h3>${ICONS['edit']} Harm Modification</h3>
+          <h3>Harm Modification</h3>
           <p>${escapeHtml(HARM_MODIFICATION.description)}</p>
         </div>
         <table class="harmful-output-table">
@@ -4146,7 +4152,7 @@
     const harmFreeOutputHtml = `
       <div class="output-section" id="section-harm-free">
         <div class="harmful-output-intro">
-          <h3>${ICONS['check-circle']} Harm-Free Output Characteristics</h3>
+          <h3>Harm-Free Output Characteristics</h3>
           <p>${escapeHtml(HARM_FREE_OUTPUT.description)}</p>
         </div>
         <table class="harmful-output-table">
@@ -4302,6 +4308,18 @@
     });
 
     // Search Harmful Output
+    // First check if the query matches "harmful output" to show the main section
+    if ('harmful output'.includes(normalizedQuery) || 'harmful-output'.includes(normalizedQuery)) {
+      results.push({
+        tab: 'harmful-output',
+        tabColor: tabColors['harmful-output'],
+        tabLabel: tabLabels['harmful-output'],
+        title: 'Harmful Output Characteristics',
+        snippet: 'A response is considered harmful if it exhibits any one of the characteristics listed below.',
+        data: { section: 'harmful-output' }
+      });
+    }
+    // Then search individual categories
     HARMFUL_OUTPUT.categories.forEach(cat => {
       const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
       const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
@@ -4397,6 +4415,19 @@
     });
 
     // Search Harm-Free Output
+    // First check if the query matches "harm-free" to show the main section
+    if ('harm-free'.includes(normalizedQuery) || 'harm free'.includes(normalizedQuery) ||
+        HARM_FREE_OUTPUT.description.toLowerCase().includes(normalizedQuery)) {
+      results.push({
+        tab: 'harmful-output',
+        tabColor: tabColors['harmful-output'],
+        tabLabel: tabLabels['harmful-output'],
+        title: 'Harm-Free Output Characteristics',
+        snippet: HARM_FREE_OUTPUT.description.substring(0, 150) + (HARM_FREE_OUTPUT.description.length > 150 ? '...' : ''),
+        data: { section: 'harm-free' }
+      });
+    }
+    // Then search individual categories
     HARM_FREE_OUTPUT.categories.forEach(cat => {
       const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
       const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
