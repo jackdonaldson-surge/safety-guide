@@ -1042,7 +1042,6 @@
   let activeWritingGuideSection = null; // Active section in writing guide
 
   // UX Enhancement state variables
-  let darkMode = localStorage.getItem('glossary-dark-mode') === 'true';
   let breadcrumbs = [];
   let tocVisible = false;
   let keyboardFocusIndex = -1;
@@ -1204,7 +1203,7 @@
       gap: 0.4rem;
     }
     .glossary-tab:hover { background: rgba(255,255,255,0.25); color: #fff; border-color: rgba(255,255,255,0.5); }
-    .glossary-tab.active { background: #fff; color: #1e40af; border-color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .glossary-tab.active { background: #f8fafc; color: #1e40af; border-color: #f8fafc; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
     .glossary-tab svg { width: 16px; height: 16px; }
 
     .glossary-search { position: relative; }
@@ -1219,7 +1218,7 @@
       font-size: 0.95em;
       box-sizing: border-box;
     }
-    .glossary-search input:focus { outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
+    .glossary-search input:focus { outline: none; background: #f8fafc; box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
     .glossary-search-icon { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #64748b; }
     .glossary-search-count {
       position: absolute;
@@ -1254,7 +1253,7 @@
     .glossary-entry {
       padding: 1.5rem;
       border-bottom: 1px solid #e2e8f0;
-      background: #fff;
+      background: #f8fafc;
     }
     .glossary-term {
       font-size: 1.15rem;
@@ -1306,7 +1305,7 @@
       color: #334155;
       line-height: 1.6;
       position: relative;
-      background: #fff;
+      background: #f8fafc;
     }
     .glossary-example-item:last-child { border-bottom: none; }
     .glossary-example-item::before {
@@ -1343,7 +1342,7 @@
     .glossary-footer {
       padding: 1rem 1.5rem;
       border-top: 1px solid #e2e8f0;
-      background: #fff;
+      background: #f8fafc;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1352,7 +1351,7 @@
     .glossary-page-info { font-size: 0.85rem; color: #64748b; font-weight: 500; }
     .glossary-pagination { display: flex; gap: 0.5rem; }
     .glossary-btn {
-      background: #fff;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
       color: #475569;
       padding: 0.6em 1.1em;
@@ -1380,7 +1379,7 @@
       padding: 1.25rem;
     }
     .example-category-card {
-      background: #fff;
+      background: #f8fafc;
       border: 2px solid #e2e8f0;
       border-radius: 12px;
       padding: 1.25rem;
@@ -1475,7 +1474,7 @@
 
     .example-detail-header {
       padding: 1rem 1.5rem;
-      background: #fff;
+      background: #f8fafc;
       border-bottom: 1px solid #e2e8f0;
       display: flex;
       align-items: center;
@@ -1520,7 +1519,7 @@
     .example-item {
       padding: 1.5rem;
       border-bottom: 1px solid #e2e8f0;
-      background: #fff;
+      background: #f8fafc;
     }
     .example-label {
       font-size: 0.75rem;
@@ -1748,7 +1747,7 @@
       border-collapse: collapse;
       font-size: 0.92rem;
       margin-bottom: 1rem;
-      background: #fff;
+      background: #f8fafc;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid #e2e8f0;
@@ -1825,7 +1824,7 @@
       padding: 1rem 0;
     }
     .flowchart-node {
-      background: white;
+      background: #f8fafc;
       border: 2px solid #e2e8f0;
       border-radius: 12px;
       padding: 1rem 1.5rem;
@@ -1917,7 +1916,7 @@
       margin-bottom: 0;
     }
     .flowchart-decision-box {
-      background: white;
+      background: #f8fafc;
       border: 2px solid #e2e8f0;
       border-radius: 10px;
       padding: 1rem;
@@ -2147,7 +2146,7 @@
     .tree-bucket-header.jailbreak { background: #ede9fe; color: #5b21b6; }
     .tree-bucket-header.harmful { background: #fee2e2; color: #991b1b; }
     .tree-bucket-body {
-      background: white;
+      background: #f8fafc;
       border: 2px solid #e2e8f0;
       border-top: none;
       border-radius: 0 0 8px 8px;
@@ -2301,7 +2300,7 @@
       align-items: center;
       gap: 0.25rem;
       padding: 0.75rem;
-      background: white;
+      background: #f8fafc;
       border-radius: 8px;
       flex: 1;
       max-width: 200px;
@@ -2352,7 +2351,7 @@
       gap: 0.75rem;
     }
     .flowchart-toxicity-item {
-      background: white;
+      background: #f8fafc;
       border-radius: 8px;
       border: 2px solid;
       overflow: hidden;
@@ -2374,7 +2373,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      background: white;
+      background: #f8fafc;
       border-radius: 8px;
       padding: 0.75rem;
     }
@@ -2406,7 +2405,7 @@
       color: #3b82f6;
     }
     .global-search-result {
-      background: #fff;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
       padding: 1rem;
@@ -2506,7 +2505,7 @@
       line-height: 1.5;
     }
     .request-type-definition {
-      background: #fff;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       margin-bottom: 1rem;
@@ -2570,7 +2569,7 @@
       height: 16px;
     }
     .request-type-card {
-      background: #fff;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       margin-bottom: 1rem;
@@ -2704,7 +2703,7 @@
       color: #1d4ed8;
     }
     .request-type-example {
-      background: #fff;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       padding: 1rem;
@@ -2825,7 +2824,7 @@
       gap: 0.75rem;
     }
     .writing-guide-section-card {
-      background: #fff;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       padding: 1rem 1.25rem;
@@ -2948,7 +2947,7 @@
       line-height: 1.5;
     }
     .writing-guide-example {
-      background: #fff;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       padding: 1rem;
@@ -3098,276 +3097,6 @@
     }
 
     /* ============================================
-       DARK MODE STYLES
-       ============================================ */
-    .glossary-modal[data-theme="dark"] {
-      --bg-primary: #1e293b;
-      --bg-secondary: #334155;
-      --bg-tertiary: #475569;
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --border-color: #475569;
-      --accent: #60a5fa;
-      --accent-hover: #3b82f6;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-    }
-    /* Header keeps original gradient in dark mode - only adjust search input */
-    .glossary-modal[data-theme="dark"] .glossary-search input {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.3);
-      color: #fff;
-    }
-    .glossary-modal[data-theme="dark"] .glossary-search input::placeholder {
-      color: rgba(255, 255, 255, 0.6);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-content {
-      background: var(--bg-primary);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-card,
-    .glossary-modal[data-theme="dark"] .example-card,
-    .glossary-modal[data-theme="dark"] .toxicity-card {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-card:hover,
-    .glossary-modal[data-theme="dark"] .example-card:hover,
-    .glossary-modal[data-theme="dark"] .toxicity-card:hover {
-      border-color: var(--accent);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-card-title,
-    .glossary-modal[data-theme="dark"] .example-category-title,
-    .glossary-modal[data-theme="dark"] .toxicity-card-title {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-card-def,
-    .glossary-modal[data-theme="dark"] .example-text,
-    .glossary-modal[data-theme="dark"] .toxicity-card-desc {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-footer {
-      background: var(--bg-secondary);
-      border-top-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-btn {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-btn:hover:not(:disabled) {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-page-info {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .global-search-header,
-    .glossary-modal[data-theme="dark"] .search-tab-section-header {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .detail-panel {
-      background: var(--bg-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .detail-back-btn {
-      color: var(--accent);
-    }
-    .glossary-modal[data-theme="dark"] .detail-title {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .detail-section-title {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .detail-section-content {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .see-also-tag {
-      background: var(--bg-tertiary);
-      color: var(--accent);
-    }
-    .glossary-modal[data-theme="dark"] .writing-guide-section {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .writing-guide-header {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .decision-tree {
-      background: var(--bg-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .tree-root,
-    .glossary-modal[data-theme="dark"] .tree-section-header {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-    }
-    /* Additional dark mode overrides for complete coverage */
-    .glossary-modal[data-theme="dark"] .glossary-body-wrapper {
-      background: var(--bg-primary);
-    }
-    .glossary-modal[data-theme="dark"] .example-category-card {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .example-category-card h3 {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .see-examples-link {
-      color: var(--accent);
-    }
-    .glossary-modal[data-theme="dark"] .example-item,
-    .glossary-modal[data-theme="dark"] .toxicity-example-item {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .example-prompt,
-    .glossary-modal[data-theme="dark"] .example-response {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .example-label {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-definition {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-see-also span {
-      background: var(--bg-tertiary);
-      color: var(--accent);
-    }
-    .glossary-modal[data-theme="dark"] .harmful-output-section {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .harmful-output-section h3 {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .harmful-output-table {
-      background: var(--bg-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .harmful-output-table th {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .harmful-output-table td {
-      background: var(--bg-secondary);
-      color: var(--text-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .tree-branch {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .tree-bucket {
-      background: var(--bg-tertiary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .tree-bucket-title {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .tree-question {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .tree-answer {
-      background: var(--bg-secondary);
-      color: var(--text-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .tree-outcome {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .request-type-card {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .request-type-card h3 {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .request-type-card p {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .section-divider {
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .section-title {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .guidance-card {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .writing-guide-content {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .writing-guide-checklist {
-      background: var(--bg-tertiary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .writing-guide-checklist h4 {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .writing-guide-checklist li {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .writing-guide-harmful-table th {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .writing-guide-harmful-table td {
-      color: var(--text-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .global-search-result {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .global-search-result:hover {
-      border-color: var(--accent);
-    }
-    .glossary-modal[data-theme="dark"] .search-result-title {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .search-result-preview {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .search-result-badge {
-      background: var(--bg-tertiary);
-      color: var(--text-secondary);
-    }
-
-    /* Dark mode toggle button */
-    .dark-mode-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border: none;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      color: inherit;
-      cursor: pointer;
-      transition: background 0.2s ease;
-      margin-left: 0.5rem;
-    }
-    .dark-mode-toggle:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    .dark-mode-toggle svg {
-      width: 20px;
-      height: 20px;
-    }
-    .glossary-modal[data-theme="dark"] .dark-mode-toggle {
-      background: var(--bg-tertiary);
-    }
-    .glossary-modal[data-theme="dark"] .dark-mode-toggle:hover {
-      background: var(--accent);
-    }
-
-    /* ============================================
        BREADCRUMB NAVIGATION
        ============================================ */
     .breadcrumb-nav {
@@ -3397,22 +3126,6 @@
       color: #1e293b;
       font-weight: 500;
     }
-    .glossary-modal[data-theme="dark"] .breadcrumb-nav {
-      background: var(--bg-secondary);
-      border-bottom-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .breadcrumb-item {
-      color: var(--accent);
-    }
-    .glossary-modal[data-theme="dark"] .breadcrumb-item:hover {
-      color: #93c5fd;
-    }
-    .glossary-modal[data-theme="dark"] .breadcrumb-separator {
-      color: var(--text-muted);
-    }
-    .glossary-modal[data-theme="dark"] .breadcrumb-current {
-      color: var(--text-primary);
-    }
 
     /* ============================================
        SEARCH AUTOCOMPLETE
@@ -3422,7 +3135,7 @@
       top: calc(100% + 4px);
       left: 0;
       right: 0;
-      background: white;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -3481,27 +3194,6 @@
       background: #e2e8f0;
       color: #475569;
       flex-shrink: 0;
-    }
-    .glossary-modal[data-theme="dark"] .search-autocomplete {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .autocomplete-item {
-      border-bottom-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .autocomplete-item:hover,
-    .glossary-modal[data-theme="dark"] .autocomplete-item.focused {
-      background: var(--bg-tertiary);
-    }
-    .glossary-modal[data-theme="dark"] .autocomplete-title {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .autocomplete-subtitle {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .autocomplete-badge {
-      background: var(--bg-tertiary);
-      color: var(--text-secondary);
     }
 
     /* ============================================
@@ -3588,7 +3280,7 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 10001;
-      background: white;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 0 8px 8px 0;
       padding: 0.5rem 0.35rem;
@@ -3611,43 +3303,6 @@
     .toc-toggle-btn.toc-open svg {
       transform: rotate(180deg);
     }
-    .glossary-modal[data-theme="dark"] .toc-sidebar {
-      background: var(--bg-secondary);
-      border-right-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .toc-header {
-      border-bottom-color: var(--border-color);
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .toc-close-btn {
-      color: var(--text-muted);
-    }
-    .glossary-modal[data-theme="dark"] .toc-close-btn:hover {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .toc-item {
-      color: var(--text-secondary);
-    }
-    .glossary-modal[data-theme="dark"] .toc-item:hover {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .toc-item.active {
-      background: rgba(96, 165, 250, 0.15);
-      color: var(--accent);
-      border-left-color: var(--accent);
-    }
-    .glossary-modal[data-theme="dark"] .toc-toggle-btn {
-      background: var(--bg-secondary);
-      border-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .toc-toggle-btn:hover {
-      background: var(--bg-tertiary);
-    }
-    .glossary-modal[data-theme="dark"] .toc-toggle-btn svg {
-      color: var(--text-secondary);
-    }
 
     /* ============================================
        KEYBOARD NAVIGATION FOCUS
@@ -3658,9 +3313,6 @@
     .keyboard-focusable.keyboard-focused {
       outline: 2px solid #3b82f6;
       outline-offset: 2px;
-    }
-    .glossary-modal[data-theme="dark"] .keyboard-focusable.keyboard-focused {
-      outline-color: var(--accent);
     }
   `;
 
@@ -3747,18 +3399,11 @@
     const modal = document.createElement('div');
     modal.className = 'glossary-modal';
     modal.id = 'glossary-modal';
-    // Apply saved dark mode preference
-    if (darkMode) {
-      modal.setAttribute('data-theme', 'dark');
-    }
     modal.innerHTML = `
       <div class="glossary-header">
         <div class="glossary-header-top">
           <h2>${ICONS.shield} Safety Risk Guide</h2>
           <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-              ${darkMode ? ICONS.sun : ICONS.moon}
-            </button>
             <button class="glossary-close" id="glossary-close" aria-label="Close">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -6443,21 +6088,6 @@
   // UX ENHANCEMENT FUNCTIONS
   // ============================================
 
-  // Dark Mode
-  function toggleDarkMode() {
-    darkMode = !darkMode;
-    localStorage.setItem('glossary-dark-mode', darkMode);
-    const modal = document.getElementById('glossary-modal');
-    const toggle = document.getElementById('dark-mode-toggle');
-    if (darkMode) {
-      modal.setAttribute('data-theme', 'dark');
-      toggle.innerHTML = ICONS.sun;
-    } else {
-      modal.removeAttribute('data-theme');
-      toggle.innerHTML = ICONS.moon;
-    }
-  }
-
   // Fuzzy Search - Levenshtein Distance
   function levenshteinDistance(a, b) {
     if (a.length === 0) return b.length;
@@ -7081,9 +6711,6 @@
     document.getElementById('glossary-modal').addEventListener('click', (e) => {
       e.stopPropagation();
     });
-
-    // Dark mode toggle
-    document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
 
     // Autocomplete - show on focus, hide on blur (with delay for click handling)
     const searchInput = document.getElementById('glossary-search-input');
