@@ -2210,8 +2210,8 @@
       text-align: center;
     }
     .tree-bucket-wide {
-      width: 300px;
-      min-width: 280px;
+      width: 420px;
+      min-width: 380px;
       flex: 0 0 auto;
     }
     .tree-two-paths {
