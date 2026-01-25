@@ -2080,6 +2080,7 @@
     .tree-section-header {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.75rem;
       margin-bottom: 0.5rem;
     }
@@ -2092,10 +2093,6 @@
     }
     .tree-type-badge.generative { background: #1d4ed8; }
     .tree-type-badge.non-generative { background: #059669; }
-    .tree-type-desc {
-      font-size: 0.85rem;
-      color: #64748b;
-    }
     .tree-vline {
       width: 2px;
       height: 16px;
@@ -2208,6 +2205,30 @@
       color: #64748b;
       margin-bottom: 0.35rem;
       text-align: center;
+    }
+    .tree-bucket-wide {
+      max-width: 320px;
+      min-width: 280px;
+    }
+    .tree-two-paths {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .tree-path-yes, .tree-path-no {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+    .tree-paths-divider {
+      width: 1px;
+      min-height: 120px;
+      background: #e2e8f0;
+      align-self: stretch;
     }
     .tree-note {
       background: #f1f5f9;
@@ -3880,7 +3901,6 @@
           <div class="tree-section">
             <div class="tree-section-header">
               <span class="tree-type-badge generative">GENERATIVE</span>
-              <span class="tree-type-desc">Creating new content, answering questions</span>
             </div>
             <div class="tree-vline"></div>
             <div class="tree-check-node">Check Toxicity Level</div>
@@ -3900,6 +3920,7 @@
               <div class="tree-bucket">
                 <div class="tree-bucket-header harmful">Harmful</div>
                 <div class="tree-bucket-body">
+                  <div class="tree-bucket-arrow">↓</div>
                   <div class="tree-sub-decision">Does the prompt also contain a benign request?</div>
                   <div class="tree-sub-vertical">
                     <div class="tree-sub-vertical-option">
@@ -3932,7 +3953,6 @@
           <div class="tree-section">
             <div class="tree-section-header">
               <span class="tree-type-badge non-generative">NON-GENERATIVE</span>
-              <span class="tree-type-desc">Mechanical tasks on provided content</span>
             </div>
             <div class="tree-vline"></div>
             <div class="tree-check-node">Check Toxicity Level</div>
@@ -3949,36 +3969,35 @@
               </div>
 
               <!-- Harmful bucket -->
-              <div class="tree-bucket">
+              <div class="tree-bucket tree-bucket-wide">
                 <div class="tree-bucket-header harmful">Harmful</div>
                 <div class="tree-bucket-body">
+                  <div class="tree-bucket-arrow">↓</div>
                   <div class="tree-sub-decision">Does request amplify/enable/encourage harm?</div>
-                  <div class="tree-sub-vertical">
-                    <div class="tree-sub-vertical-option">
+                  <div class="tree-two-paths">
+                    <div class="tree-path-yes">
                       <span class="tree-sub-option-label">Yes</span>
                       <span class="tree-bucket-arrow">↓</span>
+                      <div class="tree-sub-nested-question">Does the prompt also contain a benign request?</div>
+                      <div class="tree-sub-vertical">
+                        <div class="tree-sub-vertical-option">
+                          <span class="tree-sub-option-label">Yes</span>
+                          <span class="tree-bucket-arrow">↓</span>
+                          <span class="tree-outcome partial">PARTIAL REFUSAL</span>
+                        </div>
+                        <div class="tree-sub-divider"></div>
+                        <div class="tree-sub-vertical-option">
+                          <span class="tree-sub-option-label">No</span>
+                          <span class="tree-bucket-arrow">↓</span>
+                          <span class="tree-outcome refuse">FULL REFUSAL</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="tree-sub-divider"></div>
-                    <div class="tree-sub-vertical-option">
+                    <div class="tree-paths-divider"></div>
+                    <div class="tree-path-no">
                       <span class="tree-sub-option-label">No</span>
                       <span class="tree-bucket-arrow">↓</span>
                       <span class="tree-outcome grounded">GROUNDED ENGAGEMENT</span>
-                    </div>
-                  </div>
-                  <div class="tree-sub-nested">
-                    <div class="tree-sub-nested-question">Does the prompt also contain a benign request?</div>
-                    <div class="tree-sub-vertical">
-                      <div class="tree-sub-vertical-option">
-                        <span class="tree-sub-option-label">Yes</span>
-                        <span class="tree-bucket-arrow">↓</span>
-                        <span class="tree-outcome partial">PARTIAL REFUSAL</span>
-                      </div>
-                      <div class="tree-sub-divider"></div>
-                      <div class="tree-sub-vertical-option">
-                        <span class="tree-sub-option-label">No</span>
-                        <span class="tree-bucket-arrow">↓</span>
-                        <span class="tree-outcome refuse">FULL REFUSAL</span>
-                      </div>
                     </div>
                   </div>
                 </div>
