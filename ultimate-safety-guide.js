@@ -5210,9 +5210,9 @@
       renderWritingGuideOverview();
     });
 
-    // Add cross-reference link handler
-    const crossRefLink = content.querySelector('.cross-ref-link');
-    if (crossRefLink) {
+    // Add cross-reference link handlers (multiple links may exist)
+    const crossRefLinks = content.querySelectorAll('.cross-ref-link');
+    crossRefLinks.forEach(crossRefLink => {
       crossRefLink.addEventListener('click', (e) => {
         e.preventDefault();
         const targetTab = crossRefLink.dataset.tab;
@@ -5236,7 +5236,7 @@
         }
         document.getElementById('glossary-content').scrollTop = 0;
       });
-    }
+    });
   }
 
   // ============================================
