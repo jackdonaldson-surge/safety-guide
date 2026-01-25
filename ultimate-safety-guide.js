@@ -6429,13 +6429,12 @@
 
     // Search Response Characteristics sections
     const responseCharSections = [
-      { title: 'Harm-Free Output', section: 'harm-free-output-table', tab: 'harmful-output' },
-      { title: 'Harmful Output', section: 'harmful-output-table', tab: 'harmful-output' },
-      { title: 'Harm Modification', section: 'harm-modification-section', tab: 'harmful-output' },
-      { title: 'Policy Compliance Decision Tree', section: 'decision-tree-section', tab: 'harmful-output' },
-      { title: 'Policy Compliance', section: 'decision-tree-section', tab: 'harmful-output' },
-      { title: 'Decision Tree', section: 'decision-tree-section', tab: 'harmful-output' },
-      { title: 'Grounded Engagement', section: 'grounded-engagement', tab: 'harmful-output' }
+      { title: 'Policy Compliance', section: 'section-policy-compliance', tab: 'harmful-output' },
+      { title: 'Policy Compliance Decision Tree', section: 'section-policy-compliance', tab: 'harmful-output' },
+      { title: 'Decision Tree', section: 'section-policy-compliance', tab: 'harmful-output' },
+      { title: 'Harmful Output', section: 'section-harmful-output', tab: 'harmful-output' },
+      { title: 'Harm-Free Output', section: 'section-harm-free', tab: 'harmful-output' },
+      { title: 'Harm Modification', section: 'section-harm-modification', tab: 'harmful-output' }
     ];
     for (const section of responseCharSections) {
       if (section.title.toLowerCase().includes(q) || fuzzyMatch(query, section.title).match) {
@@ -6640,10 +6639,10 @@
       ];
     } else if (activeTab === 'harmful-output') {
       items = [
-        { label: 'Harm-Free Output', action: () => scrollToSection('harm-free-output-table') },
-        { label: 'Harmful Output', action: () => scrollToSection('harmful-output-table') },
-        { label: 'Harm Modification', action: () => scrollToSection('harm-modification-section') },
-        { label: 'Decision Tree', action: () => scrollToSection('decision-tree-section') }
+        { label: 'Policy Compliance', action: () => scrollToSection('section-policy-compliance') },
+        { label: 'Harmful Output', action: () => scrollToSection('section-harmful-output') },
+        { label: 'Harm-Free Output', action: () => scrollToSection('section-harm-free') },
+        { label: 'Harm Modification', action: () => scrollToSection('section-harm-modification') }
       ];
     }
 
