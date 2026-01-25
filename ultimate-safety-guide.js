@@ -1041,6 +1041,14 @@
   }
   let activeWritingGuideSection = null; // Active section in writing guide
 
+  // UX Enhancement state variables
+  let darkMode = localStorage.getItem('glossary-dark-mode') === 'true';
+  let breadcrumbs = [];
+  let tocVisible = false;
+  let keyboardFocusIndex = -1;
+  let autocompleteResults = [];
+  let autocompleteVisible = false;
+
   // ============================================
   // STYLES
   // ============================================
@@ -3088,6 +3096,454 @@
       font-weight: 600;
       color: #dc2626;
     }
+
+    /* ============================================
+       DARK MODE STYLES
+       ============================================ */
+    .glossary-modal[data-theme="dark"] {
+      --bg-primary: #1e293b;
+      --bg-secondary: #334155;
+      --bg-tertiary: #475569;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-color: #475569;
+      --accent: #60a5fa;
+      --accent-hover: #3b82f6;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-header {
+      background: var(--bg-secondary);
+      border-bottom-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-header h2 {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-tab {
+      color: var(--text-secondary);
+      background: transparent;
+    }
+    .glossary-modal[data-theme="dark"] .glossary-tab:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-tab.active {
+      background: var(--accent);
+      color: #fff;
+    }
+    .glossary-modal[data-theme="dark"] .glossary-search input {
+      background: var(--bg-tertiary);
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-search input::placeholder {
+      color: var(--text-muted);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-content {
+      background: var(--bg-primary);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-card,
+    .glossary-modal[data-theme="dark"] .example-card,
+    .glossary-modal[data-theme="dark"] .toxicity-card {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-card:hover,
+    .glossary-modal[data-theme="dark"] .example-card:hover,
+    .glossary-modal[data-theme="dark"] .toxicity-card:hover {
+      border-color: var(--accent);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-card-title,
+    .glossary-modal[data-theme="dark"] .example-category-title,
+    .glossary-modal[data-theme="dark"] .toxicity-card-title {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-card-def,
+    .glossary-modal[data-theme="dark"] .example-text,
+    .glossary-modal[data-theme="dark"] .toxicity-card-desc {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-footer {
+      background: var(--bg-secondary);
+      border-top-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-btn {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-btn:hover:not(:disabled) {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .glossary-modal[data-theme="dark"] .glossary-page-info {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .global-search-header,
+    .glossary-modal[data-theme="dark"] .search-tab-section-header {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .detail-panel {
+      background: var(--bg-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .detail-back-btn {
+      color: var(--accent);
+    }
+    .glossary-modal[data-theme="dark"] .detail-title {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .detail-section-title {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .detail-section-content {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .see-also-tag {
+      background: var(--bg-tertiary);
+      color: var(--accent);
+    }
+    .glossary-modal[data-theme="dark"] .writing-guide-section {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .writing-guide-header {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .decision-tree {
+      background: var(--bg-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .tree-root,
+    .glossary-modal[data-theme="dark"] .tree-section-header {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    /* Dark mode toggle button */
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: inherit;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      margin-left: 0.5rem;
+    }
+    .dark-mode-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .dark-mode-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+    .glossary-modal[data-theme="dark"] .dark-mode-toggle {
+      background: var(--bg-tertiary);
+    }
+    .glossary-modal[data-theme="dark"] .dark-mode-toggle:hover {
+      background: var(--accent);
+    }
+
+    /* ============================================
+       BREADCRUMB NAVIGATION
+       ============================================ */
+    .breadcrumb-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+    }
+    .breadcrumb-item {
+      cursor: pointer;
+      color: #3b82f6;
+      transition: color 0.15s ease;
+    }
+    .breadcrumb-item:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+    .breadcrumb-separator {
+      color: #94a3b8;
+      user-select: none;
+    }
+    .breadcrumb-current {
+      color: #1e293b;
+      font-weight: 500;
+    }
+    .glossary-modal[data-theme="dark"] .breadcrumb-nav {
+      background: var(--bg-secondary);
+      border-bottom-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .breadcrumb-item {
+      color: var(--accent);
+    }
+    .glossary-modal[data-theme="dark"] .breadcrumb-item:hover {
+      color: #93c5fd;
+    }
+    .glossary-modal[data-theme="dark"] .breadcrumb-separator {
+      color: var(--text-muted);
+    }
+    .glossary-modal[data-theme="dark"] .breadcrumb-current {
+      color: var(--text-primary);
+    }
+
+    /* ============================================
+       SEARCH AUTOCOMPLETE
+       ============================================ */
+    .search-autocomplete {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      max-height: 320px;
+      overflow-y: auto;
+      z-index: 100;
+    }
+    .autocomplete-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.15s ease;
+    }
+    .autocomplete-item:last-child {
+      border-bottom: none;
+    }
+    .autocomplete-item:hover,
+    .autocomplete-item.focused {
+      background: #f1f5f9;
+    }
+    .autocomplete-item.focused {
+      outline: 2px solid #3b82f6;
+      outline-offset: -2px;
+    }
+    .autocomplete-icon {
+      width: 20px;
+      height: 20px;
+      color: #64748b;
+      flex-shrink: 0;
+    }
+    .autocomplete-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .autocomplete-title {
+      font-weight: 500;
+      color: #1e293b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .autocomplete-subtitle {
+      font-size: 0.8rem;
+      color: #64748b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .autocomplete-badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: #e2e8f0;
+      color: #475569;
+      flex-shrink: 0;
+    }
+    .glossary-modal[data-theme="dark"] .search-autocomplete {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .autocomplete-item {
+      border-bottom-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .autocomplete-item:hover,
+    .glossary-modal[data-theme="dark"] .autocomplete-item.focused {
+      background: var(--bg-tertiary);
+    }
+    .glossary-modal[data-theme="dark"] .autocomplete-title {
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .autocomplete-subtitle {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .autocomplete-badge {
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       SIDEBAR TABLE OF CONTENTS
+       ============================================ */
+    .glossary-body-wrapper {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    .toc-sidebar {
+      width: 220px;
+      min-width: 220px;
+      background: #f8fafc;
+      border-right: 1px solid #e2e8f0;
+      overflow-y: auto;
+      transition: width 0.25s ease, min-width 0.25s ease, opacity 0.25s ease;
+    }
+    .toc-sidebar.collapsed {
+      width: 0;
+      min-width: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+    .toc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .toc-close-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #64748b;
+      padding: 0.25rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .toc-close-btn:hover {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+    .toc-close-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+    .toc-list {
+      padding: 0.5rem 0;
+    }
+    .toc-item {
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #475569;
+      border-left: 3px solid transparent;
+      transition: all 0.15s ease;
+    }
+    .toc-item:hover {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+    .toc-item.active {
+      background: #eff6ff;
+      color: #3b82f6;
+      border-left-color: #3b82f6;
+      font-weight: 500;
+    }
+    .toc-item-nested {
+      padding-left: 1.75rem;
+      font-size: 0.8rem;
+    }
+    .toc-toggle-btn {
+      position: fixed;
+      left: calc(50% - 440px);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10001;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 0 8px 8px 0;
+      padding: 0.5rem 0.35rem;
+      cursor: pointer;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+      display: none; /* Hidden by default, shown when modal opens */
+      align-items: center;
+      justify-content: center;
+      transition: left 0.25s ease;
+    }
+    .toc-toggle-btn svg {
+      width: 16px;
+      height: 16px;
+      color: #64748b;
+      transition: transform 0.25s ease;
+    }
+    .toc-toggle-btn:hover {
+      background: #f1f5f9;
+    }
+    .toc-toggle-btn.toc-open svg {
+      transform: rotate(180deg);
+    }
+    .glossary-modal[data-theme="dark"] .toc-sidebar {
+      background: var(--bg-secondary);
+      border-right-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .toc-header {
+      border-bottom-color: var(--border-color);
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .toc-close-btn {
+      color: var(--text-muted);
+    }
+    .glossary-modal[data-theme="dark"] .toc-close-btn:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .toc-item {
+      color: var(--text-secondary);
+    }
+    .glossary-modal[data-theme="dark"] .toc-item:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+    .glossary-modal[data-theme="dark"] .toc-item.active {
+      background: rgba(96, 165, 250, 0.15);
+      color: var(--accent);
+      border-left-color: var(--accent);
+    }
+    .glossary-modal[data-theme="dark"] .toc-toggle-btn {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    .glossary-modal[data-theme="dark"] .toc-toggle-btn:hover {
+      background: var(--bg-tertiary);
+    }
+    .glossary-modal[data-theme="dark"] .toc-toggle-btn svg {
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       KEYBOARD NAVIGATION FOCUS
+       ============================================ */
+    .keyboard-focusable {
+      transition: outline 0.15s ease;
+    }
+    .keyboard-focusable.keyboard-focused {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+    }
+    .glossary-modal[data-theme="dark"] .keyboard-focusable.keyboard-focused {
+      outline-color: var(--accent);
+    }
   `;
 
   // ============================================
@@ -3115,7 +3571,12 @@
     'alert-octagon': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7.86 2h8.28L22 7.86v8.28L16.14 22H7.86L2 16.14V7.86L7.86 2zM12 8v4m0 4h.01" /></svg>',
     'clipboard-check': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>',
     'book-open': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>',
-    'chevron-right': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>'
+    'chevron-right': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>',
+    'sun': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>',
+    'moon': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>',
+    'chevron-left': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>',
+    'menu': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>',
+    'x': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>'
   };
 
   // ============================================
@@ -3168,15 +3629,24 @@
     const modal = document.createElement('div');
     modal.className = 'glossary-modal';
     modal.id = 'glossary-modal';
+    // Apply saved dark mode preference
+    if (darkMode) {
+      modal.setAttribute('data-theme', 'dark');
+    }
     modal.innerHTML = `
       <div class="glossary-header">
         <div class="glossary-header-top">
           <h2>${ICONS.shield} Safety Risk Guide</h2>
-          <button class="glossary-close" id="glossary-close" aria-label="Close">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+              ${darkMode ? ICONS.sun : ICONS.moon}
+            </button>
+            <button class="glossary-close" id="glossary-close" aria-label="Close">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
         <div class="glossary-tabs">
           <button class="glossary-tab active" data-tab="categories">
@@ -3204,15 +3674,28 @@
             Response Characteristics
           </button>
         </div>
-        <div class="glossary-search" id="glossary-search-container">
+        <div class="glossary-search" id="glossary-search-container" style="position: relative;">
           <svg class="glossary-search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
           <input type="text" id="glossary-search-input" placeholder="Search categories, definitions, or examples..." autocomplete="off">
           <span class="glossary-search-count" id="glossary-search-count"></span>
+          <div class="search-autocomplete" id="search-autocomplete" style="display: none;"></div>
         </div>
       </div>
-      <div class="glossary-content" id="glossary-content"></div>
+      <div class="breadcrumb-nav" id="breadcrumb-nav" style="display: none;"></div>
+      <div class="glossary-body-wrapper">
+        <div class="toc-sidebar collapsed" id="toc-sidebar">
+          <div class="toc-header">
+            <span>Contents</span>
+            <button class="toc-close-btn" id="toc-close-btn" aria-label="Close table of contents">
+              ${ICONS.x}
+            </button>
+          </div>
+          <div class="toc-list" id="toc-list"></div>
+        </div>
+        <div class="glossary-content" id="glossary-content"></div>
+      </div>
       <div class="glossary-footer" id="glossary-footer">
         <span class="glossary-page-info" id="glossary-page-info"></span>
         <div class="glossary-pagination">
@@ -5471,17 +5954,35 @@
     const normalizedQuery = query.toLowerCase().trim();
     currentSearchQuery = normalizedQuery;
 
-    // Filter categories (Risk Categories tab)
+    // Filter categories (Risk Categories tab) with fuzzy search support
     if (!normalizedQuery) {
       filteredTerms = [...allTerms];
     } else {
-      filteredTerms = allTerms.filter(term => {
+      // First try exact/contains matching
+      let exactMatches = allTerms.filter(term => {
         const entry = GLOSSARY[term];
         const inName = term.toLowerCase().includes(normalizedQuery);
         const inDefinition = entry.definition && entry.definition.toLowerCase().includes(normalizedQuery);
         const inExamples = entry.examples && entry.examples.some(ex => ex.toLowerCase().includes(normalizedQuery));
         return inName || inDefinition || inExamples;
       });
+
+      // If no exact matches found, try fuzzy matching
+      if (exactMatches.length === 0 && normalizedQuery.length >= 3) {
+        exactMatches = allTerms.filter(term => {
+          const nameMatch = fuzzyMatch(normalizedQuery, term);
+          if (nameMatch.match) return true;
+
+          const entry = GLOSSARY[term];
+          if (entry.definition) {
+            const defMatch = fuzzyMatch(normalizedQuery, entry.definition);
+            if (defMatch.match) return true;
+          }
+          return false;
+        });
+      }
+
+      filteredTerms = exactMatches;
     }
 
     // Filter response examples (Response Examples tab)
@@ -5698,6 +6199,14 @@
     const searchContainer = document.getElementById('glossary-search-container');
     searchContainer.style.display = 'block';
 
+    // Update breadcrumbs
+    updateBreadcrumbs(getBreadcrumbsForTab(tab));
+
+    // Update TOC if visible
+    if (tocVisible) {
+      renderTOC();
+    }
+
     // Apply current search to the new tab
     const query = document.getElementById('glossary-search-input').value;
     handleSearch(query);
@@ -5739,6 +6248,18 @@
     document.getElementById('glossary-search-container').style.display = 'block';
     document.getElementById('glossary-search-count').textContent = '';
 
+    // Reset breadcrumbs to initial state
+    updateBreadcrumbs(getBreadcrumbsForTab('categories'));
+
+    // Show TOC toggle button
+    const tocToggle = document.getElementById('toc-toggle-btn');
+    if (tocToggle) tocToggle.style.display = 'flex';
+
+    // Update TOC if visible
+    if (tocVisible) {
+      renderTOC();
+    }
+
     renderCategoriesPage();
     setTimeout(() => input.focus(), 100);
   }
@@ -5750,6 +6271,11 @@
     overlay.classList.remove('active');
     modal.classList.remove('active');
     document.body.style.overflow = '';
+
+    // Hide TOC toggle button and autocomplete
+    const tocToggle = document.getElementById('toc-toggle-btn');
+    if (tocToggle) tocToggle.style.display = 'none';
+    hideAutocomplete();
   }
 
   // ============================================
@@ -5792,6 +6318,446 @@
       RESPONSE_EXAMPLES = data;
     } catch (error) {
       console.warn('Error loading response examples:', error);
+    }
+  }
+
+  // ============================================
+  // UX ENHANCEMENT FUNCTIONS
+  // ============================================
+
+  // Dark Mode
+  function toggleDarkMode() {
+    darkMode = !darkMode;
+    localStorage.setItem('glossary-dark-mode', darkMode);
+    const modal = document.getElementById('glossary-modal');
+    const toggle = document.getElementById('dark-mode-toggle');
+    if (darkMode) {
+      modal.setAttribute('data-theme', 'dark');
+      toggle.innerHTML = ICONS.sun;
+    } else {
+      modal.removeAttribute('data-theme');
+      toggle.innerHTML = ICONS.moon;
+    }
+  }
+
+  // Fuzzy Search - Levenshtein Distance
+  function levenshteinDistance(a, b) {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) {
+      matrix[i] = [i];
+    }
+    for (let j = 0; j <= a.length; j++) {
+      matrix[0][j] = j;
+    }
+
+    for (let i = 1; i <= b.length; i++) {
+      for (let j = 1; j <= a.length; j++) {
+        if (b.charAt(i - 1) === a.charAt(j - 1)) {
+          matrix[i][j] = matrix[i - 1][j - 1];
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j - 1] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j] + 1
+          );
+        }
+      }
+    }
+    return matrix[b.length][a.length];
+  }
+
+  function fuzzyMatch(query, text, threshold = 3) {
+    query = query.toLowerCase();
+    text = text.toLowerCase();
+
+    // Exact match
+    if (text.includes(query)) return { match: true, score: 0, type: 'exact' };
+
+    // Word-level fuzzy matching
+    const queryWords = query.split(/\s+/);
+    const textWords = text.split(/\s+/);
+
+    let totalScore = 0;
+    let matchedWords = 0;
+
+    for (const qWord of queryWords) {
+      if (qWord.length < 2) continue;
+
+      let bestWordScore = Infinity;
+      for (const tWord of textWords) {
+        const distance = levenshteinDistance(qWord, tWord);
+        if (distance < bestWordScore) {
+          bestWordScore = distance;
+        }
+      }
+
+      if (bestWordScore <= Math.min(threshold, Math.floor(qWord.length / 2))) {
+        matchedWords++;
+        totalScore += bestWordScore;
+      }
+    }
+
+    if (matchedWords > 0 && matchedWords >= Math.ceil(queryWords.length / 2)) {
+      return { match: true, score: totalScore + 10, type: 'fuzzy' };
+    }
+
+    return { match: false, score: Infinity, type: 'none' };
+  }
+
+  // Breadcrumb Navigation
+  function updateBreadcrumbs(path) {
+    breadcrumbs = path;
+    renderBreadcrumbs();
+  }
+
+  function renderBreadcrumbs() {
+    const nav = document.getElementById('breadcrumb-nav');
+    if (!nav) return;
+
+    if (breadcrumbs.length <= 1) {
+      nav.style.display = 'none';
+      return;
+    }
+
+    nav.style.display = 'flex';
+    nav.innerHTML = breadcrumbs.map((crumb, index) => {
+      if (index === breadcrumbs.length - 1) {
+        return `<span class="breadcrumb-current">${escapeHtml(crumb.label)}</span>`;
+      }
+      return `
+        <span class="breadcrumb-item" data-action="${crumb.action || ''}" data-param="${crumb.param || ''}">${escapeHtml(crumb.label)}</span>
+        <span class="breadcrumb-separator">›</span>
+      `;
+    }).join('');
+
+    // Add click handlers
+    nav.querySelectorAll('.breadcrumb-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const action = item.dataset.action;
+        const param = item.dataset.param;
+
+        if (action === 'tab') {
+          switchTab(param);
+        } else if (action === 'back') {
+          // Go back to category list
+          if (activeTab === 'examples') {
+            activeExampleCategory = null;
+            renderExamplesOverview();
+          } else if (activeTab === 'toxicity') {
+            activeToxicityCategory = null;
+            renderToxicityOverview();
+          } else if (activeTab === 'request-types') {
+            activeRequestTypeCategory = null;
+            renderRequestTypesOverview();
+          } else if (activeTab === 'categories') {
+            renderCategoriesPage('');
+          }
+        }
+      });
+    });
+  }
+
+  function getBreadcrumbsForTab(tabId) {
+    const tabNames = {
+      'categories': 'Risk Categories',
+      'toxicity': 'Toxicity Levels',
+      'request-types': 'Request Types',
+      'writing-guide': 'Writing Guide',
+      'examples': 'Response Examples',
+      'harmful-output': 'Response Characteristics'
+    };
+    return [{ label: tabNames[tabId] || tabId, action: 'tab', param: tabId }];
+  }
+
+  // Autocomplete
+  function handleAutocomplete(query) {
+    if (!query || query.length < 2) {
+      hideAutocomplete();
+      return;
+    }
+
+    const results = [];
+    const q = query.toLowerCase();
+
+    // Search glossary terms
+    for (const term of allTerms) {
+      const matchResult = fuzzyMatch(query, term);
+      if (matchResult.match) {
+        results.push({
+          title: term,
+          subtitle: 'Risk Category',
+          type: 'category',
+          score: matchResult.score,
+          action: () => {
+            switchTab('categories');
+            // Search for this term to show it in the results
+            const searchInput = document.getElementById('glossary-search-input');
+            searchInput.value = term;
+            handleSearch(term);
+          }
+        });
+      }
+    }
+
+    // Search toxicity levels
+    const toxicityLevels = ['Benign', 'Dual-Use', 'Harmful', 'Jailbreak'];
+    for (const level of toxicityLevels) {
+      if (level.toLowerCase().includes(q) || fuzzyMatch(query, level).match) {
+        results.push({
+          title: level,
+          subtitle: 'Toxicity Level',
+          type: 'toxicity',
+          score: level.toLowerCase().includes(q) ? 0 : 10,
+          action: () => {
+            switchTab('toxicity');
+            const cat = RESPONSE_EXAMPLES.categories.find(c => c.id === `toxicity-${level.toLowerCase()}`);
+            if (cat) {
+              activeToxicityCategory = cat.id;
+              toxicityPage = 1;
+              renderToxicityDetail();
+            }
+          }
+        });
+      }
+    }
+
+    // Search request types
+    const requestTypes = ['Generative', 'Non-Generative'];
+    for (const type of requestTypes) {
+      if (type.toLowerCase().includes(q) || fuzzyMatch(query, type).match) {
+        results.push({
+          title: type,
+          subtitle: 'Request Type',
+          type: 'request-type',
+          score: type.toLowerCase().includes(q) ? 0 : 10,
+          action: () => {
+            switchTab('request-types');
+            const cat = REQUEST_TYPES.categories.find(c => c.name.toLowerCase().includes(type.toLowerCase()));
+            if (cat) {
+              activeRequestTypeCategory = cat.id;
+              requestTypePage = 1;
+              renderRequestTypeDetail();
+            }
+          }
+        });
+      }
+    }
+
+    // Sort by score (lower is better)
+    results.sort((a, b) => a.score - b.score);
+
+    // Limit to 8 results
+    autocompleteResults = results.slice(0, 8);
+    renderAutocomplete();
+  }
+
+  function renderAutocomplete() {
+    const container = document.getElementById('search-autocomplete');
+    if (!container) return;
+
+    if (autocompleteResults.length === 0) {
+      hideAutocomplete();
+      return;
+    }
+
+    container.innerHTML = autocompleteResults.map((result, index) => `
+      <div class="autocomplete-item${index === keyboardFocusIndex ? ' focused' : ''}" data-index="${index}">
+        <div class="autocomplete-icon">${ICONS.shield}</div>
+        <div class="autocomplete-text">
+          <div class="autocomplete-title">${escapeHtml(result.title)}</div>
+          <div class="autocomplete-subtitle">${escapeHtml(result.subtitle)}</div>
+        </div>
+        <span class="autocomplete-badge">${result.type}</span>
+      </div>
+    `).join('');
+
+    container.style.display = 'block';
+    autocompleteVisible = true;
+
+    // Add click handlers
+    container.querySelectorAll('.autocomplete-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const index = parseInt(item.dataset.index);
+        selectAutocompleteItem(index);
+      });
+    });
+  }
+
+  function hideAutocomplete() {
+    const container = document.getElementById('search-autocomplete');
+    if (container) {
+      container.style.display = 'none';
+    }
+    autocompleteVisible = false;
+    keyboardFocusIndex = -1;
+    autocompleteResults = [];
+  }
+
+  function selectAutocompleteItem(index) {
+    if (autocompleteResults[index]) {
+      const searchInput = document.getElementById('glossary-search-input');
+      searchInput.value = autocompleteResults[index].title;
+      autocompleteResults[index].action();
+      hideAutocomplete();
+    }
+  }
+
+  // Keyboard Navigation
+  function handleKeyboardNav(e) {
+    const modal = document.getElementById('glossary-modal');
+    if (!modal || !modal.classList.contains('active')) return;
+
+    // Autocomplete navigation
+    if (autocompleteVisible) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        keyboardFocusIndex = Math.min(keyboardFocusIndex + 1, autocompleteResults.length - 1);
+        renderAutocomplete();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        keyboardFocusIndex = Math.max(keyboardFocusIndex - 1, -1);
+        renderAutocomplete();
+      } else if (e.key === 'Enter' && keyboardFocusIndex >= 0) {
+        e.preventDefault();
+        selectAutocompleteItem(keyboardFocusIndex);
+      } else if (e.key === 'Escape') {
+        hideAutocomplete();
+      }
+      return;
+    }
+
+    // General keyboard shortcuts
+    if (e.key === 'Escape') {
+      // If in detail view, go back; otherwise close modal
+      if (activeExampleCategory || activeToxicityCategory || activeRequestTypeCategory) {
+        if (activeExampleCategory) {
+          activeExampleCategory = null;
+          renderExamplesOverview();
+        } else if (activeToxicityCategory) {
+          activeToxicityCategory = null;
+          renderToxicityOverview();
+        } else if (activeRequestTypeCategory) {
+          activeRequestTypeCategory = null;
+          renderRequestTypesOverview();
+        }
+        e.preventDefault();
+      } else {
+        closeModal();
+      }
+    }
+
+    // Tab navigation with number keys
+    if (e.key >= '1' && e.key <= '6' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      const searchInput = document.getElementById('glossary-search-input');
+      if (document.activeElement !== searchInput) {
+        const tabs = ['categories', 'toxicity', 'request-types', 'writing-guide', 'examples', 'harmful-output'];
+        const tabIndex = parseInt(e.key) - 1;
+        if (tabs[tabIndex]) {
+          switchTab(tabs[tabIndex]);
+          e.preventDefault();
+        }
+      }
+    }
+  }
+
+  // Table of Contents
+  function renderTOC() {
+    const list = document.getElementById('toc-list');
+    if (!list) return;
+
+    let items = [];
+
+    if (activeTab === 'categories') {
+      items = filteredTerms.slice(0, 20).map(term => ({
+        label: term,
+        action: () => {
+          const searchInput = document.getElementById('glossary-search-input');
+          searchInput.value = term;
+          handleSearch(term);
+        }
+      }));
+    } else if (activeTab === 'toxicity') {
+      items = filteredToxicityCategories.map(cat => ({
+        label: cat.name,
+        action: () => {
+          activeToxicityCategory = cat.id;
+          toxicityPage = 1;
+          renderToxicityDetail();
+        }
+      }));
+    } else if (activeTab === 'examples') {
+      items = filteredExampleCategories.map(cat => ({
+        label: cat.name,
+        action: () => {
+          activeExampleCategory = cat.id;
+          examplePage = 1;
+          renderExampleDetail();
+        }
+      }));
+    } else if (activeTab === 'request-types') {
+      items = filteredRequestTypeCategories.map(cat => ({
+        label: cat.name,
+        action: () => {
+          activeRequestTypeCategory = cat.id;
+          requestTypePage = 1;
+          renderRequestTypeDetail();
+        }
+      }));
+    } else if (activeTab === 'writing-guide') {
+      items = [
+        { label: 'Harm-Free Output', action: () => scrollToSection('harm-free-output') },
+        { label: 'Harmful Output', action: () => scrollToSection('harmful-output-chars') },
+        { label: 'Harm Modification', action: () => scrollToSection('harm-modification') },
+        { label: 'Decision Tree', action: () => scrollToSection('decision-tree') }
+      ];
+    } else if (activeTab === 'harmful-output') {
+      items = [
+        { label: 'Harm-Free Output', action: () => scrollToSection('harm-free-output-table') },
+        { label: 'Harmful Output', action: () => scrollToSection('harmful-output-table') },
+        { label: 'Harm Modification', action: () => scrollToSection('harm-modification-section') },
+        { label: 'Decision Tree', action: () => scrollToSection('decision-tree-section') }
+      ];
+    }
+
+    list.innerHTML = items.map((item, index) => `
+      <div class="toc-item" data-index="${index}">${escapeHtml(item.label)}</div>
+    `).join('');
+
+    // Store actions for click handlers
+    list.querySelectorAll('.toc-item').forEach((el, index) => {
+      el.addEventListener('click', () => {
+        if (items[index] && items[index].action) {
+          items[index].action();
+        }
+      });
+    });
+  }
+
+  function scrollToSection(sectionId) {
+    const content = document.getElementById('glossary-content');
+    const section = content.querySelector(`[data-section="${sectionId}"], #${sectionId}, [id*="${sectionId}"]`);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function toggleTOC() {
+    tocVisible = !tocVisible;
+    const sidebar = document.getElementById('toc-sidebar');
+    const toggleBtn = document.getElementById('toc-toggle-btn');
+
+    if (sidebar) {
+      sidebar.classList.toggle('collapsed', !tocVisible);
+    }
+    if (toggleBtn) {
+      toggleBtn.classList.toggle('toc-open', tocVisible);
+    }
+
+    if (tocVisible) {
+      renderTOC();
     }
   }
 
@@ -5947,13 +6913,45 @@
       }
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
+    // Keyboard navigation (replaces simple Escape handler)
+    document.addEventListener('keydown', handleKeyboardNav);
 
     document.getElementById('glossary-modal').addEventListener('click', (e) => {
       e.stopPropagation();
     });
+
+    // Dark mode toggle
+    document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
+
+    // Autocomplete - show on focus, hide on blur (with delay for click handling)
+    const searchInput = document.getElementById('glossary-search-input');
+    searchInput.addEventListener('input', (e) => {
+      handleAutocomplete(e.target.value);
+    });
+    searchInput.addEventListener('focus', () => {
+      if (searchInput.value.length >= 2) {
+        handleAutocomplete(searchInput.value);
+      }
+    });
+    searchInput.addEventListener('blur', () => {
+      // Delay to allow click on autocomplete items
+      setTimeout(hideAutocomplete, 200);
+    });
+
+    // TOC toggle and close
+    const tocCloseBtn = document.getElementById('toc-close-btn');
+    if (tocCloseBtn) {
+      tocCloseBtn.addEventListener('click', toggleTOC);
+    }
+
+    // Add TOC toggle button dynamically
+    const tocToggleBtn = document.createElement('button');
+    tocToggleBtn.className = 'toc-toggle-btn';
+    tocToggleBtn.id = 'toc-toggle-btn';
+    tocToggleBtn.innerHTML = ICONS['chevron-right'];
+    tocToggleBtn.title = 'Toggle table of contents';
+    tocToggleBtn.addEventListener('click', toggleTOC);
+    document.body.appendChild(tocToggleBtn);
 
     console.log(`Ultimate Safety Guide: Loaded ${allTerms.length} risk categories and ${RESPONSE_EXAMPLES.categories.length} response example types`);
   }
