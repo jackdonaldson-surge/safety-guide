@@ -2067,15 +2067,17 @@
     .decision-tree {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 2rem;
       padding: 1.5rem;
       background: #f8fafc;
       border-radius: 12px;
+      overflow-x: auto;
     }
     .tree-section {
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-width: fit-content;
     }
     .tree-section-header {
       display: flex;
@@ -2112,17 +2114,18 @@
     .tree-toxicity-row {
       display: flex;
       justify-content: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
+      gap: 1.5rem;
+      flex-wrap: nowrap;
       margin-top: 0.5rem;
+      width: 100%;
     }
     .tree-bucket {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 140px;
-      flex: 1;
-      max-width: 200px;
+      min-width: 160px;
+      flex: 0 1 auto;
+      width: 180px;
     }
     .tree-bucket-header {
       font-weight: 700;
@@ -2207,8 +2210,9 @@
       text-align: center;
     }
     .tree-bucket-wide {
-      max-width: 320px;
+      width: 300px;
       min-width: 280px;
+      flex: 0 0 auto;
     }
     .tree-two-paths {
       display: flex;
