@@ -2122,43 +2122,43 @@
       background: #fef3c7;
       border: 2px solid #f59e0b;
       border-radius: 8px;
-      padding: 0.75rem 1rem;
+      padding: 0.5rem 1rem;
       text-align: center;
-      max-width: 340px;
     }
     .tree-distress-question {
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #92400e;
-      line-height: 1.4;
+      line-height: 1.3;
     }
     .tree-distress-examples {
-      display: block;
       font-weight: 400;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #b45309;
-      margin-top: 0.25rem;
     }
     .tree-distress-row {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      position: relative;
       margin: 0.25rem 0;
     }
     .tree-distress-left {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.35rem;
+      position: absolute;
+      right: calc(50% + 60px);
     }
     .tree-arrow-left {
       color: #94a3b8;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
     .tree-distress-options {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.25rem;
       align-items: flex-start;
+      justify-content: center;
     }
     .tree-distress-yes,
     .tree-distress-no {
@@ -2166,7 +2166,7 @@
       flex-direction: column;
       align-items: center;
       font-size: 0.8rem;
-      padding: 0.35rem 0.5rem;
+      padding: 0.25rem 0.4rem;
     }
     /* Horizontal toxicity buckets */
     .tree-toxicity-row {
