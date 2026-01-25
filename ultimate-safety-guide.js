@@ -2095,45 +2095,45 @@
     }
     .tree-type-badge {
       font-weight: 700;
-      font-size: 0.95rem;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
+      font-size: 0.85rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
       color: white;
     }
     .tree-type-badge.generative { background: #1d4ed8; }
     .tree-type-badge.non-generative { background: #059669; }
     .tree-vline {
       width: 2px;
-      height: 16px;
+      height: 12px;
       background: #94a3b8;
     }
     .tree-check-node {
       background: #f1f5f9;
       border: 2px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: #475569;
       text-align: center;
     }
     /* Distress check precursor */
     .tree-distress-check {
       background: #fef3c7;
-      border: 2px solid #f59e0b;
-      border-radius: 8px;
-      padding: 0.5rem 1rem;
+      border: 1px solid #f59e0b;
+      border-radius: 5px;
+      padding: 0.2rem 0.5rem;
       text-align: center;
     }
     .tree-distress-question {
       font-weight: 600;
-      font-size: 0.8rem;
+      font-size: 0.55rem;
       color: #92400e;
-      line-height: 1.3;
+      line-height: 1.2;
     }
     .tree-distress-examples {
       font-weight: 400;
-      font-size: 0.7rem;
+      font-size: 0.5rem;
       color: #b45309;
     }
     .tree-distress-row {
@@ -2141,22 +2141,25 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      margin: 0.25rem 0;
+      margin: 0.15rem 0;
     }
     .tree-distress-left {
       display: flex;
       align-items: center;
-      gap: 0.35rem;
-      position: absolute;
-      right: calc(50% + 60px);
+      gap: 0.15rem;
+      margin-right: 0.3rem;
+    }
+    .tree-distress-left .tree-outcome {
+      font-size: 0.55rem;
+      padding: 0.2rem 0.35rem;
     }
     .tree-arrow-left {
       color: #94a3b8;
-      font-size: 1.1rem;
+      font-size: 0.75rem;
     }
     .tree-distress-options {
       display: flex;
-      gap: 1.25rem;
+      gap: 0.75rem;
       align-items: flex-start;
       justify-content: center;
     }
@@ -2165,31 +2168,38 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      font-size: 0.55rem;
+      padding: 0.15rem 0.25rem;
+    }
+    .tree-distress-yes .tree-sub-option-label,
+    .tree-distress-no .tree-sub-option-label {
+      font-size: 0.55rem;
+    }
+    .tree-distress-no .tree-bucket-arrow {
       font-size: 0.8rem;
-      padding: 0.25rem 0.4rem;
     }
     /* Horizontal toxicity buckets */
     .tree-toxicity-row {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
       flex-wrap: nowrap;
-      margin-top: 0.5rem;
+      margin-top: 0.35rem;
       width: 100%;
     }
     .tree-bucket {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 160px;
+      min-width: 140px;
       flex: 0 1 auto;
-      width: 180px;
+      width: 160px;
     }
     .tree-bucket-header {
       font-weight: 700;
-      font-size: 0.85rem;
-      padding: 0.4rem 0.75rem;
-      border-radius: 6px 6px 0 0;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 5px 5px 0 0;
       width: 100%;
       text-align: center;
     }
@@ -2200,31 +2210,31 @@
       background: #f8fafc;
       border: 2px solid #e2e8f0;
       border-top: none;
-      border-radius: 0 0 8px 8px;
-      padding: 0.75rem;
+      border-radius: 0 0 6px 6px;
+      padding: 0.5rem;
       width: 100%;
       text-align: center;
     }
     .tree-bucket-arrow {
       color: #94a3b8;
-      font-size: 1.2rem;
-      margin: 0.25rem 0;
+      font-size: 1rem;
+      margin: 0.15rem 0;
     }
     .tree-outcome {
       display: inline-block;
-      padding: 0.4rem 0.75rem;
-      border-radius: 6px;
+      padding: 0.3rem 0.5rem;
+      border-radius: 5px;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
     }
     .tree-outcome.engage { background: #dcfce7; color: #166534; }
     .tree-outcome.refuse { background: #fee2e2; color: #991b1b; }
     .tree-outcome.partial { background: #fef3c7; color: #92400e; }
     .tree-outcome.grounded { background: #e0f2fe; color: #0369a1; }
     .tree-sub-decision {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: #475569;
-      margin: 0.25rem 0;
+      margin: 0.15rem 0;
       text-align: center;
       font-weight: 500;
     }
@@ -2233,26 +2243,26 @@
       flex-direction: row;
       justify-content: center;
       align-items: flex-start;
-      gap: 0.75rem;
-      margin-top: 0.25rem;
+      gap: 0.5rem;
+      margin-top: 0.15rem;
     }
     .tree-sub-vertical-option {
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 0.8rem;
-      padding: 0.35rem 0.5rem;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.35rem;
     }
     .tree-sub-option-label {
       color: #64748b;
       font-weight: 600;
-      font-size: 0.75rem;
-      margin-bottom: 0.2rem;
+      font-size: 0.65rem;
+      margin-bottom: 0.15rem;
     }
     .tree-sub-divider {
       width: 1px;
       height: 100%;
-      min-height: 60px;
+      min-height: 50px;
       background: #e2e8f0;
       margin: 0;
     }
@@ -2262,14 +2272,14 @@
       border-top: 1px dashed #e2e8f0;
     }
     .tree-sub-nested-question {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       color: #64748b;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.25rem;
       text-align: center;
     }
     .tree-bucket-wide {
-      width: 420px;
-      min-width: 380px;
+      width: 360px;
+      min-width: 320px;
       flex: 0 0 auto;
     }
     .tree-two-paths {
@@ -2277,7 +2287,7 @@
       flex-direction: row;
       justify-content: center;
       align-items: flex-start;
-      gap: 1rem;
+      gap: 0.75rem;
       margin-top: 0.5rem;
     }
     .tree-path-yes, .tree-path-no {
@@ -4233,7 +4243,6 @@
                 </div>
               </div>
             </div>
-            <div class="tree-vline"></div>
             <div class="tree-check-node">Check Toxicity Level</div>
             <div class="tree-vline"></div>
 
@@ -4309,7 +4318,6 @@
                 </div>
               </div>
             </div>
-            <div class="tree-vline"></div>
             <div class="tree-check-node">Check Toxicity Level</div>
             <div class="tree-vline"></div>
 
