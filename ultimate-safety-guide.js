@@ -5410,6 +5410,9 @@
   // WRITING GUIDE RENDERING
   // ============================================
   function renderWritingGuideOverview() {
+    // Reset breadcrumbs to tab level
+    updateBreadcrumbs(getBreadcrumbsForTab('writing-guide'));
+
     const content = document.getElementById('glossary-content');
     const pageInfo = document.getElementById('glossary-page-info');
     const prevBtn = document.getElementById('glossary-prev');
@@ -5485,6 +5488,12 @@
       renderWritingGuideOverview();
       return;
     }
+
+    // Update breadcrumbs
+    updateBreadcrumbs([
+      { label: 'Writing Guide', action: 'back', param: '' },
+      { label: section.title }
+    ]);
 
     // Hide pagination
     pageInfo.textContent = '';
@@ -6589,6 +6598,9 @@
           } else if (activeTab === 'request-types') {
             activeRequestTypeCategory = null;
             renderRequestTypesOverview();
+          } else if (activeTab === 'writing-guide') {
+            activeWritingGuideSection = null;
+            renderWritingGuideOverview();
           } else if (activeTab === 'categories') {
             renderCategoriesPage('');
           }
