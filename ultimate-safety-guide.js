@@ -3755,9 +3755,9 @@
 
         <div class="about-section">
           <h3>Why Safety Training Matters</h3>
-          <p>Even when a topic may not seem sensitive or obviously harmful, it is important that LLMs respond appropriately, safely, and in a harm-free way. Training models to handle all types of requests thoughtfully helps ensure they are helpful while avoiding potential harms.</p>
+          <p>Even when a topic may not seem sensitive or obviously harmful, it is important that LLMs respond appropriately, safely, and in a harm-free way.</p>
           <p>
-            <a href="#" class="about-link" onclick="switchTab('harmful-output'); return false;">
+            <a href="#" class="about-link" id="about-link-characteristics">
               Check out the Response Characteristics tab →
             </a>
             to learn more about what harm-free, appropriate responses look like.
@@ -3774,6 +3774,15 @@
         </div>
       </div>
     `;
+
+    // Add click handler for the Response Characteristics link
+    const charLink = document.getElementById('about-link-characteristics');
+    if (charLink) {
+      charLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchTab('harmful-output');
+      });
+    }
   }
 
   function renderCategoriesPage(query = '') {
