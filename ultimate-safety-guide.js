@@ -3974,12 +3974,7 @@
               <div class="tree-vline"></div>
 
               <div class="tree-branch-box">
-                <!-- Safe/Benign/Dual-Use path -->
-                <div class="tree-row benign">
-                  <span class="tree-row-label">Safe</span>
-                  <span class="tree-row-arrow">→</span>
-                  <span class="tree-row-result grounded">GROUNDED ENGAGEMENT</span>
-                </div>
+                <!-- Benign/Dual-Use path -->
                 <div class="tree-row benign">
                   <span class="tree-row-label">Benign</span>
                   <span class="tree-row-arrow">→</span>
@@ -3989,6 +3984,11 @@
                   <span class="tree-row-label">Dual-Use</span>
                   <span class="tree-row-arrow">→</span>
                   <span class="tree-row-result grounded">GROUNDED ENGAGEMENT</span>
+                </div>
+                <div class="tree-row jailbreak">
+                  <span class="tree-row-label">Jailbreak</span>
+                  <span class="tree-row-arrow">→</span>
+                  <span class="tree-row-result refuse">FULL REFUSAL</span>
                 </div>
 
                 <!-- Harmful path with sub-decision -->
@@ -4003,7 +4003,7 @@
                 </div>
                 <div class="tree-sub-row" style="flex-wrap: wrap;">
                   <span class="tree-sub-row-label">Yes:</span>
-                  <span style="font-size: 0.65rem; color: #64748b;">→ Includes safe/benign requests?</span>
+                  <span style="font-size: 0.65rem; color: #64748b;">→ Includes benign requests?</span>
                 </div>
                 <div class="tree-sub-row" style="padding-left: 2rem;">
                   <span class="tree-sub-row-label">No:</span>
