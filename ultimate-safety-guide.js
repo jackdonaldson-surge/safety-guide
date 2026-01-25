@@ -3729,9 +3729,15 @@
   function renderAboutPage() {
     const content = document.getElementById('glossary-content');
     const searchCount = document.getElementById('glossary-search-count');
+    const pageInfo = document.getElementById('glossary-page-info');
+    const prevBtn = document.getElementById('glossary-prev');
+    const nextBtn = document.getElementById('glossary-next');
 
+    // Hide pagination for About tab
     searchCount.textContent = '';
-    hidePagination();
+    pageInfo.textContent = '';
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
 
     content.innerHTML = `
       <div class="about-page">
