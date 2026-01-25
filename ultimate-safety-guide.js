@@ -2143,7 +2143,7 @@
     }
     .tree-distress-row {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
       margin: 0.15rem 0;
       position: relative;
@@ -2151,14 +2151,15 @@
     .tree-distress-left {
       position: absolute;
       right: calc(50% + 2.5rem);
-      top: 0;
+      top: 50%;
+      transform: translateY(-50%);
       display: flex;
       align-items: center;
       gap: 0.25rem;
     }
     .tree-distress-left .tree-outcome {
       font-size: 0.65rem;
-      padding: 0.1rem 0.3rem;
+      padding: 0.25rem 0.4rem;
     }
     .tree-arrow-left {
       color: #94a3b8;
@@ -2167,7 +2168,7 @@
     .tree-distress-options {
       display: flex;
       gap: 0.5rem;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
     }
     .tree-distress-yes {
