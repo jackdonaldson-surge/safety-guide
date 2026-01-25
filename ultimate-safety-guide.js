@@ -2062,6 +2062,246 @@
     .flowchart-outcome.engage .flowchart-outcome-label { color: #166534; }
     .flowchart-outcome.refuse .flowchart-outcome-label { color: #991b1b; }
     .flowchart-outcome.partial .flowchart-outcome-label { color: #92400e; }
+
+    /* Decision Tree Styles */
+    .decision-tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      padding: 1rem 0;
+    }
+    .tree-root {
+      background: #1e293b;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .tree-connector-down {
+      width: 2px;
+      height: 20px;
+      background: #cbd5e1;
+    }
+    .tree-split {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+    .tree-split::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 200px);
+      height: 2px;
+      background: #cbd5e1;
+    }
+    .tree-branches {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .tree-branch {
+      flex: 1;
+      min-width: 280px;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tree-branch-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tree-branch-line {
+      width: 2px;
+      height: 20px;
+      background: #cbd5e1;
+    }
+    .tree-branch-header {
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      color: white;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+    .tree-branch-header.generative {
+      background: #3b82f6;
+    }
+    .tree-branch-header.non-generative {
+      background: #10b981;
+    }
+    .tree-branch-desc {
+      font-size: 0.75rem;
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 0.75rem;
+      padding: 0 0.5rem;
+    }
+    .tree-content {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1rem;
+      width: 100%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .tree-step {
+      margin-bottom: 0.75rem;
+    }
+    .tree-step:last-child {
+      margin-bottom: 0;
+    }
+    .tree-step-label {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #475569;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tree-step-label .step-num {
+      background: #e2e8f0;
+      color: #475569;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .tree-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .tree-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+    .tree-option.benign {
+      background: #dbeafe;
+    }
+    .tree-option.dual-use {
+      background: #fef3c7;
+    }
+    .tree-option.jailbreak {
+      background: #ede9fe;
+    }
+    .tree-option.harmful {
+      background: #fee2e2;
+    }
+    .tree-option-name {
+      font-weight: 600;
+      min-width: 70px;
+    }
+    .tree-option.benign .tree-option-name { color: #1e40af; }
+    .tree-option.dual-use .tree-option-name { color: #92400e; }
+    .tree-option.jailbreak .tree-option-name { color: #5b21b6; }
+    .tree-option.harmful .tree-option-name { color: #991b1b; }
+    .tree-arrow {
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+    .tree-result {
+      padding: 0.35rem 0.6rem;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 0.7rem;
+      white-space: nowrap;
+    }
+    .tree-result.engage {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .tree-result.refuse {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .tree-result.partial {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .tree-sub-decision {
+      margin-left: 1rem;
+      padding-left: 0.75rem;
+      border-left: 2px solid #e2e8f0;
+      margin-top: 0.3rem;
+    }
+    .tree-sub-label {
+      font-size: 0.7rem;
+      color: #64748b;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .tree-sub-option {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0;
+    }
+    .tree-sub-option-text {
+      color: #64748b;
+      min-width: 75px;
+    }
+    .tree-decision-box {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .tree-decision-question {
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: #475569;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .tree-decision-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .tree-decision-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .tree-decision-label {
+      font-size: 0.75rem;
+      color: #64748b;
+      min-width: 55px;
+    }
+    .tree-note {
+      background: #f1f5f9;
+      border-radius: 6px;
+      padding: 0.6rem 0.75rem;
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      color: #475569;
+    }
+    .tree-note strong {
+      color: #1e293b;
+    }
     .flowchart-outcome-condition {
       color: #64748b;
       font-size: 0.75rem;
@@ -3718,135 +3958,112 @@
     const policyComplianceHtml = `
       <div class="output-section" id="section-policy-compliance">
         <div class="harmful-output-intro">
-          <h3>${ICONS['check-circle']} Policy Compliance Flowchart</h3>
-          <p>Follow the decision tree to determine the appropriate response action.</p>
+          <h3>${ICONS['check-circle']} Policy Compliance Decision Tree</h3>
+          <p>Follow this decision tree to determine the appropriate response action.</p>
         </div>
 
-        <div class="policy-flowchart">
-          <!-- TWO BRANCHES -->
-          <div class="flowchart-branch-container">
-            <!-- NON-GENERATIVE PATH -->
-            <div class="flowchart-branch-path">
-              <div class="flowchart-branch-header" style="background: #10b981;">NON-GENERATIVE</div>
-              <div style="font-size: 0.75rem; color: #64748b; text-align: center; margin: 0.5rem 0; padding: 0 0.5rem;">
-                Mechanical tasks: translation, summarization, counting, extraction, formatting
-              </div>
+        <div class="decision-tree">
+          <!-- Root Question -->
+          <div class="tree-root">Is the request Generative or Non-Generative?</div>
+          <div class="tree-connector-down"></div>
 
-              <div class="flowchart-decision-box">
-                <div class="flowchart-outcomes">
-                  <!-- Benign -->
-                  <div class="flowchart-row">
-                    <div class="flowchart-toxicity" style="background: #dbeafe; color: #1e40af;">
-                      <div class="flowchart-toxicity-name">Benign</div>
+          <!-- Two Branches -->
+          <div class="tree-branches">
+            <!-- GENERATIVE BRANCH -->
+            <div class="tree-branch">
+              <div class="tree-branch-header generative">GENERATIVE</div>
+              <div class="tree-branch-desc">Creating new content, answering questions, providing information</div>
+
+              <div class="tree-content">
+                <div class="tree-step">
+                  <div class="tree-step-label">Check Toxicity Level:</div>
+                  <div class="tree-options">
+                    <!-- Benign -->
+                    <div class="tree-option benign">
+                      <span class="tree-option-name">Benign</span>
+                      <span class="tree-arrow">→</span>
+                      <span class="tree-result engage">HARM-FREE ENGAGEMENT</span>
                     </div>
-                    <span class="flowchart-row-arrow">→</span>
-                    <span class="flowchart-action-badge engage">GROUNDED ENGAGEMENT</span>
-                  </div>
-                  <!-- Dual-Use -->
-                  <div class="flowchart-row">
-                    <div class="flowchart-toxicity" style="background: #fef3c7; color: #92400e;">
-                      <div class="flowchart-toxicity-name">Dual-Use</div>
+                    <!-- Dual-Use -->
+                    <div class="tree-option dual-use">
+                      <span class="tree-option-name">Dual-Use</span>
+                      <span class="tree-arrow">→</span>
+                      <span class="tree-result engage">HARM-FREE ENGAGEMENT</span>
                     </div>
-                    <span class="flowchart-row-arrow">→</span>
-                    <span class="flowchart-action-badge engage">GROUNDED ENGAGEMENT</span>
-                  </div>
-                  <!-- Harmful (task doesn't amplify) -->
-                  <div class="flowchart-row">
-                    <div class="flowchart-toxicity" style="background: #fee2e2; color: #991b1b;">
-                      <div class="flowchart-toxicity-name">Harmful</div>
-                      <div class="flowchart-toxicity-desc">Task does NOT amplify harm</div>
+                    <!-- Jailbreak -->
+                    <div class="tree-option jailbreak">
+                      <span class="tree-option-name">Jailbreak</span>
+                      <span class="tree-arrow">→</span>
+                      <span class="tree-result refuse">FULL REFUSAL</span>
+                      <span style="font-size: 0.65rem; color: #64748b; margin-left: 0.25rem;">(always)</span>
                     </div>
-                    <span class="flowchart-row-arrow">→</span>
-                    <span class="flowchart-action-badge engage">GROUNDED ENGAGEMENT</span>
-                  </div>
-                  <!-- Harmful (clear intent / amplifies) -->
-                  <div class="flowchart-vertical-flow">
-                    <div class="flowchart-toxicity" style="background: #fee2e2; color: #991b1b;">
-                      <div class="flowchart-toxicity-name">Harmful</div>
-                      <div class="flowchart-toxicity-desc">Clear harmful intent OR amplifies/enables/encourages harm</div>
-                    </div>
-                    <span class="flowchart-vertical-arrow">↓</span>
-                    <div class="flowchart-decision-branch">
-                      <div class="flowchart-decision-question">Mixed Request?</div>
-                      <div class="flowchart-decision-options">
-                        <div class="flowchart-decision-option">
-                          <span class="flowchart-option-label">All harmful</span>
-                          <span class="flowchart-row-arrow">→</span>
-                          <span class="flowchart-action-badge refuse">REFUSE</span>
+                    <!-- Harmful with sub-decision -->
+                    <div class="tree-option harmful" style="flex-direction: column; align-items: stretch;">
+                      <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="tree-option-name">Harmful</span>
+                        <span style="font-size: 0.7rem; color: #991b1b;">No harm-free response possible</span>
+                      </div>
+                      <div class="tree-sub-decision">
+                        <div class="tree-sub-label">Mixed Request?</div>
+                        <div class="tree-sub-option">
+                          <span class="tree-sub-option-text">All harmful</span>
+                          <span class="tree-arrow">→</span>
+                          <span class="tree-result refuse">FULL REFUSAL</span>
                         </div>
-                        <div class="flowchart-decision-option">
-                          <span class="flowchart-option-label">Some benign</span>
-                          <span class="flowchart-row-arrow">→</span>
-                          <span class="flowchart-action-badge partial">PARTIAL REFUSAL</span>
+                        <div class="tree-sub-option">
+                          <span class="tree-sub-option-text">Some benign</span>
+                          <span class="tree-arrow">→</span>
+                          <span class="tree-result partial">PARTIAL REFUSAL</span>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="flowchart-note">
-                  <strong>Grounded Engagement Rules:</strong> Stay grounded in source content. No warnings, disclaimers, or commentary. Don't sanitize or amplify.
                 </div>
               </div>
             </div>
 
-            <!-- GENERATIVE PATH -->
-            <div class="flowchart-branch-path">
-              <div class="flowchart-branch-header" style="background: #3b82f6;">GENERATIVE</div>
-              <div style="font-size: 0.75rem; color: #64748b; text-align: center; margin: 0.5rem 0; padding: 0 0.5rem;">
-                Creating new content, answering questions, providing information
-              </div>
+            <!-- NON-GENERATIVE BRANCH -->
+            <div class="tree-branch">
+              <div class="tree-branch-header non-generative">NON-GENERATIVE</div>
+              <div class="tree-branch-desc">User provides content for mechanical tasks (translation, summarization, counting, extraction)</div>
 
-              <div class="flowchart-decision-box">
-                <div class="flowchart-outcomes">
-                  <!-- Benign -->
-                  <div class="flowchart-row">
-                    <div class="flowchart-toxicity" style="background: #dbeafe; color: #1e40af;">
-                      <div class="flowchart-toxicity-name">Benign</div>
+              <div class="tree-content">
+                <div class="tree-step">
+                  <div class="tree-step-label"><span class="step-num">1</span> Assess the REQUEST:</div>
+                  <div class="tree-decision-box">
+                    <div class="tree-decision-question">Is the REQUEST harmful?</div>
+                    <div style="font-size: 0.7rem; color: #64748b; text-align: center; margin-bottom: 0.5rem;">
+                      (amplifies harm, indicates harmful intent)
                     </div>
-                    <span class="flowchart-row-arrow">→</span>
-                    <span class="flowchart-action-badge engage">HARM-FREE ENGAGEMENT</span>
-                  </div>
-                  <!-- Dual-Use -->
-                  <div class="flowchart-row">
-                    <div class="flowchart-toxicity" style="background: #fef3c7; color: #92400e;">
-                      <div class="flowchart-toxicity-name">Dual-Use</div>
-                      <div class="flowchart-toxicity-desc">Assume good intent</div>
-                    </div>
-                    <span class="flowchart-row-arrow">→</span>
-                    <span class="flowchart-action-badge engage">HARM-FREE ENGAGEMENT</span>
-                  </div>
-                  <!-- Harmful -->
-                  <div class="flowchart-vertical-flow">
-                    <div class="flowchart-toxicity" style="background: #fee2e2; color: #991b1b;">
-                      <div class="flowchart-toxicity-name">Harmful</div>
-                      <div class="flowchart-toxicity-desc">No harm-free response possible</div>
-                    </div>
-                    <span class="flowchart-vertical-arrow">↓</span>
-                    <div class="flowchart-decision-branch">
-                      <div class="flowchart-decision-question">Mixed Request?</div>
-                      <div class="flowchart-decision-options">
-                        <div class="flowchart-decision-option">
-                          <span class="flowchart-option-label">All harmful</span>
-                          <span class="flowchart-row-arrow">→</span>
-                          <span class="flowchart-action-badge refuse">FULL REFUSAL</span>
-                        </div>
-                        <div class="flowchart-decision-option">
-                          <span class="flowchart-option-label">Some benign</span>
-                          <span class="flowchart-row-arrow">→</span>
-                          <span class="flowchart-action-badge partial">PARTIAL REFUSAL</span>
-                        </div>
+                    <div class="tree-decision-options">
+                      <div class="tree-decision-row">
+                        <span class="tree-decision-label">Yes</span>
+                        <span class="tree-arrow">→</span>
+                        <span class="tree-result refuse">FULL REFUSAL</span>
+                        <span style="font-size: 0.65rem; color: #64748b; margin-left: 0.25rem;">(regardless of content)</span>
+                      </div>
+                      <div class="tree-decision-row">
+                        <span class="tree-decision-label">No</span>
+                        <span class="tree-arrow">→</span>
+                        <span style="font-size: 0.7rem; color: #64748b;">Continue to step 2</span>
                       </div>
                     </div>
                   </div>
-                  <!-- Jailbreak -->
-                  <div class="flowchart-row">
-                    <div class="flowchart-toxicity" style="background: #ede9fe; color: #5b21b6;">
-                      <div class="flowchart-toxicity-name">Jailbreak</div>
-                      <div class="flowchart-toxicity-desc">Manipulation attempt</div>
+                </div>
+
+                <div class="tree-step">
+                  <div class="tree-step-label"><span class="step-num">2</span> If request is safe/benign/dual-use:</div>
+                  <div class="tree-options">
+                    <div class="tree-option benign">
+                      <span class="tree-option-name" style="min-width: auto;">Any content toxicity</span>
+                      <span class="tree-arrow">→</span>
+                      <span class="tree-result engage">GROUNDED ENGAGEMENT</span>
                     </div>
-                    <span class="flowchart-row-arrow">→</span>
-                    <span class="flowchart-action-badge refuse">FULL REFUSAL</span>
                   </div>
+                </div>
+
+                <div class="tree-note">
+                  <strong>Grounded Engagement:</strong> Complete the mechanical task without warnings, disclaimers, or commentary. Don't sanitize or amplify.
                 </div>
               </div>
             </div>
