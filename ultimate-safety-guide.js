@@ -3113,32 +3113,14 @@
       background: var(--bg-primary);
       color: var(--text-primary);
     }
-    .glossary-modal[data-theme="dark"] .glossary-header {
-      background: var(--bg-secondary);
-      border-bottom-color: var(--border-color);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-header h2 {
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-tab {
-      color: var(--text-secondary);
-      background: transparent;
-    }
-    .glossary-modal[data-theme="dark"] .glossary-tab:hover {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-    }
-    .glossary-modal[data-theme="dark"] .glossary-tab.active {
-      background: var(--accent);
+    /* Header keeps original gradient in dark mode - only adjust search input */
+    .glossary-modal[data-theme="dark"] .glossary-search input {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
       color: #fff;
     }
-    .glossary-modal[data-theme="dark"] .glossary-search input {
-      background: var(--bg-tertiary);
-      border-color: var(--border-color);
-      color: var(--text-primary);
-    }
     .glossary-modal[data-theme="dark"] .glossary-search input::placeholder {
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.6);
     }
     .glossary-modal[data-theme="dark"] .glossary-content {
       background: var(--bg-primary);
