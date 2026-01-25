@@ -9,8 +9,8 @@
     zIndex: 10000,
     shineInterval: 120000,
     searchDebounceMs: 150,
-    examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@e1a864e/glossary-examples.json',
-    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@e1a864e/response-examples.json'
+    examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@64c8651/glossary-examples.json',
+    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@64c8651/response-examples.json'
   };
 
   // ============================================
