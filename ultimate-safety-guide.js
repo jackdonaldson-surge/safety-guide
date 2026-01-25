@@ -1075,9 +1075,9 @@
       position: fixed;
       bottom: 1.5rem;
       left: 1.5rem;
-      background: linear-gradient(135deg, #1a2d45 0%, #2a5070 100%);
+      background: linear-gradient(135deg, #0d0845 0%, #1a1070 100%);
       color: #c0c8d0;
-      border: 2px solid rgba(60, 110, 145, 0.5);
+      border: 2px solid rgba(40, 30, 120, 0.5);
       border-radius: 50px;
       padding: 0 28px;
       height: 56px;
@@ -1089,16 +1089,16 @@
       align-items: center;
       gap: 0.6rem;
       z-index: ${CONFIG.zIndex};
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(40, 65, 100, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(30, 20, 100, 0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .glossary-trigger:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 4px 15px rgba(60, 110, 145, 0.5);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 4px 15px rgba(40, 30, 120, 0.5);
     }
     .glossary-trigger:hover,
     .glossary-trigger.shining {
-      background: linear-gradient(90deg, #1a2d45 0%, #3d6d90 30%, rgba(192,200,208,0.3) 50%, #3d6d90 70%, #1a2d45 100%);
+      background: linear-gradient(90deg, #0d0845 0%, #2a1a90 30%, rgba(180,180,220,0.3) 50%, #2a1a90 70%, #0d0845 100%);
       background-size: 300% auto;
       animation: glossaryShine 1.2s ease-in-out;
     }
@@ -1143,7 +1143,7 @@
 
     .glossary-header {
       padding: 1.25rem 1.5rem 1rem;
-      background: linear-gradient(135deg, #1a2d45 0%, #2a5070 100%);
+      background: linear-gradient(135deg, #0d0845 0%, #1a1070 100%);
       flex-shrink: 0;
     }
     .glossary-header-top {
@@ -1203,7 +1203,7 @@
       gap: 0.4rem;
     }
     .glossary-tab:hover { background: rgba(255,255,255,0.25); color: #fff; border-color: rgba(255,255,255,0.5); }
-    .glossary-tab.active { background: #e8ecf0; color: #1a2d45; border-color: #e8ecf0; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .glossary-tab.active { background: #e8ecf0; color: #0d0845; border-color: #e8ecf0; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
     .glossary-tab svg { width: 16px; height: 16px; }
 
     .glossary-search { position: relative; }
