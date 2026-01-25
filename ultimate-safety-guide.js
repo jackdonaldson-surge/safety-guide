@@ -4022,10 +4022,6 @@
                 </div>
               </div>
             </div>
-
-            <div class="tree-note">
-              <strong>Grounded Engagement:</strong> Complete the task without warnings or commentary. Don't sanitize or amplify.
-            </div>
           </div>
         </div>
       </div>
