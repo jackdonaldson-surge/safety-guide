@@ -1045,6 +1045,7 @@
   // UX Enhancement state variables
   let breadcrumbs = [];
   let tocVisible = false;
+  let savedScrollPosition = 0; // Store scroll position for back navigation
   let keyboardFocusIndex = -1;
   let autocompleteResults = [];
   let autocompleteVisible = false;
@@ -4000,6 +4001,7 @@
 
     content.querySelectorAll('.example-category-card').forEach(card => {
       card.addEventListener('click', () => {
+        savedScrollPosition = content.scrollTop;
         activeExampleCategory = card.getAttribute('data-category-id');
         examplePage = 1;
         renderExampleDetail();
@@ -4196,6 +4198,7 @@
     document.getElementById('example-back-btn').addEventListener('click', () => {
       activeExampleCategory = null;
       renderExamplesOverview();
+      document.getElementById('glossary-content').scrollTop = savedScrollPosition;
     });
   }
 
@@ -4290,6 +4293,7 @@
 
     content.querySelectorAll('.example-category-card').forEach(card => {
       card.addEventListener('click', () => {
+        savedScrollPosition = content.scrollTop;
         activeToxicityCategory = card.getAttribute('data-category-id');
         toxicityPage = 1;
         renderToxicityDetail();
@@ -4439,6 +4443,7 @@
     document.getElementById('toxicity-back-btn').addEventListener('click', () => {
       activeToxicityCategory = null;
       renderToxicityOverview();
+      document.getElementById('glossary-content').scrollTop = savedScrollPosition;
     });
   }
 
@@ -5470,6 +5475,7 @@
     // Add click handlers for section cards
     content.querySelectorAll('.writing-guide-section-card').forEach(card => {
       card.addEventListener('click', () => {
+        savedScrollPosition = content.scrollTop;
         activeWritingGuideSection = card.dataset.sectionId;
         renderWritingGuideDetail();
         document.getElementById('glossary-content').scrollTop = 0;
@@ -5862,6 +5868,7 @@
     document.getElementById('writing-guide-back').addEventListener('click', () => {
       activeWritingGuideSection = null;
       renderWritingGuideOverview();
+      document.getElementById('glossary-content').scrollTop = savedScrollPosition;
     });
 
     // Add cross-reference link handlers (multiple links may exist)
@@ -5975,6 +5982,7 @@
     // Add click handlers for "See Examples" buttons
     document.querySelectorAll('.request-type-examples-link').forEach(btn => {
       btn.addEventListener('click', () => {
+        savedScrollPosition = content.scrollTop;
         activeRequestTypeCategory = btn.getAttribute('data-category-id');
         requestTypePage = 1;
         renderRequestTypeDetail();
@@ -6081,6 +6089,7 @@
     document.getElementById('request-type-back').addEventListener('click', () => {
       activeRequestTypeCategory = null;
       renderRequestTypesOverview();
+      document.getElementById('glossary-content').scrollTop = savedScrollPosition;
     });
 
     // Add cross-reference link handler
