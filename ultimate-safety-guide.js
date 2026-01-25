@@ -2173,21 +2173,28 @@
     .tree-sub-vertical {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      align-items: center;
+      gap: 0.25rem;
       margin-top: 0.25rem;
     }
     .tree-sub-vertical-option {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
       font-size: 0.8rem;
+      padding: 0.35rem 0;
     }
     .tree-sub-option-label {
       color: #64748b;
       font-weight: 600;
-      min-width: 35px;
-      text-align: right;
+      font-size: 0.75rem;
+      margin-bottom: 0.2rem;
+    }
+    .tree-sub-divider {
+      width: 60%;
+      height: 1px;
+      background: #e2e8f0;
+      margin: 0.25rem 0;
     }
     .tree-sub-nested {
       margin-top: 0.5rem;
@@ -3892,14 +3899,16 @@
                 <div class="tree-bucket-header harmful">Harmful</div>
                 <div class="tree-bucket-body">
                   <div class="tree-sub-decision">Does the prompt also contain a benign request?</div>
-                  <div class="tree-bucket-arrow">↓</div>
                   <div class="tree-sub-vertical">
                     <div class="tree-sub-vertical-option">
-                      <span class="tree-sub-option-label">No:</span>
+                      <span class="tree-sub-option-label">No</span>
+                      <span class="tree-bucket-arrow">↓</span>
                       <span class="tree-outcome refuse">FULL REFUSAL</span>
                     </div>
+                    <div class="tree-sub-divider"></div>
                     <div class="tree-sub-vertical-option">
-                      <span class="tree-sub-option-label">Yes:</span>
+                      <span class="tree-sub-option-label">Yes</span>
+                      <span class="tree-bucket-arrow">↓</span>
                       <span class="tree-outcome partial">PARTIAL REFUSAL</span>
                     </div>
                   </div>
@@ -3942,26 +3951,30 @@
                 <div class="tree-bucket-header harmful">Harmful</div>
                 <div class="tree-bucket-body">
                   <div class="tree-sub-decision">Does request amplify/enable/encourage harm?</div>
-                  <div class="tree-bucket-arrow">↓</div>
                   <div class="tree-sub-vertical">
                     <div class="tree-sub-vertical-option">
-                      <span class="tree-sub-option-label">No:</span>
+                      <span class="tree-sub-option-label">No</span>
+                      <span class="tree-bucket-arrow">↓</span>
                       <span class="tree-outcome grounded">GROUNDED ENGAGEMENT</span>
                     </div>
+                    <div class="tree-sub-divider"></div>
                     <div class="tree-sub-vertical-option">
-                      <span class="tree-sub-option-label">Yes:</span>
-                      <span style="font-size: 0.75rem; color: #64748b;">↓</span>
+                      <span class="tree-sub-option-label">Yes</span>
+                      <span class="tree-bucket-arrow">↓</span>
                     </div>
                   </div>
                   <div class="tree-sub-nested">
                     <div class="tree-sub-nested-question">Does the prompt also contain a benign request?</div>
                     <div class="tree-sub-vertical">
                       <div class="tree-sub-vertical-option">
-                        <span class="tree-sub-option-label">No:</span>
+                        <span class="tree-sub-option-label">No</span>
+                        <span class="tree-bucket-arrow">↓</span>
                         <span class="tree-outcome refuse">FULL REFUSAL</span>
                       </div>
+                      <div class="tree-sub-divider"></div>
                       <div class="tree-sub-vertical-option">
-                        <span class="tree-sub-option-label">Yes:</span>
+                        <span class="tree-sub-option-label">Yes</span>
+                        <span class="tree-bucket-arrow">↓</span>
                         <span class="tree-outcome partial">PARTIAL REFUSAL</span>
                       </div>
                     </div>
