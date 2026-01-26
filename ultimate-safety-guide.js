@@ -4048,7 +4048,19 @@
 
           // Navigate to specific section/category after tab switch
           setTimeout(() => {
-            if (section) {
+            if (tab === 'writing-guide' && section) {
+              // Writing guide uses state-based navigation
+              activeWritingGuideSection = section;
+              renderWritingGuideDetail();
+              document.getElementById('glossary-content').scrollTop = 0;
+            } else if (tab === 'request-types' && section) {
+              // Request types uses state-based navigation
+              activeRequestTypeCategory = section;
+              requestTypePage = 1;
+              renderRequestTypeDetail();
+              document.getElementById('glossary-content').scrollTop = 0;
+            } else if (section) {
+              // For harmful-output tab, scroll to section by ID
               const sectionEl = document.getElementById(section);
               if (sectionEl) {
                 sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
