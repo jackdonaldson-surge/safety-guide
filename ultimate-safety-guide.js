@@ -3909,6 +3909,13 @@
           <p>This guide is an easy-to-use resource for searching definitions, safety risk categories, response types, and finding examples of ideal responses.</p>
         </div>
 
+        <div class="about-note">
+          <div class="about-note-icon">${ICONS.info}</div>
+          <div class="about-note-content">
+            You do not need to read the guide front-to-back, it is here only for your reference and to help with questions.
+          </div>
+        </div>
+
         <div class="about-toc">
           <h3>${ICONS['help-circle']} Start Here</h3>
           <ul class="about-toc-list">
@@ -3927,13 +3934,6 @@
             <li><a href="#" class="about-toc-link" data-tab="harmful-output">${ICONS['shield']} Response Characteristics</a><span class="about-toc-desc">What makes a response harm-free, harmful, or modified</span></li>
             <li><a href="#" class="about-toc-link" data-tab="faq">${ICONS['help-circle']} FAQ</a><span class="about-toc-desc">Frequently asked questions with links to answers</span></li>
           </ul>
-        </div>
-
-        <div class="about-note">
-          <div class="about-note-icon">${ICONS.info}</div>
-          <div class="about-note-content">
-            This guide is a reference tool, not a replacement for project instructions.
-          </div>
         </div>
 
         <div class="about-section">
