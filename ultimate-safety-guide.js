@@ -7058,6 +7058,31 @@
       }
     }
 
+    // Search FAQ questions
+    for (const section of FAQ_DATA.sections) {
+      for (const faq of section.questions) {
+        if (faq.q.toLowerCase().includes(q) || fuzzyMatch(query, faq.q).match) {
+          results.push({
+            title: faq.q,
+            subtitle: `FAQ - ${section.title}`,
+            type: 'faq',
+            score: faq.q.toLowerCase().includes(q) ? 1 : 11,
+            action: () => {
+              // Clear search input first
+              document.getElementById('glossary-search-input').value = '';
+              currentSearchQuery = '';
+              globalSearchResults = [];
+              switchTab('faq');
+              // Search for this question in the FAQ
+              setTimeout(() => {
+                renderFAQPage(faq.q.substring(0, 20));
+              }, 100);
+            }
+          });
+        }
+      }
+    }
+
     // Sort by score (lower is better)
     results.sort((a, b) => a.score - b.score);
 
