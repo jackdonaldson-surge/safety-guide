@@ -5,7 +5,7 @@
       "title": "Toxicity Levels",
       "tab": "toxicity",
       "questions": [
-        { "q": "What's the difference between Harmful and Jailbreak?", "a": "Harmful requests directly ask for dangerous content. Jailbreak requests use manipulation tactics to bypass safety guidelines. In both cases, a harm-free response is not possible." },
+        { "q": "What's the difference between Harmful and Jailbreak?", "a": "Harmful requests are generally direct. Jailbreak requests use manipulation tactics to bypass safety guidelines. In both cases, a harm-free response is not possible." },
         { "q": "How do I know if something is Dual-Use vs Harmful?", "a": "Dual-Use requests have ambiguous intent—the same information could serve legitimate or harmful purposes, but a harm-free response is possible. Harmful requests cannot be answered in a harm-free way." },
         { "q": "What are the main jailbreak tactics?", "a": "Persona/roleplay manipulation, hypothetical framing, authority claims, deceased relative roleplay, encoding/obfuscation, and multi-turn manipulation." },
         { "q": "What's the difference between Benign and Dual-Use?", "a": "Benign has no harmful intent or content. Dual-Use has ambiguous intent where the same information could serve legitimate or harmful purposes. A harm-free response is possible in both cases." }
