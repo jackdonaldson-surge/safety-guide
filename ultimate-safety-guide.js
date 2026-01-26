@@ -1283,25 +1283,26 @@
     }
     .about-note {
       display: flex;
-      gap: 1rem;
-      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-      border: 1px solid #f59e0b;
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin-bottom: 2rem;
+      gap: 0.5rem;
+      align-items: center;
+      color: #64748b;
+      font-size: 0.8rem;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #e2e8f0;
     }
     .about-note-icon {
       flex-shrink: 0;
     }
     .about-note-icon svg {
-      width: 24px;
-      height: 24px;
-      color: #d97706;
+      width: 14px;
+      height: 14px;
+      color: #94a3b8;
     }
     .about-note-content {
-      color: #92400e;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      color: #64748b;
+      font-size: 0.8rem;
+      line-height: 1.4;
     }
     .about-section {
       background: #fff;
@@ -3908,23 +3909,31 @@
           <p>This guide is an easy-to-use resource for searching definitions, safety risk categories, response types, and finding examples of ideal responses.</p>
         </div>
 
-        <div class="about-note">
-          <div class="about-note-icon">${ICONS.info}</div>
-          <div class="about-note-content">
-            <strong>Important:</strong> This guide is not meant to be read front-to-back or to replace project instructions. Its most powerful use is for you to quickly find answers or reference important information when you need it.
-          </div>
+        <div class="about-toc">
+          <h3>${ICONS['help-circle']} Start Here</h3>
+          <ul class="about-toc-list">
+            <li><a href="#" class="about-toc-link" data-tab="faq">${ICONS['help-circle']} Frequently Asked Questions</a><span class="about-toc-desc">Quick answers to common questions about safety guidelines</span></li>
+          </ul>
         </div>
 
         <div class="about-toc">
           <h3>Table of Contents</h3>
           <ul class="about-toc-list">
             <li><a href="#" class="about-toc-link" data-tab="categories">${ICONS['clipboard']} Risk Categories</a><span class="about-toc-desc">Definitions of safety risk categories and their meanings</span></li>
-            <li><a href="#" class="about-toc-link" data-tab="toxicity">${ICONS['alert-triangle']} Toxicity Levels</a><span class="about-toc-desc">Safe, Benign, Dual-Use, Harmful, and Jailbreak classifications</span></li>
+            <li><a href="#" class="about-toc-link" data-tab="toxicity">${ICONS['alert-triangle']} Toxicity Levels</a><span class="about-toc-desc">Benign, Dual-Use, Harmful, and Jailbreak classifications</span></li>
             <li><a href="#" class="about-toc-link" data-tab="request-types">${ICONS['split']} Request Types</a><span class="about-toc-desc">Generative vs Non-generative request handling</span></li>
             <li><a href="#" class="about-toc-link" data-tab="writing-guide">${ICONS['book-open']} Ideal Response Writing Guide</a><span class="about-toc-desc">Guidelines for writing ideal model responses</span></li>
             <li><a href="#" class="about-toc-link" data-tab="examples">${ICONS['clipboard-check']} Response Types and Examples</a><span class="about-toc-desc">Full Refusal, Partial Refusal, Harm-Free, and Grounded Engagement examples</span></li>
             <li><a href="#" class="about-toc-link" data-tab="harmful-output">${ICONS['shield']} Response Characteristics</a><span class="about-toc-desc">What makes a response harm-free, harmful, or modified</span></li>
+            <li><a href="#" class="about-toc-link" data-tab="faq">${ICONS['help-circle']} FAQ</a><span class="about-toc-desc">Frequently asked questions with links to answers</span></li>
           </ul>
+        </div>
+
+        <div class="about-note">
+          <div class="about-note-icon">${ICONS.info}</div>
+          <div class="about-note-content">
+            This guide is a reference tool, not a replacement for project instructions.
+          </div>
         </div>
 
         <div class="about-section">
