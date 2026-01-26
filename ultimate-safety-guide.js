@@ -1343,6 +1343,14 @@
       font-size: 1.1rem;
       color: #1e293b;
       margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .about-toc h3 svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
     }
     .about-toc-list {
       list-style: none;
