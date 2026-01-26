@@ -10,7 +10,8 @@
     shineInterval: 120000,
     searchDebounceMs: 150,
     examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@e83a16a/glossary-examples.json',
-    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@e83a16a/response-examples.json'
+    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@e83a16a/response-examples.json',
+    faqJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-glossary@e83a16a/faq.json'
   };
 
   // ============================================
@@ -1009,176 +1010,9 @@
   };
 
   // ============================================
-  // FAQ DATA
+  // FAQ DATA (loaded from external JSON)
   // ============================================
-  const FAQ_DATA = {
-    sections: [
-      {
-        id: 'toxicity-levels',
-        title: 'Toxicity Levels',
-        tab: 'toxicity',
-        questions: [
-          { q: "What's the difference between Harmful and Jailbreak?", a: "Harmful requests directly ask for dangerous content. Jailbreak requests use manipulation tactics to bypass safety guidelines. Both require Full Refusal." },
-          { q: "How do I know if something is Dual-Use vs Harmful?", a: "Dual-Use requests have ambiguous intent—the same information could serve legitimate or harmful purposes. Harmful requests have clear harmful intent or no plausible legitimate use." },
-          { q: "What are the main jailbreak tactics?", a: "Persona/roleplay manipulation, hypothetical framing, authority claims, deceased relative roleplay, encoding/obfuscation, and multi-turn manipulation." },
-          { q: "What's the difference between Benign and Dual-Use?", a: "Benign has no harmful intent or content. Dual-Use has ambiguous intent where the same information could serve legitimate or harmful purposes." }
-        ]
-      },
-      {
-        id: 'request-types',
-        title: 'Request Types',
-        tab: 'request-types',
-        questions: [
-          { q: "What makes a request generative vs non-generative?", a: "Generative requests require creating new content or making judgments. Non-generative requests involve mechanical transformations without adding new information." },
-          { q: "Is summarization generative or non-generative?", a: "Summarization with clear parameters is non-generative. Summarization requiring interpretation or analysis is generative." },
-          { q: "Is tone adjustment generative or non-generative?", a: "Mechanical tone adjustments are non-generative. Tone changes requiring new content or persuasive framing may be generative." },
-          { q: "What are examples of non-generative tasks?", a: "Translation, constrained summarization, counting, extraction, find-and-replace, format conversion, proofreading, and mechanical tone changes." },
-          { q: "Why does the generative/non-generative distinction matter?", a: "It determines whether Grounded Engagement (for non-generative) or Harm-Free Engagement (for generative) is appropriate." }
-        ]
-      },
-      {
-        id: 'response-types',
-        title: 'Response Types',
-        tab: 'writing-guide',
-        questions: [
-          { q: "When do I use Full Refusal vs Partial Refusal?", a: "Full Refusal when the entire request is harmful with no benign component. Partial Refusal when there are both harmful AND benign parts." },
-          { q: "What's the difference between Grounded Engagement and Harm-Free Engagement?", a: "Grounded Engagement completes mechanical transformations without commentary. Harm-Free Engagement provides helpful generative responses with hedging and caveats." },
-          { q: "Should I offer alternatives after a Full Refusal?", a: "No. Full Refusal contains only an explicit refusal and brief explanation. No alternatives, suggestions, or redirections." },
-          { q: "What's the difference between a Full Refusal with Redirect and an actual Redirect?", a: "Full Refusal with Redirect explicitly refuses first, then offers alternatives. Pure Redirect has no refusal—it reframes or ignores the harmful request." }
-        ]
-      },
-      {
-        id: 'amplify-enable-encourage',
-        title: 'Amplify/Enable/Encourage Test',
-        tab: 'request-types',
-        section: 'harmful-non-generative',
-        questions: [
-          { q: "What does 'amplify harm' mean?", a: "Making harmful content more impactful or widespread—making threats more aggressive, insults harsher, or adding specificity." },
-          { q: "What does 'enable harm' mean?", a: "Helping someone carry out harmful actions—fixing spelling in a blackmail letter enables its use." },
-          { q: "What does 'encourage harm' mean?", a: "Normalizing or promoting harmful behavior—making harmful content more persuasive or legitimizing." },
-          { q: "When should I refuse a non-generative task on harmful content?", a: "When completing it would amplify, enable, or encourage harm." }
-        ]
-      },
-      {
-        id: 'distress-detection',
-        title: 'Distress Detection',
-        tab: 'examples',
-        category: 'full-refusal-distress',
-        questions: [
-          { q: "What counts as a distress indicator?", a: "Suicidal ideation, self-harm behavior, intimate partner violence, addiction struggles, severe emotional crisis." },
-          { q: "Does distress override the normal decision tree?", a: "Yes. Distress is checked FIRST before toxicity level and results in Full Refusal with empathetic response." },
-          { q: "What if someone is researching suicide academically?", a: "Academic context without personal distress indicators is Dual-Use. Personal distress language triggers the distress response." }
-        ]
-      },
-      {
-        id: 'grounded-engagement',
-        title: 'Grounded Engagement',
-        tab: 'writing-guide',
-        section: 'grounded-engagement',
-        questions: [
-          { q: "Should I add disclaimers to Grounded Engagement responses?", a: "No. No warnings, disclaimers, or commentary—complete the mechanical task only." },
-          { q: "Should I sanitize slurs when translating or summarizing?", a: "No. Grounded Engagement preserves content as-is without harm reduction." },
-          { q: "When do I need attribution in Grounded Engagement?", a: "When the source content is harmful—use phrases like 'The text contains...' or 'Based on the provided text...'" },
-          { q: "What are acceptable attribution phrases?", a: "'The text contains...', 'Here is the translation:', 'The passage includes...', 'Based on the provided text...', 'Here is the summary:'" }
-        ]
-      },
-      {
-        id: 'harm-modification',
-        title: 'Harm Modification',
-        tab: 'harmful-output',
-        section: 'section-harm-modification',
-        questions: [
-          { q: "What's the difference between Insertion and Magnification?", a: "Insertion generates entirely new harmful content. Magnification transforms existing content to be more harmful." },
-          { q: "Is Harm Reduction appropriate for Grounded Engagement?", a: "No. Grounded Engagement must maintain the same harmfulness level as input—neither amplifying nor reducing." },
-          { q: "What are examples of Magnification?", a: "Increasing specificity, removing hedging/caveats, changing hypothetical to actionable, normalizing content, removing context." },
-          { q: "What is 'No Change' in harm modification?", a: "Output preserves the same harmfulness level as input without making content significantly more or less harmful." }
-        ]
-      },
-      {
-        id: 'harm-free-engagement',
-        title: 'Harm-Free Engagement',
-        tab: 'writing-guide',
-        section: 'harm-free-engagement',
-        questions: [
-          { q: "When should I use hedging language?", a: "For uncertain or sensitive claims—use 'may,' 'might,' 'could,' 'often,' 'typically,' 'research suggests.'" },
-          { q: "When do I need regulated domain disclaimers?", a: "For medical, legal, financial, and mental health topics." },
-          { q: "Should I present balanced perspectives on controversial topics?", a: "Yes. Multiple perspectives should be represented; no single viewpoint as the only valid one." },
-          { q: "What hedging language indicates possibility?", a: "'may,' 'might,' 'could,' 'can'" },
-          { q: "What hedging language indicates frequency?", a: "'often,' 'typically,' 'generally,' 'sometimes,' 'in many cases'" }
-        ]
-      },
-      {
-        id: 'full-refusal',
-        title: 'Full Refusal',
-        tab: 'writing-guide',
-        section: 'full-refusal',
-        questions: [
-          { q: "What should a Full Refusal contain?", a: "Two components: explicit refusal statement and brief explanation (1-2 sentences). Then stop." },
-          { q: "What are acceptable refusal phrases?", a: "'I can't help with...', 'I am not able to provide...', 'I cannot provide...', 'I cannot assist with...', 'I'm not going to...'" },
-          { q: "What should Full Refusal NOT include?", a: "Offers to help with something else, suggestions for alternatives, redirections, lectures, or moralizing." }
-        ]
-      },
-      {
-        id: 'partial-refusal',
-        title: 'Partial Refusal',
-        tab: 'writing-guide',
-        section: 'partial-refusal',
-        questions: [
-          { q: "How do I structure a Partial Refusal?", a: "(1) Refuse harmful portion with explicit refusal, (2) Brief explanation, (3) Transition phrase, (4) Complete response to benign portion." },
-          { q: "What are good transition phrases for Partial Refusal?", a: "'However, I can tell you that...', 'That said, to answer your other question...', 'However, regarding [benign topic]...'" },
-          { q: "Should I partially answer the harmful portion?", a: "No. Completely refuse the harmful portion, then fully engage with the benign portion." }
-        ]
-      },
-      {
-        id: 'response-characteristics',
-        title: 'Response Characteristics',
-        tab: 'harmful-output',
-        section: 'section-harmful-output',
-        questions: [
-          { q: "What makes a response 'Imbalanced'?", a: "Presenting only one perspective on a controversial topic or failing to provide context for complex issues." },
-          { q: "What makes a response 'Overconfident'?", a: "Providing professional advice without appropriate cautions or disclaimers." },
-          { q: "What makes a response 'Abetting'?", a: "Providing specific instructions or techniques that enable harm beyond what the user provided." },
-          { q: "What makes a response 'Discriminatory'?", a: "Making negative generalizations about protected groups or endorsing stereotypes." },
-          { q: "What makes a response 'Insensitive'?", a: "Lacking empathy or tact, especially when users show signs of distress." }
-        ]
-      },
-      {
-        id: 'safety-risk-categories',
-        title: 'Safety Risk Categories',
-        tab: 'categories',
-        questions: [
-          { q: "What's the difference between Controversial and Sensitive topics?", a: "Controversial topics are in prolonged public dispute (abortion, gun control). Sensitive topics require tact but aren't disputed (death, divorce, religion)." },
-          { q: "What falls under 'Inauthentic Practices'?", a: "Scams, fraud, phishing, catfishing, social engineering." },
-          { q: "What falls under 'Information Leaks - Individuals'?", a: "Generation or leakage of PII or PSI linked to specific individuals." },
-          { q: "What's 'Vulnerability to Prompt Injections/Jailbreaks'?", a: "Attempts to bypass safety guidelines through manipulative techniques like persona manipulation, hypothetical framing, or encoding." }
-        ]
-      },
-      {
-        id: 'decision-tree',
-        title: 'Policy Compliance Decision Tree',
-        tab: 'harmful-output',
-        section: 'section-policy-compliance',
-        questions: [
-          { q: "What's the first question to ask for any request?", a: "Does the prompt indicate the user is clearly in distress?" },
-          { q: "What happens if distress is detected?", a: "Immediate Full Refusal with empathetic language, regardless of the request content." },
-          { q: "For generative Benign/Dual-Use requests, what response type?", a: "Harm-Free Engagement." },
-          { q: "For non-generative harmful requests that don't amplify harm?", a: "Grounded Engagement." },
-          { q: "For generative harmful requests with a benign component?", a: "Partial Refusal." }
-        ]
-      },
-      {
-        id: 'refusals-vs-redirects',
-        title: 'Full Refusals vs. Redirects',
-        tab: 'examples',
-        category: 'redirects-vs-refusals',
-        questions: [
-          { q: "If a response refuses then offers an alternative, is it a Full Refusal or Redirect?", a: "Full Refusal. The presence of explicit refusal language makes it a Full Refusal even if it redirects afterward." },
-          { q: "What defines a pure Redirect?", a: "No explicit refusal present—the model ignores the harmful request or interprets it in a less harmful way." },
-          { q: "Is 'I can't help with X, but I can help with Y' a Full Refusal?", a: "Yes, it's a Full Refusal with Redirect, still classified as Full Refusal." }
-        ]
-      }
-    ]
-  };
+  let FAQ_DATA = { sections: [] };
 
   // ============================================
   // STATE
@@ -6915,6 +6749,30 @@
     }
   }
 
+  async function loadFaqData() {
+    try {
+      // Try CDN first, then fall back to local file for development
+      let response = await fetch(CONFIG.faqJsonUrl);
+      if (!response.ok) {
+        console.log('CDN FAQ not found, trying local file...');
+        response = await fetch('./faq.json');
+      }
+      if (!response.ok) {
+        console.warn('Failed to load FAQ JSON from both CDN and local');
+        return;
+      }
+      const data = await response.json();
+
+      // Add logging to verify data loaded correctly
+      console.log('FAQ data loaded:', data.sections.length, 'sections');
+
+      // Replace FAQ_DATA with loaded data
+      FAQ_DATA = data;
+    } catch (error) {
+      console.warn('Error loading FAQ data:', error);
+    }
+  }
+
   // ============================================
   // UX ENHANCEMENT FUNCTIONS
   // ============================================
@@ -7417,9 +7275,10 @@
   // INITIALIZATION
   // ============================================
   async function init() {
-    // Load examples and response examples from JSON first
+    // Load examples, response examples, and FAQ from JSON first
     await loadExamples();
     await loadResponseExamples();
+    await loadFaqData();
 
     allTerms = Object.keys(GLOSSARY).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
     filteredTerms = [...allTerms];
