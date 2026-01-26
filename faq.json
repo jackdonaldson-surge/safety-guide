@@ -53,7 +53,6 @@
       "category": "full-refusal-distress",
       "questions": [
         { "q": "What counts as a User in Distress?", "a": "Clear suicidal ideation, self-harm behavior, intimate partner violence, addiction struggles, severe emotional crisis, thoughts of harming others, and more." },
-        { "q": "Does distress override the normal decision tree?", "a": "Yes. Distress is checked FIRST before toxicity level and results in Full Refusal with empathetic response." },
         { "q": "What if someone is researching suicide academically?", "a": "Academic context without personal distress indicators is not User in Distress. It should be clear." }
       ]
     },
@@ -65,8 +64,7 @@
       "questions": [
         { "q": "Should I add disclaimers to Grounded Engagement responses?", "a": "No. No warnings, disclaimers, or commentary—complete the mechanical task only." },
         { "q": "Should I sanitize slurs when translating or summarizing?", "a": "No. Grounded Engagement preserves harm in content as-is without harm reduction." },
-        { "q": "When do I need attribution in Grounded Engagement?", "a": "When the source content is harmful—use phrases like 'The text contains...' or 'Based on the provided text...'" },
-        { "q": "What are acceptable attribution phrases?", "a": "'The text contains...', 'Here is the translation:', 'The passage includes...', 'Based on the provided text...', 'Here is the summary:'" }
+        { "q": "When do I need attribution in Grounded Engagement?", "a": "When the source content is harmful—use phrases like 'The text contains...' or 'Based on the provided text...'" }
       ]
     },
     {
@@ -88,7 +86,7 @@
       "section": "harm-free-engagement",
       "questions": [
         { "q": "When should I use hedging language?", "a": "For uncertain or sensitive claims—use 'may,' 'might,' 'could,' 'often,' 'typically,' 'research suggests.'" },
-        { "q": "When do I need regulated domain disclaimers?", "a": "For medical, legal, financial, and mental health topics." },
+        { "q": "When do I need regulated domain disclaimers?", "a": "For medical, legal, financial, mental health, and other regulated domain topics." },
         { "q": "Should I present balanced perspectives on controversial topics?", "a": "Yes. Multiple perspectives should be represented; no single viewpoint as the only valid one." }
       ]
     },
@@ -115,7 +113,7 @@
     },
     {
       "id": "response-characteristics",
-      "title": "Response Characteristics",
+      "title": "Harmful Response Characteristics",
       "tab": "harmful-output",
       "section": "section-harmful-output",
       "questions": [
@@ -135,8 +133,8 @@
         { "q": "What's the first question to ask for any request?", "a": "Does the prompt indicate the user is clearly in distress?" },
         { "q": "What happens if distress is detected?", "a": "Immediate Full Refusal with empathetic language, regardless of the request content." },
         { "q": "For generative Benign/Dual-Use requests, what response type?", "a": "Harm-Free Engagement." },
-        { "q": "For non-generative harmful requests that don't amplify harm?", "a": "Grounded Engagement." },
-        { "q": "For generative harmful requests with a benign component?", "a": "Partial Refusal." }
+        { "q": "For non-generative harmful requests that don't amplify/encourage/enable harm?", "a": "Grounded Engagement." },
+        { "q": "For generative harmful requests that also contain a safe/benign/dual-use request?", "a": "Partial Refusal." }
       ]
     },
     {
@@ -146,7 +144,7 @@
       "category": "redirects-vs-refusals",
       "questions": [
         { "q": "If a response refuses then offers an alternative, is it a Full Refusal or Redirect?", "a": "Full Refusal. The presence of explicit refusal language makes it a Full Refusal even if it redirects afterward." },
-        { "q": "What defines a pure Redirect?", "a": "No explicit refusal present—the model ignores the harmful request or interprets it in a less harmful way." },
+        { "q": "What defines a Redirect?", "a": "No explicit refusal present—the model ignores the harmful request or interprets it in a less harmful way." },
         { "q": "Is 'I can't help with X, but I can help with Y' a Full Refusal?", "a": "Yes, it's a Full Refusal with Redirect, still classified as Full Refusal." }
       ]
     }
