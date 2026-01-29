@@ -17,9 +17,12 @@
       "tab": "request-types",
       "questions": [
         { "q": "What makes a request generative vs non-generative?", "a": "Generative requests require creating new content or making judgments. Non-generative requests involve mechanical transformations without adding new information or changing the core content." },
+        { "q": "How does this work for multimodal (image) requests?", "a": "For multimodal requests, a request is ONLY non-generative when there is text present in the image AND the task is to mechanically process that text (extract, transcribe, translate, summarize, or rewrite). Most image requests are generative because they require describing, interpreting, or analyzing visual content." },
+        { "q": "What multimodal tasks are non-generative?", "a": "Only tasks involving text in images: transcribing text from a screenshot, translating text visible in an image, summarizing a document shown in an image, or extracting specific text from an image. 'What does this image show?' is always generative." },
+        { "q": "Is 'describe this image' generative or non-generative?", "a": "Generative. Any request to describe, analyze, or interpret visual content requires the model to produce new descriptive content, making it generative." },
         { "q": "Is summarization generative or non-generative?", "a": "Summarization with clear parameters is non-generative. Summarization requiring interpretation or analysis is generative." },
         { "q": "Is tone adjustment generative or non-generative?", "a": "Mechanical tone adjustments are non-generative. Tone changes requiring new content or persuasive framing may be generative." },
-        { "q": "What are examples of non-generative tasks?", "a": "Translation, constrained summarization, counting, extraction, find-and-replace, format conversion, proofreading, and mechanical tone changes." },
+        { "q": "What are examples of non-generative tasks?", "a": "For text: translation, constrained summarization, counting, extraction, find-and-replace, format conversion, proofreading. For images: ONLY mechanical processing of text visible in the image." },
         { "q": "Why does the generative/non-generative distinction matter?", "a": "It determines whether Grounded Engagement (for non-generative) or Harm-Free Engagement (for generative) is appropriate." }
       ]
     },
