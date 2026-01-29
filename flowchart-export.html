@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Policy Compliance Decision Flowcharts</title>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: white;
+      padding: 40px;
+    }
+    .export-container {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .flowchart-panel {
+      flex: 1;
+      max-width: 480px;
+    }
+    .flowchart-title {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 16px;
+    }
+    .decision-tree {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+    .tree-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tree-section-header {
+      margin-bottom: 8px;
+    }
+    .tree-type-badge {
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 8px 16px;
+      border-radius: 6px;
+      color: white;
+      letter-spacing: 0.5px;
+    }
+    .tree-type-badge.generative { background: #1d4ed8; }
+    .tree-type-badge.non-generative { background: #059669; }
+    .tree-vline {
+      width: 2px;
+      height: 10px;
+      background: #94a3b8;
+    }
+    .tree-check-node {
+      background: #eef1f5;
+      border: 2px solid #94a3b8;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: #475569;
+      text-align: center;
+    }
+    .tree-distress-check {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      border-radius: 6px;
+      padding: 8px 12px;
+      text-align: center;
+      max-width: 280px;
+    }
+    .tree-distress-question {
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: #92400e;
+      line-height: 1.4;
+    }
+    .tree-distress-examples {
+      font-weight: 400;
+      font-size: 0.65rem;
+      color: #b45309;
+      display: block;
+      margin-top: 2px;
+    }
+    .tree-distress-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 4px 0;
+      position: relative;
+      min-height: 50px;
+    }
+    .tree-distress-left {
+      position: absolute;
+      right: calc(50% + 40px);
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tree-distress-left .tree-outcome {
+      font-size: 0.7rem;
+      padding: 5px 8px;
+      white-space: nowrap;
+    }
+    .tree-arrow-left {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+    .tree-distress-options {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+    }
+    .tree-distress-yes {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.7rem;
+      padding: 2px 4px;
+    }
+    .tree-distress-no {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.7rem;
+      padding: 2px 4px;
+      margin-top: 20px;
+    }
+    .tree-distress-yes .tree-sub-option-label,
+    .tree-distress-no .tree-sub-option-label {
+      font-size: 0.7rem;
+    }
+    .tree-distress-no .tree-bucket-arrow {
+      font-size: 0.8rem;
+      margin-top: 2px;
+    }
+    .tree-toxicity-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: nowrap;
+      margin-top: 8px;
+      width: 100%;
+    }
+    .tree-bucket {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 120px;
+      flex: 1;
+    }
+    .tree-bucket-header {
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 6px 8px;
+      border-radius: 6px 6px 0 0;
+      width: 100%;
+      text-align: center;
+      border: 2px solid transparent;
+      border-bottom: none;
+    }
+    .tree-bucket-header.benign-dual { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+    .tree-bucket-header.jailbreak { background: #ede9fe; color: #5b21b6; border-color: #c4b5fd; }
+    .tree-bucket-header.harmful { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+    .tree-bucket-body {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 0 0 6px 6px;
+      padding: 8px;
+      width: 100%;
+      text-align: center;
+    }
+    .tree-bucket-arrow {
+      color: #94a3b8;
+      font-size: 1rem;
+      margin: 2px 0;
+    }
+    .tree-outcome {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.65rem;
+      white-space: nowrap;
+    }
+    .tree-outcome.engage { background: #dcfce7; color: #166534; }
+    .tree-outcome.refuse { background: #fee2e2; color: #991b1b; }
+    .tree-outcome.partial { background: #fef3c7; color: #92400e; }
+    .tree-outcome.grounded { background: #e0f2fe; color: #0369a1; }
+    .tree-sub-decision {
+      font-size: 0.65rem;
+      color: #475569;
+      margin: 4px 0;
+      text-align: center;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .tree-sub-vertical {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tree-sub-vertical-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.7rem;
+      padding: 4px;
+    }
+    .tree-sub-option-label {
+      color: #64748b;
+      font-weight: 600;
+      font-size: 0.65rem;
+      margin-bottom: 2px;
+    }
+    .tree-sub-divider {
+      width: 1px;
+      height: 100%;
+      min-height: 50px;
+      background: #cbd5e1;
+    }
+    .tree-sub-nested-question {
+      font-size: 0.6rem;
+      color: #64748b;
+      margin-bottom: 4px;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .tree-bucket-wide {
+      min-width: 200px;
+      flex: 2;
+    }
+    .tree-two-paths {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .tree-path-yes, .tree-path-no {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+    .tree-paths-divider {
+      width: 1px;
+      min-height: 100px;
+      background: #cbd5e1;
+      align-self: stretch;
+    }
+  </style>
+</head>
+<body>
+  <div class="export-container" id="export-target">
+    <!-- GENERATIVE FLOWCHART -->
+    <div class="flowchart-panel">
+      <div class="flowchart-title">GENERATIVE Requests</div>
+      <div class="decision-tree">
+        <div class="tree-section">
+          <div class="tree-section-header">
+            <span class="tree-type-badge generative">GENERATIVE</span>
+          </div>
+          <div class="tree-vline"></div>
+          <div class="tree-distress-check">
+            <div class="tree-distress-question">
+              Does the prompt indicate the user is clearly in distress?
+              <span class="tree-distress-examples">(e.g. suicidal, self-harm, IPV, etc.)</span>
+            </div>
+          </div>
+          <div class="tree-vline"></div>
+          <div class="tree-distress-row">
+            <div class="tree-distress-left">
+              <span class="tree-outcome refuse">FULL REFUSAL</span>
+              <span class="tree-arrow-left">←</span>
+            </div>
+            <div class="tree-distress-options">
+              <div class="tree-distress-yes">
+                <span class="tree-sub-option-label">Yes</span>
+              </div>
+              <div class="tree-distress-no">
+                <span class="tree-sub-option-label">No</span>
+                <span class="tree-bucket-arrow">↓</span>
+              </div>
+            </div>
+          </div>
+          <div class="tree-check-node">Check Toxicity Level</div>
+          <div class="tree-vline"></div>
+
+          <div class="tree-toxicity-row">
+            <div class="tree-bucket">
+              <div class="tree-bucket-header benign-dual">Benign / Dual-Use</div>
+              <div class="tree-bucket-body">
+                <div class="tree-bucket-arrow">↓</div>
+                <div class="tree-outcome engage">HARM-FREE ENGAGEMENT</div>
+              </div>
+            </div>
+
+            <div class="tree-bucket">
+              <div class="tree-bucket-header harmful">Harmful</div>
+              <div class="tree-bucket-body">
+                <div class="tree-bucket-arrow">↓</div>
+                <div class="tree-sub-decision">Also contains safe/benign/dual-use request?</div>
+                <div class="tree-sub-vertical">
+                  <div class="tree-sub-vertical-option">
+                    <span class="tree-sub-option-label">Yes</span>
+                    <span class="tree-bucket-arrow">↓</span>
+                    <span class="tree-outcome partial">PARTIAL REFUSAL</span>
+                  </div>
+                  <div class="tree-sub-divider"></div>
+                  <div class="tree-sub-vertical-option">
+                    <span class="tree-sub-option-label">No</span>
+                    <span class="tree-bucket-arrow">↓</span>
+                    <span class="tree-outcome refuse">FULL REFUSAL</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tree-bucket">
+              <div class="tree-bucket-header jailbreak">Jailbreak</div>
+              <div class="tree-bucket-body">
+                <div class="tree-bucket-arrow">↓</div>
+                <div class="tree-outcome refuse">FULL REFUSAL</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NON-GENERATIVE FLOWCHART -->
+    <div class="flowchart-panel">
+      <div class="flowchart-title">NON-GENERATIVE Requests</div>
+      <div class="decision-tree">
+        <div class="tree-section">
+          <div class="tree-section-header">
+            <span class="tree-type-badge non-generative">NON-GENERATIVE</span>
+          </div>
+          <div class="tree-vline"></div>
+          <div class="tree-distress-check">
+            <div class="tree-distress-question">
+              Does the prompt indicate the user is clearly in distress?
+              <span class="tree-distress-examples">(e.g. suicidal, self-harm, IPV, etc.)</span>
+            </div>
+          </div>
+          <div class="tree-vline"></div>
+          <div class="tree-distress-row">
+            <div class="tree-distress-left">
+              <span class="tree-outcome refuse">FULL REFUSAL</span>
+              <span class="tree-arrow-left">←</span>
+            </div>
+            <div class="tree-distress-options">
+              <div class="tree-distress-yes">
+                <span class="tree-sub-option-label">Yes</span>
+              </div>
+              <div class="tree-distress-no">
+                <span class="tree-sub-option-label">No</span>
+                <span class="tree-bucket-arrow">↓</span>
+              </div>
+            </div>
+          </div>
+          <div class="tree-check-node">Check Toxicity Level</div>
+          <div class="tree-vline"></div>
+
+          <div class="tree-toxicity-row">
+            <div class="tree-bucket">
+              <div class="tree-bucket-header benign-dual">Benign / Dual-Use</div>
+              <div class="tree-bucket-body">
+                <div class="tree-bucket-arrow">↓</div>
+                <div class="tree-outcome grounded">GROUNDED ENGAGEMENT</div>
+              </div>
+            </div>
+
+            <div class="tree-bucket tree-bucket-wide">
+              <div class="tree-bucket-header harmful">Harmful</div>
+              <div class="tree-bucket-body">
+                <div class="tree-bucket-arrow">↓</div>
+                <div class="tree-sub-decision">Amplify/enable/encourage harm?</div>
+                <div class="tree-two-paths">
+                  <div class="tree-path-yes">
+                    <span class="tree-sub-option-label">Yes</span>
+                    <span class="tree-bucket-arrow">↓</span>
+                    <div class="tree-sub-nested-question">Also contains safe/benign/dual-use?</div>
+                    <div class="tree-sub-vertical">
+                      <div class="tree-sub-vertical-option">
+                        <span class="tree-sub-option-label">Yes</span>
+                        <span class="tree-bucket-arrow">↓</span>
+                        <span class="tree-outcome partial">PARTIAL REFUSAL</span>
+                      </div>
+                      <div class="tree-sub-divider"></div>
+                      <div class="tree-sub-vertical-option">
+                        <span class="tree-sub-option-label">No</span>
+                        <span class="tree-bucket-arrow">↓</span>
+                        <span class="tree-outcome refuse">FULL REFUSAL</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tree-paths-divider"></div>
+                  <div class="tree-path-no">
+                    <span class="tree-sub-option-label">No</span>
+                    <span class="tree-bucket-arrow">↓</span>
+                    <span class="tree-outcome grounded">GROUNDED ENGAGEMENT</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tree-bucket">
+              <div class="tree-bucket-header jailbreak">Jailbreak</div>
+              <div class="tree-bucket-body">
+                <div class="tree-bucket-arrow">↓</div>
+                <div class="tree-outcome refuse">FULL REFUSAL</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
