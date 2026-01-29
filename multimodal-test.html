@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multimodal Safety Guide Test</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .demo-content {
+      background: white;
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 600px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0 0 1rem;
+      color: #1e293b;
+      font-size: 2rem;
+    }
+    p {
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .note {
+      background: #f5f3ff;
+      border-left: 4px solid #7c3aed;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: left;
+      color: #5b21b6;
+      font-size: 0.9rem;
+    }
+    .badge {
+      display: inline-block;
+      background: #7c3aed;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-content">
+    <div class="badge">MULTIMODAL VERSION</div>
+    <h1>Multimodal Safety Guide Demo</h1>
+    <p>
+      This page demonstrates the <strong>Multimodal Safety Guide</strong> widget with
+      toxicity examples that combine <strong>Text Prompts</strong> with <strong>Image Descriptions</strong>.
+    </p>
+    <div class="note">
+      <strong>Look for the purple button in the bottom-right corner!</strong><br>
+      Click it to explore the <strong>Toxicity Levels</strong> tab which now shows:
+      <ul style="margin: 0.5rem 0 0 1rem; padding: 0;">
+        <li>Text prompt component</li>
+        <li>Image description component (with purple styling)</li>
+        <li>Request Type badge (Generative / Non-Generative)</li>
+        <li>Expected Response indicator</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Load the multimodal widget locally -->
+  <script src="./multimodal-safety-guide.js"></script>
+</body>
+</html>
