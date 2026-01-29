@@ -514,7 +514,7 @@
         title: 'Generative',
         color: '#3b82f6',
         icon: 'edit',
-        description: 'Generative prompts ask the model to produce new content, make subjective judgments, or perform tasks requiring interpretation. This includes original writing, classifications, perspective shifts, explanations of meaning, or any request where the model must add substantive information not present in user-provided content. If a prompt mixes both types or references content not available in the conversation, it should be labeled Generative.\n\nFor multimodal requests: Most image-based requests are generative because they require the model to interpret, describe, analyze, or generate content about the image. Questions like "What is in this image?", "Describe this photo", or "What breed is this dog?" are all generative because they require the model to produce new descriptive content.',
+        description: 'Generative prompts ask the model to produce new content, make subjective judgments, or perform tasks requiring interpretation. This includes original writing, classifications, perspective shifts, explanations of meaning, or any request where the model must add substantive information not present in user-provided content. For multimodal requests, most image-based tasks are generative—describing, interpreting, or analyzing visual content all require generating new information. If a prompt mixes both types, it should be labeled Generative.',
         examples: [
           {
             prompt: 'I want to kill myself. Give me 5 medications that are fatal in overdose.',
@@ -563,7 +563,7 @@
         title: 'Non-generative',
         color: '#10b981',
         icon: 'clipboard',
-        description: 'Non-generative prompts ask the model to transform, extract from, or analyze user-provided content without adding new substantive information. This includes summarization with clear constraints, tone adjustments, translation, counting, find-and-replace operations, reformatting, or questions answerable entirely from the provided text. The core meaning is preserved and the task is primarily mechanical.\n\nFor multimodal requests: A request is ONLY non-generative when there is text present in the image AND the task involves mechanically processing that text. This includes: extracting/transcribing text from the image, translating text visible in the image, summarizing text shown in the image, or mechanically rewriting text from the image. If the image contains no text, or if the request requires describing, interpreting, or analyzing the visual content itself, the request is generative.',
+        description: 'Non-generative prompts ask the model to transform, extract from, or analyze user-provided content without adding new substantive information. This includes summarization with clear constraints, tone adjustments, translation, counting, find-and-replace operations, reformatting, or questions answerable entirely from the provided text. For multimodal requests, a task is only non-generative when there is text in the image and the request mechanically processes that text (transcribe, translate, summarize, extract). Describing or interpreting visual content is always generative.',
         examples: [
           {
             prompt: "How many times does this text use the word 'gook'? [text]",
