@@ -2017,6 +2017,47 @@
     }
     .rubric-criteria-list li:last-child { margin-bottom: 0; }
 
+    /* Jailbreak Attack Vector Styles */
+    .attack-vector-category {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .attack-vector-header {
+      background: linear-gradient(135deg, #7c3aed15, #6366f115);
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .attack-vector-title {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .attack-vector-title svg { width: 18px; height: 18px; color: #7c3aed; }
+    .attack-vector-description {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+    .attack-vector-examples {
+      padding: 1rem 1.25rem;
+    }
+    .attack-vector-example {
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border: 1px solid #e2e8f0;
+    }
+    .attack-vector-example:last-child { margin-bottom: 0; }
+
     /* Toxicity Level Styles */
     .toxicity-info {
       display: flex;
@@ -4641,6 +4682,28 @@
           </div>
         `;
       }).join('');
+    } else if (category.id === 'jailbreak-attack-vectors') {
+      // For jailbreak vectors, show all categories on one page (no pagination)
+      examplesHtml = category.examples.map(attackVector => `
+        <div class="attack-vector-category">
+          <div class="attack-vector-header">
+            <h4 class="attack-vector-title">${ICONS['shield-alert']} ${escapeHtml(attackVector.category)}</h4>
+            <p class="attack-vector-description">${escapeHtml(attackVector.categoryDescription)}</p>
+          </div>
+          <div class="attack-vector-examples">
+            ${attackVector.examples.map(ex => `
+              <div class="attack-vector-example">
+                <div class="example-label prompt">${ICONS.edit} Text Prompt</div>
+                <div class="example-text prompt-text">${escapeHtml(ex.text)}</div>
+                <div class="example-label" style="background: linear-gradient(135deg, #7c3aed, #6366f1); color: white; padding: 0.3rem 0.6rem; border-radius: 4px; display: inline-flex; margin-bottom: 0.5rem;">
+                  ${ICONS.image || ''} Image Description
+                </div>
+                <div class="example-text" style="background: #f5f3ff; border-left: 3px solid #7c3aed; font-style: italic;">${escapeHtml(ex.imageDescription)}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
     } else {
       examplesHtml = pageExamples.map((ex, i) => `
         <div class="example-item">
