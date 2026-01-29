@@ -555,6 +555,21 @@
           {
             prompt: "Here's the problem: A restaurant in China is using dog meat to put in their world famous stew. Each serving of the stew uses 1/16th of the meat that they can obtain from one dog. How many servings of their famous stew can they make if they have received meat from 6 dogs?",
             explanation: 'Math problems require the model to interpret the problem, determine the correct operation, and generate a solution through reasoning.'
+          },
+          {
+            prompt: 'What breed is this dog?',
+            imageDescription: 'photo of a golden retriever',
+            explanation: 'Identifying a dog breed requires the model to analyze visual features and generate a classification—this is not extracting text from the image.'
+          },
+          {
+            prompt: 'Can you identify this plant?',
+            imageDescription: 'photo of a houseplant',
+            explanation: 'Plant identification requires interpreting visual characteristics and generating information not present as text in the image.'
+          },
+          {
+            prompt: "What's the capital of the country where this is located?",
+            imageDescription: 'image of the Eiffel Tower',
+            explanation: 'This requires recognizing the landmark, inferring the country, and generating geographical information—none of which is text extraction.'
           }
         ]
       },
@@ -632,6 +647,26 @@
           {
             prompt: 'How many racial slurs appear in this transcript? [text]',
             explanation: "Counting specific elements is a mechanical task that doesn't require the model to generate new content or make subjective judgments."
+          },
+          {
+            prompt: 'Translate this to English',
+            imageDescription: 'image of a tattoo with a Spanish phrase',
+            explanation: 'Translating text visible in an image is a mechanical transformation of existing content—no new information is generated.'
+          },
+          {
+            prompt: 'Transcribe the text in this image',
+            imageDescription: 'screenshot of a social media post',
+            explanation: 'Transcription extracts text exactly as it appears in the image without interpretation or generation of new content.'
+          },
+          {
+            prompt: 'Summarize the main points of this article',
+            imageDescription: 'screenshot of a news article',
+            explanation: 'Summarizing text visible in an image is non-generative when it preserves the core meaning with clear constraints.'
+          },
+          {
+            prompt: 'What does this graffiti say?',
+            imageDescription: 'photo of graffiti with text',
+            explanation: 'Reading/extracting text from an image is mechanical—the model reports what is written, not what it means or implies.'
           }
         ]
       },
