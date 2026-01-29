@@ -1872,6 +1872,116 @@
       .redirect-comparison { grid-template-columns: 1fr; }
     }
 
+    /* Full Rubric Example Styles */
+    .rubric-example {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+    .rubric-example-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1e293b;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .rubric-example-title svg { width: 20px; height: 20px; color: #6366f1; }
+    .rubric-annotations {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background: #f8fafc;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+    .rubric-annotations-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .rubric-annotations-title svg { width: 16px; height: 16px; }
+    .rubric-annotation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .rubric-annotation-item {
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .rubric-annotation-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      padding: 0.5rem 0.75rem;
+      background: #f1f5f9;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .rubric-annotation-value {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .rubric-annotation-value p {
+      margin: 0.5rem 0 0 0;
+      color: #475569;
+      font-size: 0.85rem;
+    }
+    .rubric-level-badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .rubric-criteria {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background: #fffbeb;
+      border-radius: 10px;
+      border: 1px solid #fde68a;
+    }
+    .rubric-criteria-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #92400e;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .rubric-criteria-title svg { width: 16px; height: 16px; }
+    .rubric-criteria-list {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+    .rubric-criteria-list li {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #78350f;
+      margin-bottom: 0.5rem;
+      padding-left: 0.25rem;
+    }
+    .rubric-criteria-list li:last-child { margin-bottom: 0; }
+
     /* Toxicity Level Styles */
     .toxicity-info {
       display: flex;
@@ -3691,6 +3801,7 @@
     edit: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>',
     'alert-octagon': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7.86 2h8.28L22 7.86v8.28L16.14 22H7.86L2 16.14V7.86L7.86 2zM12 8v4m0 4h.01" /></svg>',
     'clipboard-check': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>',
+    'clipboard-list': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>',
     'book-open': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>',
     'chevron-right': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>',
     'sun': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>',
@@ -3842,7 +3953,8 @@
   }
 
   function escapeHtml(text) {
-    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    if (text == null) return '';
+    return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   function getToxicityBadgeColor(level) {
@@ -4412,6 +4524,88 @@
           ` : ''}
         </div>
       `).join('');
+    } else if (category.id === 'full-rubric-examples') {
+      examplesHtml = pageExamples.map(ex => {
+        const ann = ex.annotations || {};
+        const getToxicityColor = (level) => {
+          const colors = {
+            'Safe': '#10b981',
+            'Benign': '#3b82f6',
+            'Dual-Use': '#f59e0b',
+            'Harmful': '#ef4444',
+            'Jailbreak': '#7c3aed'
+          };
+          return colors[level] || '#64748b';
+        };
+        return `
+          <div class="example-item rubric-example">
+            ${ex.title ? `<div class="rubric-example-title">${ICONS.clipboard} ${escapeHtml(ex.title)}</div>` : ''}
+            <div class="example-label prompt">${ICONS.edit} Text Prompt</div>
+            <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
+            <div class="example-label" style="background: linear-gradient(135deg, #7c3aed, #6366f1); color: white; padding: 0.3rem 0.6rem; border-radius: 4px; display: inline-flex; margin-bottom: 0.5rem;">
+              ${ICONS.image || ''} Image Description
+            </div>
+            <div class="example-text" style="background: #f5f3ff; border-left: 3px solid #7c3aed; font-style: italic;">${escapeHtml(ex.imageDescription)}</div>
+
+            <div class="rubric-annotations">
+              <div class="rubric-annotations-title">${ICONS.info} Annotations</div>
+              <div class="rubric-annotation-grid">
+                <div class="rubric-annotation-item">
+                  <div class="rubric-annotation-label">Text Harmfulness</div>
+                  <div class="rubric-annotation-value" style="background: ${getToxicityColor(ann.textHarmfulnessLevel)}20; border-left: 3px solid ${getToxicityColor(ann.textHarmfulnessLevel)};">
+                    <span class="rubric-level-badge" style="background: ${getToxicityColor(ann.textHarmfulnessLevel)};">${escapeHtml(ann.textHarmfulnessLevel || 'N/A')}</span>
+                    ${ann.textExplanation ? `<p>${escapeHtml(ann.textExplanation)}</p>` : ''}
+                  </div>
+                </div>
+                <div class="rubric-annotation-item">
+                  <div class="rubric-annotation-label">Image Harmfulness</div>
+                  <div class="rubric-annotation-value" style="background: ${getToxicityColor(ann.imageHarmfulnessLevel)}20; border-left: 3px solid ${getToxicityColor(ann.imageHarmfulnessLevel)};">
+                    <span class="rubric-level-badge" style="background: ${getToxicityColor(ann.imageHarmfulnessLevel)};">${escapeHtml(ann.imageHarmfulnessLevel || 'N/A')}</span>
+                    ${ann.imageExplanation ? `<p>${escapeHtml(ann.imageExplanation)}</p>` : ''}
+                  </div>
+                </div>
+                <div class="rubric-annotation-item">
+                  <div class="rubric-annotation-label">Overall Harmfulness</div>
+                  <div class="rubric-annotation-value" style="background: ${getToxicityColor(ann.overallHarmfulnessLevel)}20; border-left: 3px solid ${getToxicityColor(ann.overallHarmfulnessLevel)};">
+                    <span class="rubric-level-badge" style="background: ${getToxicityColor(ann.overallHarmfulnessLevel)};">${escapeHtml(ann.overallHarmfulnessLevel || 'N/A')}</span>
+                    ${ann.overallExplanation ? `<p>${escapeHtml(ann.overallExplanation)}</p>` : ''}
+                  </div>
+                </div>
+                <div class="rubric-annotation-item">
+                  <div class="rubric-annotation-label">Request Type</div>
+                  <div class="rubric-annotation-value" style="background: ${ann.requestType === 'Generative' ? '#3b82f620' : '#7c3aed20'}; border-left: 3px solid ${ann.requestType === 'Generative' ? '#3b82f6' : '#7c3aed'};">
+                    <span class="rubric-level-badge" style="background: ${ann.requestType === 'Generative' ? '#3b82f6' : '#7c3aed'};">${escapeHtml(ann.requestType || 'N/A')}</span>
+                    ${ann.requestTypeExplanation ? `<p>${escapeHtml(ann.requestTypeExplanation)}</p>` : ''}
+                  </div>
+                </div>
+                <div class="rubric-annotation-item">
+                  <div class="rubric-annotation-label">Expected Response</div>
+                  <div class="rubric-annotation-value" style="background: #05966920; border-left: 3px solid #059669;">
+                    <span class="rubric-level-badge" style="background: #059669;">${escapeHtml(ann.expectedResponseType || 'N/A')}</span>
+                    ${ann.expectedResponseExplanation ? `<p>${escapeHtml(ann.expectedResponseExplanation)}</p>` : ''}
+                  </div>
+                </div>
+                <div class="rubric-annotation-item">
+                  <div class="rubric-annotation-label">User in Distress?</div>
+                  <div class="rubric-annotation-value" style="background: ${ann.userInDistress ? '#ef444420' : '#10b98120'}; border-left: 3px solid ${ann.userInDistress ? '#ef4444' : '#10b981'};">
+                    <span class="rubric-level-badge" style="background: ${ann.userInDistress ? '#ef4444' : '#10b981'};">${ann.userInDistress ? 'Yes' : 'No'}</span>
+                    ${ann.userInDistressExplanation ? `<p>${escapeHtml(ann.userInDistressExplanation)}</p>` : ''}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            ${ex.rubric && ex.rubric.length > 0 ? `
+              <div class="rubric-criteria">
+                <div class="rubric-criteria-title">${ICONS.clipboard} Evaluation Rubric</div>
+                <ol class="rubric-criteria-list">
+                  ${ex.rubric.map(criterion => `<li>${escapeHtml(criterion)}</li>`).join('')}
+                </ol>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
     } else {
       examplesHtml = pageExamples.map((ex, i) => `
         <div class="example-item">
