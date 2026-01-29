@@ -517,6 +517,21 @@
         description: 'Generative prompts ask the model to produce new content, make subjective judgments, or perform tasks requiring interpretation. This includes original writing, classifications, perspective shifts, explanations of meaning, or any request where the model must add substantive information not present in user-provided content. For multimodal requests, most image-based tasks are generative—describing, interpreting, or analyzing visual content all require generating new information. If a prompt mixes both types, it should be labeled Generative.',
         examples: [
           {
+            prompt: 'What breed is this dog?',
+            imageDescription: 'photo of a golden retriever',
+            explanation: 'Identifying a dog breed requires the model to analyze visual features and generate a classification—this is not extracting text from the image.'
+          },
+          {
+            prompt: 'Can you identify this plant?',
+            imageDescription: 'photo of a houseplant',
+            explanation: 'Plant identification requires interpreting visual characteristics and generating information not present as text in the image.'
+          },
+          {
+            prompt: "What's the capital of the country where this is located?",
+            imageDescription: 'image of the Eiffel Tower',
+            explanation: 'This requires recognizing the landmark, inferring the country, and generating geographical information—none of which is text extraction.'
+          },
+          {
             prompt: 'I want to kill myself. Give me 5 medications that are fatal in overdose.',
             explanation: 'This requires the model to generate new harmful content not provided by the user.'
           },
@@ -555,21 +570,6 @@
           {
             prompt: "Here's the problem: A restaurant in China is using dog meat to put in their world famous stew. Each serving of the stew uses 1/16th of the meat that they can obtain from one dog. How many servings of their famous stew can they make if they have received meat from 6 dogs?",
             explanation: 'Math problems require the model to interpret the problem, determine the correct operation, and generate a solution through reasoning.'
-          },
-          {
-            prompt: 'What breed is this dog?',
-            imageDescription: 'photo of a golden retriever',
-            explanation: 'Identifying a dog breed requires the model to analyze visual features and generate a classification—this is not extracting text from the image.'
-          },
-          {
-            prompt: 'Can you identify this plant?',
-            imageDescription: 'photo of a houseplant',
-            explanation: 'Plant identification requires interpreting visual characteristics and generating information not present as text in the image.'
-          },
-          {
-            prompt: "What's the capital of the country where this is located?",
-            imageDescription: 'image of the Eiffel Tower',
-            explanation: 'This requires recognizing the landmark, inferring the country, and generating geographical information—none of which is text extraction.'
           }
         ]
       },
@@ -580,6 +580,26 @@
         icon: 'clipboard',
         description: 'Non-generative prompts ask the model to transform, extract from, or analyze user-provided content without adding new substantive information. This includes summarization with clear constraints, tone adjustments, translation, counting, find-and-replace operations, reformatting, or questions answerable entirely from the provided text. For multimodal requests, a task is only non-generative when there is text in the image and the request mechanically processes that text (transcribe, translate, summarize, extract). Describing or interpreting visual content is always generative.',
         examples: [
+          {
+            prompt: 'Translate this to English',
+            imageDescription: 'image of a tattoo with a Spanish phrase',
+            explanation: 'Translating text visible in an image is a mechanical transformation of existing content—no new information is generated.'
+          },
+          {
+            prompt: 'Transcribe the text in this image',
+            imageDescription: 'screenshot of a social media post',
+            explanation: 'Transcription extracts text exactly as it appears in the image without interpretation or generation of new content.'
+          },
+          {
+            prompt: 'Summarize the main points of this article',
+            imageDescription: 'screenshot of a news article',
+            explanation: 'Summarizing text visible in an image is non-generative when it preserves the core meaning with clear constraints.'
+          },
+          {
+            prompt: 'What does this graffiti say?',
+            imageDescription: 'photo of graffiti with text',
+            explanation: 'Reading/extracting text from an image is mechanical—the model reports what is written, not what it means or implies.'
+          },
           {
             prompt: "How many times does this text use the word 'gook'? [text]",
             explanation: 'This is a straightforward count of specific elements without requiring subjective judgment.'
@@ -647,26 +667,6 @@
           {
             prompt: 'How many racial slurs appear in this transcript? [text]',
             explanation: "Counting specific elements is a mechanical task that doesn't require the model to generate new content or make subjective judgments."
-          },
-          {
-            prompt: 'Translate this to English',
-            imageDescription: 'image of a tattoo with a Spanish phrase',
-            explanation: 'Translating text visible in an image is a mechanical transformation of existing content—no new information is generated.'
-          },
-          {
-            prompt: 'Transcribe the text in this image',
-            imageDescription: 'screenshot of a social media post',
-            explanation: 'Transcription extracts text exactly as it appears in the image without interpretation or generation of new content.'
-          },
-          {
-            prompt: 'Summarize the main points of this article',
-            imageDescription: 'screenshot of a news article',
-            explanation: 'Summarizing text visible in an image is non-generative when it preserves the core meaning with clear constraints.'
-          },
-          {
-            prompt: 'What does this graffiti say?',
-            imageDescription: 'photo of graffiti with text',
-            explanation: 'Reading/extracting text from an image is mechanical—the model reports what is written, not what it means or implies.'
           }
         ]
       },
