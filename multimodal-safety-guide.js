@@ -7,7 +7,7 @@
   const CONFIG = {
     itemsPerPage: 5,
     zIndex: 10000,
-    shineInterval: 120000,
+    shineInterval: 240000,
     searchDebounceMs: 150,
     examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@02c4a65/glossary-examples.json',
     responseExamplesJsonUrl: './multimodal-toxicity-examples.json',
