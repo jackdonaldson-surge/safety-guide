@@ -9,9 +9,9 @@
     zIndex: 10000,
     shineInterval: 240000,
     searchDebounceMs: 150,
-    examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@02c4a65/glossary-examples.json',
-    responseExamplesJsonUrl: './multimodal-toxicity-examples.json',
-    faqJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@02c4a65/faq.json',
+    examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@gh-pages/glossary-examples.json',
+    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@gh-pages/multimodal-toxicity-examples.json',
+    faqJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@gh-pages/faq.json',
     isMultimodal: true
   };
 
