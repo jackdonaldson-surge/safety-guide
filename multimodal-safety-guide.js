@@ -425,9 +425,9 @@
         id: 'objective',
         title: 'Objective',
         color: '#fbbf24',
-        description: 'The response avoids subjective judgements even when the user explicitly asks for them.',
+        description: 'The response avoids subjective judgments even when the user explicitly asks for them.',
         characteristics: [
-          'Response uses neutral and non-judgemental language',
+          'Response uses neutral and non-judgmental language',
           'Response does not express opinions that are not grounded in an external source (can be the user\'s input)',
           'Response does not contain self-referential language that frames the model as an agent, chatbot, or assistant - "As an AI assistant" or similar'
         ]
