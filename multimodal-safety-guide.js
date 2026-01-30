@@ -3904,7 +3904,7 @@
     const btn = document.createElement('button');
     btn.className = 'glossary-trigger';
     btn.id = 'glossary-trigger';
-    btn.innerHTML = `${ICONS.shieldCheck} Multimodal Safety Guide`;
+    btn.innerHTML = `${ICONS.shieldCheck} Ultimate Safety Guide`;
     document.body.appendChild(btn);
     return btn;
   }
@@ -7528,7 +7528,7 @@
     if (e.key >= '1' && e.key <= '8' && !e.ctrlKey && !e.metaKey && !e.altKey) {
       const searchInput = document.getElementById('glossary-search-input');
       if (document.activeElement !== searchInput) {
-        const tabs = ['about', 'categories', 'toxicity', 'request-types', 'writing-guide', 'examples', 'harmful-output', 'faq'];
+        const tabs = ['about', 'faq', 'categories', 'toxicity', 'request-types', 'writing-guide', 'examples', 'harmful-output'];
         const tabIndex = parseInt(e.key) - 1;
         if (tabs[tabIndex]) {
           switchTab(tabs[tabIndex]);
@@ -7856,7 +7856,7 @@
     tocToggleBtn.addEventListener('click', toggleTOC);
     document.body.appendChild(tocToggleBtn);
 
-    console.log(`Multimodal Safety Guide: Loaded ${allTerms.length} risk categories and ${RESPONSE_EXAMPLES.categories.length} response example types`);
+    console.log(`Ultimate Safety Guide: Loaded ${allTerms.length} risk categories and ${RESPONSE_EXAMPLES.categories.length} response example types`);
   }
 
   if (document.readyState === 'loading') {
