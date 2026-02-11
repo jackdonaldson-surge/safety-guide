@@ -407,7 +407,7 @@
   // HARM-FREE OUTPUT CHARACTERISTICS DATA
   // ============================================
   const HARM_FREE_OUTPUT = {
-    description: 'Harm-Free-focused criteria revolve around detecting safe responses. The goal of these criteria is to evaluate whether or not a model response is safe.',
+    description: 'Response Safety criteria revolve around detecting safe responses. The goal of these criteria is to evaluate whether or not a model response is safe.',
     categories: [
       {
         id: 'cautious',
@@ -5353,7 +5353,7 @@
     const harmFreeOutputHtml = `
       <div class="output-section" id="section-harm-free">
         <div class="harmful-output-intro">
-          <h3>Harm-Free Output Characteristics</h3>
+          <h3>Response Safety Characteristics</h3>
           <p>${escapeHtml(HARM_FREE_OUTPUT.description)}</p>
         </div>
         <table class="harmful-output-table">
@@ -5620,16 +5620,16 @@
       }
     });
 
-    // Search Harm-Free Output
-    // First check if the query matches "harm-free" to show the main section
-    if (normalizedQuery.includes('harm-free') || normalizedQuery.includes('harm free') ||
-        'harm-free'.includes(normalizedQuery) || 'harm free'.includes(normalizedQuery) ||
+    // Search Response Safety
+    // First check if the query matches "response safety" or "harm-free" to show the main section
+    if (normalizedQuery.includes('response safety') || normalizedQuery.includes('harm-free') || normalizedQuery.includes('harm free') ||
+        'response safety'.includes(normalizedQuery) || 'harm-free'.includes(normalizedQuery) || 'harm free'.includes(normalizedQuery) ||
         HARM_FREE_OUTPUT.description.toLowerCase().includes(normalizedQuery)) {
       results.push({
         tab: 'harmful-output',
         tabColor: tabColors['harmful-output'],
         tabLabel: tabLabels['harmful-output'],
-        title: 'Harm-Free Output Characteristics',
+        title: 'Response Safety Characteristics',
         snippet: HARM_FREE_OUTPUT.description.substring(0, 150) + (HARM_FREE_OUTPUT.description.length > 150 ? '...' : ''),
         data: { section: 'harm-free' }
       });
@@ -5646,7 +5646,7 @@
           tab: 'harmful-output',
           tabColor: tabColors['harmful-output'],
           tabLabel: tabLabels['harmful-output'],
-          title: 'Harm-Free: ' + cat.title,
+          title: 'Response Safety: ' + cat.title,
           snippet: cat.description ? cat.description.substring(0, 150) + (cat.description.length > 150 ? '...' : '') : '',
           data: { section: 'harm-free', categoryId: cat.id }
         });
@@ -7351,7 +7351,7 @@
       { title: 'Policy Compliance Decision Tree', section: 'section-policy-compliance', tab: 'harmful-output' },
       { title: 'Decision Tree', section: 'section-policy-compliance', tab: 'harmful-output' },
       { title: 'Harmful Output', section: 'section-harmful-output', tab: 'harmful-output' },
-      { title: 'Harm-Free Output', section: 'section-harm-free', tab: 'harmful-output' },
+      { title: 'Response Safety', section: 'section-harm-free', tab: 'harmful-output' },
       { title: 'Harm Modification', section: 'section-harm-modification', tab: 'harmful-output' }
     ];
     for (const section of responseCharSections) {
@@ -7583,7 +7583,7 @@
       }));
     } else if (activeTab === 'writing-guide') {
       items = [
-        { label: 'Harm-Free Output', action: () => scrollToSection('harm-free-output') },
+        { label: 'Response Safety', action: () => scrollToSection('harm-free-output') },
         { label: 'Harmful Output', action: () => scrollToSection('harmful-output-chars') },
         { label: 'Harm Modification', action: () => scrollToSection('harm-modification') },
         { label: 'Decision Tree', action: () => scrollToSection('decision-tree') }
@@ -7592,7 +7592,7 @@
       items = [
         { label: 'Policy Compliance', action: () => scrollToSection('section-policy-compliance') },
         { label: 'Harmful Output', action: () => scrollToSection('section-harmful-output') },
-        { label: 'Harm-Free Output', action: () => scrollToSection('section-harm-free') },
+        { label: 'Response Safety', action: () => scrollToSection('section-harm-free') },
         { label: 'Harm Modification', action: () => scrollToSection('section-harm-modification') }
       ];
     } else if (activeTab === 'faq') {
