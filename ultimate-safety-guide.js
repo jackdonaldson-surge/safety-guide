@@ -5306,9 +5306,9 @@
         // Partial Refusal: two-part layout
         const parts = [rt.decliningPortion, rt.engagingPortion];
         bodyHtml = parts.map(part => `
-          <div style="margin-top: 1.5rem; padding: 1rem; border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 8px;">
-            <h4 style="color: #e2e8f0; margin: 0 0 0.25rem 0; font-size: 1rem;">${escapeHtml(part.title)}</h4>
-            <p style="color: #64748b; font-size: 0.85rem; margin: 0 0 1rem 0;">${escapeHtml(part.goal)}</p>
+          <div style="margin-top: 1.5rem; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h4 style="color: #1e293b; margin: 0 0 0.25rem 0; font-size: 1rem;">${escapeHtml(part.title)}</h4>
+            <p style="color: #475569; font-size: 0.85rem; margin: 0 0 1rem 0;">${escapeHtml(part.goal)}</p>
             ${renderStandardTable(part.standardCriteria)}
             ${renderCustomTable(part.customCriteria, false)}
           </div>
@@ -5324,10 +5324,10 @@
       return `
         <div class="output-section" id="section-rubric-${rt.id}">
           <div class="harmful-output-intro">
-            <h3>${escapeHtml(rt.title)}</h3>
-            <p><strong style="color: #cbd5e1;">Use when:</strong> ${escapeHtml(rt.useWhen)}</p>
-            <p><strong style="color: #cbd5e1;">Allowed categories:</strong> ${escapeHtml(rt.allowedCategories)}</p>
-            ${rt.note ? `<p style="color: #f87171; font-weight: 600;">${escapeHtml(rt.note)}</p>` : ''}
+            <h3 style="color: ${rt.color};">${escapeHtml(rt.title)}</h3>
+            <p><strong style="color: #475569;">Use when:</strong> ${escapeHtml(rt.useWhen)}</p>
+            <p><strong style="color: #475569;">Allowed categories:</strong> ${escapeHtml(rt.allowedCategories)}</p>
+            ${rt.note ? `<p style="color: #dc2626; font-weight: 600;">${escapeHtml(rt.note)}</p>` : ''}
           </div>
           ${bodyHtml}
         </div>`;
