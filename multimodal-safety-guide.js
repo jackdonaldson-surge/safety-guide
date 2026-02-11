@@ -6021,34 +6021,122 @@
       }
     });
 
-    // Search Rubric Criteria
+    // Search Rubric Criteria - response types
     RUBRIC_CRITERIA.responseTypes.forEach(rt => {
       const inTitle = rt.title.toLowerCase().includes(normalizedQuery);
-      const inStandard = rt.standardCriteria && rt.standardCriteria.some(c =>
-        c.text.toLowerCase().includes(normalizedQuery) || c.category.toLowerCase().includes(normalizedQuery)
-      );
-      const inCustom = rt.customCriteria && rt.customCriteria.some(c =>
-        c.template.toLowerCase().includes(normalizedQuery) || c.focus.toLowerCase().includes(normalizedQuery)
-      );
-      const inDeclining = rt.decliningPortion && (
-        rt.decliningPortion.standardCriteria.some(c => c.text.toLowerCase().includes(normalizedQuery)) ||
-        rt.decliningPortion.customCriteria.some(c => c.template.toLowerCase().includes(normalizedQuery))
-      );
-      const inEngaging = rt.engagingPortion && (
-        rt.engagingPortion.standardCriteria.some(c => c.text.toLowerCase().includes(normalizedQuery)) ||
-        rt.engagingPortion.customCriteria.some(c => c.template.toLowerCase().includes(normalizedQuery))
-      );
-      if (inTitle || inStandard || inCustom || inDeclining || inEngaging) {
+      const inUseWhen = rt.useWhen && rt.useWhen.toLowerCase().includes(normalizedQuery);
+      const inAllowedCats = rt.allowedCategories && rt.allowedCategories.toLowerCase().includes(normalizedQuery);
+
+      // Search standard criteria
+      const matchedStandard = [];
+      if (rt.standardCriteria) {
+        rt.standardCriteria.forEach(c => {
+          if (c.text.toLowerCase().includes(normalizedQuery) || c.category.toLowerCase().includes(normalizedQuery)) {
+            matchedStandard.push(c);
+          }
+        });
+      }
+
+      // Search custom criteria (template + example + focus)
+      const matchedCustom = [];
+      if (rt.customCriteria) {
+        rt.customCriteria.forEach(c => {
+          if (c.template.toLowerCase().includes(normalizedQuery) || c.focus.toLowerCase().includes(normalizedQuery) ||
+              (c.example && c.example.toLowerCase().includes(normalizedQuery))) {
+            matchedCustom.push(c);
+          }
+        });
+      }
+
+      // Search declining/engaging portions for Partial Refusal
+      const matchedDeclining = [];
+      const matchedEngaging = [];
+      if (rt.decliningPortion) {
+        rt.decliningPortion.standardCriteria.forEach(c => {
+          if (c.text.toLowerCase().includes(normalizedQuery) || c.category.toLowerCase().includes(normalizedQuery)) matchedDeclining.push(c);
+        });
+        rt.decliningPortion.customCriteria.forEach(c => {
+          if (c.template.toLowerCase().includes(normalizedQuery) || c.focus.toLowerCase().includes(normalizedQuery)) matchedDeclining.push(c);
+        });
+      }
+      if (rt.engagingPortion) {
+        rt.engagingPortion.standardCriteria.forEach(c => {
+          if (c.text.toLowerCase().includes(normalizedQuery) || c.category.toLowerCase().includes(normalizedQuery)) matchedEngaging.push(c);
+        });
+        rt.engagingPortion.customCriteria.forEach(c => {
+          if (c.template.toLowerCase().includes(normalizedQuery) || c.focus.toLowerCase().includes(normalizedQuery)) matchedEngaging.push(c);
+        });
+      }
+
+      const hasMatch = inTitle || inUseWhen || inAllowedCats || matchedStandard.length > 0 || matchedCustom.length > 0 || matchedDeclining.length > 0 || matchedEngaging.length > 0;
+      if (hasMatch) {
+        // Build a snippet from the first matching criterion
+        let snippet = rt.useWhen ? rt.useWhen.substring(0, 150) : '';
+        const firstMatch = matchedStandard[0] || matchedCustom[0] || matchedDeclining[0] || matchedEngaging[0];
+        if (firstMatch) {
+          const matchText = firstMatch.text || firstMatch.template || '';
+          snippet = matchText.substring(0, 150) + (matchText.length > 150 ? '...' : '');
+        }
         results.push({
           tab: 'rubric-criteria',
           tabColor: tabColors['rubric-criteria'],
           tabLabel: tabLabels['rubric-criteria'],
           title: 'Rubric: ' + rt.title,
-          snippet: rt.useWhen ? rt.useWhen.substring(0, 150) : '',
+          snippet: snippet,
           data: { section: 'rubric-' + rt.id }
         });
       }
     });
+
+    // Search Rubric Criteria - allowed categories table
+    RUBRIC_CRITERIA.allowedCategories.forEach(ac => {
+      if (ac.responseType.toLowerCase().includes(normalizedQuery) || ac.categories.toLowerCase().includes(normalizedQuery)) {
+        results.push({
+          tab: 'rubric-criteria',
+          tabColor: tabColors['rubric-criteria'],
+          tabLabel: tabLabels['rubric-criteria'],
+          title: 'Allowed Categories: ' + ac.responseType,
+          snippet: ac.categories.substring(0, 150),
+          data: { section: 'rubric-allowed-categories' }
+        });
+      }
+    });
+
+    // Search Rubric Criteria - Harmfulness reference rows
+    const harmFreeRT = RUBRIC_CRITERIA.responseTypes.find(rt => rt.id === 'harm-free-engagement');
+    if (harmFreeRT) {
+      harmFreeRT.customCriteria.filter(c => c.focus.startsWith('Harmfulness')).forEach(c => {
+        if (c.template.toLowerCase().includes(normalizedQuery) || c.focus.toLowerCase().includes(normalizedQuery) ||
+            (c.example && c.example.toLowerCase().includes(normalizedQuery))) {
+          results.push({
+            tab: 'rubric-criteria',
+            tabColor: tabColors['rubric-criteria'],
+            tabLabel: tabLabels['rubric-criteria'],
+            title: 'Harmfulness: ' + c.focus.replace('Harmfulness - ', ''),
+            snippet: c.template.substring(0, 150) + (c.template.length > 150 ? '...' : ''),
+            data: { section: 'rubric-harmfulness' }
+          });
+        }
+      });
+    }
+
+    // Search Rubric Criteria - Harm Modification reference rows
+    const groundedRT = RUBRIC_CRITERIA.responseTypes.find(rt => rt.id === 'grounded-engagement');
+    if (groundedRT) {
+      groundedRT.customCriteria.filter(c => c.focus.startsWith('Harm Modification')).forEach(c => {
+        if (c.template.toLowerCase().includes(normalizedQuery) || c.focus.toLowerCase().includes(normalizedQuery) ||
+            (c.example && c.example.toLowerCase().includes(normalizedQuery))) {
+          results.push({
+            tab: 'rubric-criteria',
+            tabColor: tabColors['rubric-criteria'],
+            tabLabel: tabLabels['rubric-criteria'],
+            title: 'Harm Mod: ' + c.focus.replace('Harm Modification - ', ''),
+            snippet: c.template.substring(0, 150) + (c.template.length > 150 ? '...' : ''),
+            data: { section: 'rubric-harm-modification' }
+          });
+        }
+      });
+    }
 
     // Search Writing Guide - comprehensive search of all fields
     WRITING_GUIDE.sections.forEach(section => {
@@ -6383,6 +6471,21 @@
         } else {
           activeRequestTypeCategory = null;
           renderRequestTypesOverview();
+        }
+        break;
+
+      case 'rubric-criteria':
+        renderRubricCriteria();
+        if (result.data.section) {
+          setTimeout(() => {
+            const sectionId = 'section-' + result.data.section;
+            const section = document.getElementById(sectionId);
+            if (section) {
+              section.classList.add('highlight-result');
+              section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              setTimeout(() => section.classList.remove('highlight-result'), 2000);
+            }
+          }, 100);
         }
         break;
 
@@ -7791,6 +7894,35 @@
             activeExampleCategory = cat.id;
             examplePage = 1;
             renderExampleDetail();
+          }
+        });
+      }
+    }
+
+    // Search Rubric Criteria sections
+    const rubricSections = [
+      { title: 'Allowed Categories', section: 'section-rubric-allowed-categories' },
+      { title: 'Full Refusal', section: 'section-rubric-full-refusal' },
+      { title: 'Full Refusal + Distress', section: 'section-rubric-full-refusal-distress' },
+      { title: 'Grounded Engagement', section: 'section-rubric-grounded-engagement' },
+      { title: 'Harm-Free Engagement', section: 'section-rubric-harm-free-engagement' },
+      { title: 'Partial Refusal', section: 'section-rubric-partial-refusal' },
+      { title: 'Harmfulness Reference', section: 'section-rubric-harmfulness' },
+      { title: 'Harm Modification Reference', section: 'section-rubric-harm-modification' }
+    ];
+    for (const rs of rubricSections) {
+      if (rs.title.toLowerCase().includes(q) || fuzzyMatch(query, rs.title).match) {
+        results.push({
+          title: rs.title,
+          subtitle: 'Rubric Criteria',
+          type: 'section',
+          score: rs.title.toLowerCase().includes(q) ? 1 : 11,
+          action: () => {
+            document.getElementById('glossary-search-input').value = '';
+            currentSearchQuery = '';
+            globalSearchResults = [];
+            switchTab('rubric-criteria');
+            setTimeout(() => scrollToSection(rs.section), 100);
           }
         });
       }
