@@ -6010,6 +6010,9 @@
   }
 
   function navigateToSearchResult(result) {
+    // Cancel any pending debounced search to prevent it from overwriting rendered content
+    clearTimeout(searchDebounceTimer);
+
     // Clear search to show full content
     const searchInput = document.getElementById('glossary-search-input');
     searchInput.value = '';
@@ -6149,7 +6152,7 @@
         break;
 
       case 'rubric-criteria':
-        renderRubricCriteria();
+        switchTab('rubric-criteria');
         if (result.data.section) {
           setTimeout(() => {
             const sectionId = 'section-' + result.data.section;
@@ -6159,7 +6162,7 @@
               section.scrollIntoView({ behavior: 'smooth', block: 'start' });
               setTimeout(() => section.classList.remove('highlight-result'), 2000);
             }
-          }, 100);
+          }, 150);
         }
         break;
 
