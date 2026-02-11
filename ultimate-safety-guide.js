@@ -1362,7 +1362,7 @@
 
     .glossary-tabs {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       gap: 0.35rem;
       margin-bottom: 0.75rem;
       justify-content: flex-start;
@@ -5272,9 +5272,9 @@
           <tbody>${criteria.map((c, i) => `
             <tr${i === 0 ? ' class="category-first-row"' : ''}>
               <td class="harmful-output-category-cell"><span class="harmful-output-category-badge" style="background: #f59e0b">${escapeHtml(c.focus)}</span></td>
-              ${hasWhenToInclude ? `<td class="harmful-output-desc-cell" style="font-style: italic; color: #94a3b8; font-size: 0.85rem;">${escapeHtml(c.whenToInclude || '')}</td>` : ''}
+              ${hasWhenToInclude ? `<td class="harmful-output-desc-cell" style="font-style: italic; color: #64748b; font-size: 0.85rem;">${escapeHtml(c.whenToInclude || '')}</td>` : ''}
               <td class="harmful-output-desc-cell">${currentSearchQuery ? highlightTerm(escapeHtml(c.template), currentSearchQuery) : escapeHtml(c.template)}</td>
-              <td class="harmful-output-desc-cell" style="color: #94a3b8; font-size: 0.85rem;">${currentSearchQuery ? highlightTerm(escapeHtml(c.example), currentSearchQuery) : escapeHtml(c.example)}</td>
+              <td class="harmful-output-desc-cell" style="color: #64748b; font-size: 0.85rem;">${currentSearchQuery ? highlightTerm(escapeHtml(c.example), currentSearchQuery) : escapeHtml(c.example)}</td>
             </tr>
           `).join('')}</tbody>
         </table>`;
@@ -5308,7 +5308,7 @@
         bodyHtml = parts.map(part => `
           <div style="margin-top: 1.5rem; padding: 1rem; border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 8px;">
             <h4 style="color: #e2e8f0; margin: 0 0 0.25rem 0; font-size: 1rem;">${escapeHtml(part.title)}</h4>
-            <p style="color: #94a3b8; font-size: 0.85rem; margin: 0 0 1rem 0;">${escapeHtml(part.goal)}</p>
+            <p style="color: #64748b; font-size: 0.85rem; margin: 0 0 1rem 0;">${escapeHtml(part.goal)}</p>
             ${renderStandardTable(part.standardCriteria)}
             ${renderCustomTable(part.customCriteria, false)}
           </div>
@@ -5367,7 +5367,7 @@
               <tr${isFirst ? ' class="category-first-row"' : ''}>
                 <td class="harmful-output-category-cell">${isFirst ? `<span class="harmful-output-category-badge" style="background: ${subcategoryColors[sub] || '#f97316'}">${escapeHtml(sub)}</span>` : ''}</td>
                 <td class="harmful-output-desc-cell">${currentSearchQuery ? highlightTerm(escapeHtml(row.template), currentSearchQuery) : escapeHtml(row.template)}</td>
-                <td class="harmful-output-desc-cell" style="color: #94a3b8; font-size: 0.85rem;">${currentSearchQuery ? highlightTerm(escapeHtml(row.example), currentSearchQuery) : escapeHtml(row.example)}</td>
+                <td class="harmful-output-desc-cell" style="color: #64748b; font-size: 0.85rem;">${currentSearchQuery ? highlightTerm(escapeHtml(row.example), currentSearchQuery) : escapeHtml(row.example)}</td>
               </tr>`;
           }).join('')}</tbody>
         </table>
@@ -5397,7 +5397,7 @@
               <tr${isFirst ? ' class="category-first-row"' : ''}>
                 <td class="harmful-output-category-cell">${isFirst ? `<span class="harmful-output-category-badge" style="background: ${harmModColors[sub] || '#f59e0b'}">${escapeHtml(sub)}</span>` : ''}</td>
                 <td class="harmful-output-desc-cell">${currentSearchQuery ? highlightTerm(escapeHtml(row.template), currentSearchQuery) : escapeHtml(row.template)}</td>
-                <td class="harmful-output-desc-cell" style="color: #94a3b8; font-size: 0.85rem;">${currentSearchQuery ? highlightTerm(escapeHtml(row.example), currentSearchQuery) : escapeHtml(row.example)}</td>
+                <td class="harmful-output-desc-cell" style="color: #64748b; font-size: 0.85rem;">${currentSearchQuery ? highlightTerm(escapeHtml(row.example), currentSearchQuery) : escapeHtml(row.example)}</td>
               </tr>`;
           }).join('')}</tbody>
         </table>
