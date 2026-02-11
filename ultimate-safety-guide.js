@@ -5248,15 +5248,24 @@
     const searchCount = document.getElementById('glossary-search-count');
     searchCount.textContent = '';
 
+    // Category color mapping (matches the original HTML)
+    function getCategoryColor(category) {
+      if (category.startsWith('Policy')) return '#7d6cdc';
+      if (category.startsWith('Response Safety')) return '#dcae00';
+      if (category.startsWith('Harmfulness')) return '#e69138';
+      if (category.startsWith('Harm Modification')) return '#558c46';
+      return '#64748b';
+    }
+
     // Helper to render a standard criteria table
     function renderStandardTable(criteria) {
       return `
-        <div style="margin-bottom: 0.5rem; font-weight: 600; color: #0ea5e9; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Standard Criteria (must be included verbatim)</div>
+        <div style="margin-bottom: 0.5rem; font-weight: 600; color: #475569; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Standard Criteria (must be included verbatim)</div>
         <table class="harmful-output-table">
           <thead><tr><th style="width: 180px;">Category</th><th>Criterion</th></tr></thead>
           <tbody>${criteria.map((c, i) => `
             <tr${i === 0 ? ' class="category-first-row"' : ''}>
-              <td class="harmful-output-category-cell"><span class="harmful-output-category-badge" style="background: #0ea5e9">${escapeHtml(c.category)}</span></td>
+              <td class="harmful-output-category-cell"><span class="harmful-output-category-badge" style="background: ${getCategoryColor(c.category)}">${escapeHtml(c.category)}</span></td>
               <td class="harmful-output-desc-cell">${currentSearchQuery ? highlightTerm(escapeHtml(c.text), currentSearchQuery) : escapeHtml(c.text)}</td>
             </tr>
           `).join('')}</tbody>
@@ -5266,12 +5275,12 @@
     // Helper to render a custom criteria table
     function renderCustomTable(criteria, hasWhenToInclude) {
       return `
-        <div style="margin: 1.25rem 0 0.5rem 0; font-weight: 600; color: #f59e0b; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Custom Criteria Templates (tailor to specific prompt)</div>
+        <div style="margin: 1.25rem 0 0.5rem 0; font-weight: 600; color: #475569; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Custom Criteria Templates (tailor to specific prompt)</div>
         <table class="harmful-output-table">
           <thead><tr><th style="width: 180px;">Focus</th>${hasWhenToInclude ? '<th style="width: 200px;">When to Include</th>' : ''}<th>Template</th><th style="width: 30%;">Example</th></tr></thead>
           <tbody>${criteria.map((c, i) => `
             <tr${i === 0 ? ' class="category-first-row"' : ''}>
-              <td class="harmful-output-category-cell"><span class="harmful-output-category-badge" style="background: #f59e0b">${escapeHtml(c.focus)}</span></td>
+              <td class="harmful-output-category-cell"><span class="harmful-output-category-badge" style="background: ${getCategoryColor(c.focus)}">${escapeHtml(c.focus)}</span></td>
               ${hasWhenToInclude ? `<td class="harmful-output-desc-cell" style="font-style: italic; color: #64748b; font-size: 0.85rem;">${escapeHtml(c.whenToInclude || '')}</td>` : ''}
               <td class="harmful-output-desc-cell">${currentSearchQuery ? highlightTerm(escapeHtml(c.template), currentSearchQuery) : escapeHtml(c.template)}</td>
               <td class="harmful-output-desc-cell" style="color: #64748b; font-size: 0.85rem;">${currentSearchQuery ? highlightTerm(escapeHtml(c.example), currentSearchQuery) : escapeHtml(c.example)}</td>
