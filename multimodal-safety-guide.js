@@ -9,8 +9,9 @@
     zIndex: 10000,
     shineInterval: 240000,
     searchDebounceMs: 150,
-    examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@gh-pages/glossary-examples.json',
+    examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@2d184c0/glossary-examples.json',
     responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@a0719f5/multimodal-toxicity-examples.json',
+    textExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@e83a16a/response-examples.json',
     faqJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@gh-pages/faq.json',
     isMultimodal: true
   };
@@ -7707,7 +7708,7 @@
   async function loadTextToxicityExamples() {
     try {
       // Load the text-only response-examples.json which has toxicity-* categories
-      let fetchResponse = await fetch('https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@gh-pages/response-examples.json');
+      let fetchResponse = await fetch(CONFIG.textExamplesJsonUrl);
       if (!fetchResponse.ok) {
         // Try local fallback for development
         fetchResponse = await fetch('./response-examples.json');
