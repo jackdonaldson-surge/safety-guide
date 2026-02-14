@@ -11,7 +11,6 @@
     searchDebounceMs: 150,
     examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@2d184c0/glossary-examples.json',
     responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@a0719f5/multimodal-toxicity-examples.json',
-    textExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@e83a16a/response-examples.json',
     faqJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@gh-pages/faq.json',
     isMultimodal: true
   };
@@ -7705,54 +7704,6 @@
     }
   }
 
-  async function loadTextToxicityExamples() {
-    try {
-      // Load the text-only response-examples.json which has toxicity-* categories
-      let fetchResponse = await fetch(CONFIG.textExamplesJsonUrl);
-      if (!fetchResponse.ok) {
-        // Try local fallback for development
-        fetchResponse = await fetch('./response-examples.json');
-        if (!fetchResponse.ok) {
-          console.warn('Failed to load text toxicity examples');
-          return;
-        }
-      }
-      const data = await fetchResponse.json();
-
-      // Extract toxicity categories from text-only data
-      const textToxicityCategories = data.categories.filter(cat => cat.id.startsWith('toxicity-'));
-
-      // Merge into RESPONSE_EXAMPLES (which already has multimodal toxicity data)
-      textToxicityCategories.forEach(textCat => {
-        const multimodalCat = RESPONSE_EXAMPLES.categories.find(c => c.id === textCat.id);
-        if (multimodalCat && multimodalCat.examples) {
-          // Mark existing multimodal examples
-          multimodalCat.examples.forEach(ex => {
-            if (!ex._modality) ex._modality = 'multimodal';
-          });
-
-          // Mark and deduplicate text examples before merging
-          const existingPrompts = new Set(
-            multimodalCat.examples.map(ex => (ex.text || ex.prompt || '').toLowerCase().trim())
-          );
-
-          textCat.examples.forEach(ex => {
-            const promptText = (ex.prompt || '').toLowerCase().trim();
-            if (promptText && !existingPrompts.has(promptText)) {
-              ex._modality = 'text';
-              multimodalCat.examples.push(ex);
-              existingPrompts.add(promptText);
-            }
-          });
-
-          console.log(`Merged ${textCat.id}: ${multimodalCat.examples.length} total examples`);
-        }
-      });
-    } catch (error) {
-      console.warn('Error loading text toxicity examples:', error);
-    }
-  }
-
   async function loadFaqData() {
     try {
       // Try CDN first, then fall back to local file for development
@@ -8348,7 +8299,6 @@
     // Load examples, response examples, and FAQ from JSON first
     await loadExamples();
     await loadResponseExamples();
-    await loadTextToxicityExamples();
     await loadFaqData();
 
     allTerms = Object.keys(GLOSSARY).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
