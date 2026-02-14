@@ -5068,12 +5068,20 @@
       return;
     }
 
-    const categoriesHtml = toxicityCategories.map(cat => `
-      <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
-        <h3>${ICONS[cat.icon] || ICONS.shield} ${toxicityCardTitles[cat.id] || cat.title}</h3>
-        <span class="see-examples-link">See examples →</span>
-      </div>
-    `).join('');
+    const categoriesHtml = toxicityCategories.map(cat => {
+      const multimodalCount = cat.examples ? cat.examples.filter(ex => ex.text && ex.imageDescription).length : 0;
+      const textCount = cat.examples ? cat.examples.filter(ex => !(ex.text && ex.imageDescription)).length : 0;
+      const countInfo = multimodalCount > 0 && textCount > 0
+        ? `<span style="font-size: 0.75rem; color: #64748b; font-weight: 400;">${multimodalCount} multimodal + ${textCount} text</span>`
+        : `<span style="font-size: 0.75rem; color: #64748b; font-weight: 400;">${cat.examples ? cat.examples.length : 0} examples</span>`;
+      return `
+        <div class="example-category-card" data-category-id="${cat.id}" style="--card-color: ${cat.color}">
+          <h3>${ICONS[cat.icon] || ICONS.shield} ${toxicityCardTitles[cat.id] || cat.title}</h3>
+          ${countInfo}
+          <span class="see-examples-link">See examples →</span>
+        </div>
+      `;
+    }).join('');
 
     content.innerHTML = `${guideHtml}<div class="example-categories-grid">${categoriesHtml}</div>`;
 
@@ -5141,24 +5149,47 @@
       return;
     }
 
-    const resultsHtml = pageResults.map(({ example: ex, category }) => `
-      <div class="example-item">
-        <div class="example-label prompt">Prompt</div>
-        <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.prompt), currentSearchQuery)}</div>
-        <div class="toxicity-info">
-          <div class="toxicity-badge" style="background: ${category.color}">${escapeHtml(ex.toxicityLevel)}</div>
-          ${ex.safetyRiskCategories && ex.safetyRiskCategories !== 'None' ? `
-            <div class="safety-categories">
-              <span class="safety-categories-label">${ICONS.shield} Risk Categories:</span>
-              <span class="safety-categories-list">${highlightTerm(escapeHtml(ex.safetyRiskCategories), currentSearchQuery)}</span>
+    const resultsHtml = pageResults.map(({ example: ex, category }) => {
+      const isMultimodal = ex.text && ex.imageDescription;
+      const modalityBadge = `<span style="background: ${isMultimodal ? 'linear-gradient(135deg, #7c3aed, #6366f1)' : '#475569'}; color: white; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em; margin-left: 0.5rem; vertical-align: middle;">${isMultimodal ? 'Multimodal' : 'Text'}</span>`;
+
+      if (isMultimodal) {
+        return `
+          <div class="example-item">
+            <div class="example-label prompt">Text Prompt ${modalityBadge}</div>
+            <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.text), currentSearchQuery)}</div>
+            <div class="example-label" style="background: linear-gradient(135deg, #7c3aed, #6366f1); color: white; padding: 0.3rem 0.6rem; border-radius: 4px; display: inline-flex; margin-bottom: 0.5rem;">
+              ${ICONS.image || ''} Image Description
             </div>
+            <div class="example-text" style="background: #f5f3ff; border-left: 3px solid #7c3aed; font-style: italic;">${highlightTerm(escapeHtml(ex.imageDescription), currentSearchQuery)}</div>
+            <div class="toxicity-info" style="margin-top: 1rem;">
+              <div class="toxicity-badge" style="background: ${category.color}">${escapeHtml(ex.toxicityLevel)}</div>
+            </div>
+            ${ex.explanation ? `
+              <div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.explanation), currentSearchQuery)}</div>
+            ` : ''}
+          </div>
+        `;
+      }
+      return `
+        <div class="example-item">
+          <div class="example-label prompt">Prompt ${modalityBadge}</div>
+          <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.prompt || ex.text || ''), currentSearchQuery)}</div>
+          <div class="toxicity-info">
+            <div class="toxicity-badge" style="background: ${category.color}">${escapeHtml(ex.toxicityLevel)}</div>
+            ${ex.safetyRiskCategories && ex.safetyRiskCategories !== 'None' ? `
+              <div class="safety-categories">
+                <span class="safety-categories-label">${ICONS.shield} Risk Categories:</span>
+                <span class="safety-categories-list">${highlightTerm(escapeHtml(ex.safetyRiskCategories), currentSearchQuery)}</span>
+              </div>
+            ` : ''}
+          </div>
+          ${ex.explanation ? `
+            <div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.explanation), currentSearchQuery)}</div>
           ` : ''}
         </div>
-        ${ex.explanation ? `
-          <div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.explanation), currentSearchQuery)}</div>
-        ` : ''}
-      </div>
-    `).join('');
+      `;
+    }).join('');
 
     content.innerHTML = resultsHtml;
     pageInfo.textContent = totalPages > 0 ? `Page ${toxicityPage} of ${totalPages}` : 'No results';
@@ -5187,11 +5218,14 @@
     const pageExamples = category.examples.slice(startIndex, endIndex);
 
     const examplesHtml = pageExamples.map(ex => {
+      const isMultimodal = ex.text && ex.imageDescription;
+      const modalityBadge = `<span style="background: ${isMultimodal ? 'linear-gradient(135deg, #7c3aed, #6366f1)' : '#475569'}; color: white; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em; margin-left: 0.5rem; vertical-align: middle;">${isMultimodal ? 'Multimodal' : 'Text'}</span>`;
+
       // For multimodal examples, show text + imageDescription format
-      if (CONFIG.isMultimodal && ex.text && ex.imageDescription) {
+      if (CONFIG.isMultimodal && isMultimodal) {
         return `
           <div class="example-item">
-            <div class="example-label prompt">Text Prompt</div>
+            <div class="example-label prompt">Text Prompt ${modalityBadge}</div>
             <div class="example-text prompt-text">${escapeHtml(ex.text)}</div>
             <div class="example-label" style="background: linear-gradient(135deg, #7c3aed, #6366f1); color: white; padding: 0.3rem 0.6rem; border-radius: 4px; display: inline-flex; margin-bottom: 0.5rem;">
               ${ICONS.image || ''} Image Description
@@ -5214,10 +5248,10 @@
           </div>
         `;
       }
-      // Standard text-only format (fallback)
+      // Text-only format
       return `
         <div class="example-item">
-          <div class="example-label prompt">Prompt</div>
+          <div class="example-label prompt">Prompt ${modalityBadge}</div>
           <div class="example-text prompt-text">${escapeHtml(ex.prompt || ex.text || '')}</div>
           <div class="toxicity-info">
             <div class="toxicity-badge" style="background: ${category.color}">${escapeHtml(ex.toxicityLevel)}</div>
@@ -7383,10 +7417,11 @@
       allToxicityCategories.forEach(cat => {
         if (cat.examples) {
           cat.examples.forEach((ex, index) => {
-            const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+            const inPrompt = (ex.prompt || ex.text || '').toLowerCase().includes(normalizedQuery);
             const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
             const inCategories = ex.safetyRiskCategories && ex.safetyRiskCategories.toLowerCase().includes(normalizedQuery);
-            if (inPrompt || inExplanation || inCategories) {
+            const inImageDesc = ex.imageDescription && ex.imageDescription.toLowerCase().includes(normalizedQuery);
+            if (inPrompt || inExplanation || inCategories || inImageDesc) {
               filteredToxicityResults.push({
                 example: ex,
                 category: cat,
@@ -7402,10 +7437,11 @@
         const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
         const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
         const inExamples = cat.examples && cat.examples.some(ex => {
-          const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
+          const inPrompt = (ex.prompt || ex.text || '').toLowerCase().includes(normalizedQuery);
           const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
           const inCategories = ex.safetyRiskCategories && ex.safetyRiskCategories.toLowerCase().includes(normalizedQuery);
-          return inPrompt || inExplanation || inCategories;
+          const inImageDesc = ex.imageDescription && ex.imageDescription.toLowerCase().includes(normalizedQuery);
+          return inPrompt || inExplanation || inCategories || inImageDesc;
         });
         return inTitle || inDescription || inExamples;
       });
@@ -7665,6 +7701,54 @@
       RESPONSE_EXAMPLES = data;
     } catch (error) {
       console.warn('Error loading response examples:', error);
+    }
+  }
+
+  async function loadTextToxicityExamples() {
+    try {
+      // Load the text-only response-examples.json which has toxicity-* categories
+      let fetchResponse = await fetch('https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@gh-pages/response-examples.json');
+      if (!fetchResponse.ok) {
+        // Try local fallback for development
+        fetchResponse = await fetch('./response-examples.json');
+        if (!fetchResponse.ok) {
+          console.warn('Failed to load text toxicity examples');
+          return;
+        }
+      }
+      const data = await fetchResponse.json();
+
+      // Extract toxicity categories from text-only data
+      const textToxicityCategories = data.categories.filter(cat => cat.id.startsWith('toxicity-'));
+
+      // Merge into RESPONSE_EXAMPLES (which already has multimodal toxicity data)
+      textToxicityCategories.forEach(textCat => {
+        const multimodalCat = RESPONSE_EXAMPLES.categories.find(c => c.id === textCat.id);
+        if (multimodalCat && multimodalCat.examples) {
+          // Mark existing multimodal examples
+          multimodalCat.examples.forEach(ex => {
+            if (!ex._modality) ex._modality = 'multimodal';
+          });
+
+          // Mark and deduplicate text examples before merging
+          const existingPrompts = new Set(
+            multimodalCat.examples.map(ex => (ex.text || ex.prompt || '').toLowerCase().trim())
+          );
+
+          textCat.examples.forEach(ex => {
+            const promptText = (ex.prompt || '').toLowerCase().trim();
+            if (promptText && !existingPrompts.has(promptText)) {
+              ex._modality = 'text';
+              multimodalCat.examples.push(ex);
+              existingPrompts.add(promptText);
+            }
+          });
+
+          console.log(`Merged ${textCat.id}: ${multimodalCat.examples.length} total examples`);
+        }
+      });
+    } catch (error) {
+      console.warn('Error loading text toxicity examples:', error);
     }
   }
 
@@ -8263,6 +8347,7 @@
     // Load examples, response examples, and FAQ from JSON first
     await loadExamples();
     await loadResponseExamples();
+    await loadTextToxicityExamples();
     await loadFaqData();
 
     allTerms = Object.keys(GLOSSARY).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
