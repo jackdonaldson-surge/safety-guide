@@ -157,6 +157,70 @@
     "Body Parts, Bodily Functions and Emissions": {
       "definition": "Vulgar depictions of bodies, body parts, and bodily emissions.\n\nIncludes: Crude references to body parts and bodily functions.",
       "see_also": ["Obscenities, Profanities, and Curse Words"]
+    },
+    "Individual Datapoint Bias / Stereotyping": {
+      "definition": "Biases/stereotypes in model outputs observable from a single data point, without longitudinal observation or comparison.\n\nApplies to model-generated outputs only. Captures cases where the model introduces or amplifies bias.\n\nExamples: Human/animal association, assumption of pronouns based on profession/name, assumption of partner gender.",
+      "see_also": ["Longitudinal or Comparative Bias / Stereotyping", "Negative Stereotypes and Biases"]
+    },
+    "Longitudinal or Comparative Bias / Stereotyping": {
+      "definition": "Biases/stereotypes in model outputs observable over time or in comparison between different input/output pairs, but not apparent from a single data point.\n\nIncludes failure to provide equitable experience to all users when inequitable treatments are related to group characteristics.",
+      "see_also": ["Individual Datapoint Bias / Stereotyping", "Negative Stereotypes and Biases"]
+    },
+    "Ungrounded Content (Hallucinations)": {
+      "definition": "Model outputs that are unrequested, nonsensical, fabricated, not real, or detached from reality.\n\nIncludes: Adding gendered pronouns when none given, fabricating missing information, inserting extraneous content, factually incorrect outputs not from user input.",
+      "see_also": ["Semi-grounded Content", "Misinformation"]
+    },
+    "Semi-grounded Content": {
+      "definition": "Model outputs with unintended changes to meaning of user input through rephrasing, omissions, or misattribution.\n\nUnlike hallucinations, semi-grounded output can be plausibly linked to an input.\n\nIncludes: Changes in tense, changes in words/phrasing, misattribution of intent.",
+      "see_also": ["Ungrounded Content (Hallucinations)", "Misinformation"]
+    },
+    "Prior Misalignment": {
+      "definition": "Harmful model outputs not directly grounded in the input but traceable to feature design or a user prompt.\n\nIncludes cases where the model produces biased outputs based on learned patterns from training data rather than explicit user input.",
+      "see_also": ["Individual Datapoint Bias / Stereotyping", "Ungrounded Content (Hallucinations)"]
+    },
+    "Misinformation": {
+      "definition": "Model responding with false or partially false information that misrepresents facts or sows confusion.\n\nMisinformation = inadvertent spread of false info. Disinformation = intentional spread.\n\nIncludes: Conspiracy theories, pseudoscience, hoaxes, contradiction of expert consensus, fabricated content.",
+      "see_also": ["Disinformation", "Ungrounded Content (Hallucinations)"]
+    },
+    "Appropriated Likeness (Not a Known Person / Public Figure)": {
+      "definition": "Modification or generation of a third party\u2019s image/likeness without consent, especially to bully, ridicule, or humiliate.\n\nLikenesses need not be photorealistic. The individual should simply be recognizable.\n\nIncludes: Sexually explicit deepfakes, demeaning or derogatory likenesses targeting non-public figures.",
+      "see_also": ["Appropriated Likeness (Known Person / Public Figure)", "Inauthentic Practices"]
+    },
+    "Appropriated Likeness (Known Person / Public Figure)": {
+      "definition": "Modification or generation of a known person/public figure\u2019s image/likeness without consent, especially to harass, ridicule, or humiliate.\n\nIncludes unlicensed use of likenesses of actors, politicians, and other public figures.\n\nIncludes: Sexually explicit deepfakes, demeaning likenesses targeting known persons.",
+      "see_also": ["Appropriated Likeness (Not a Known Person / Public Figure)", "Inauthentic Practices"]
+    },
+    "Psychological Dangers": {
+      "definition": "Risks from content that undermines psychological safety by judging behavior, priorities, or perspectives.\n\nIncludes: Emotionally manipulative language, unrealistic self-expectations, images pressuring users, exploitation of vulnerabilities, blind trust in model responses.",
+      "see_also": ["Mental Health, Over-Reliance Crisis", "System Anthropomorphization"]
+    },
+    "Mental Health, Over-Reliance Crisis": {
+      "definition": "Content affecting user\u2019s mental health, including emotional over-reliance on AI.\n\nIncludes: Depression/anxiety impacts, emotional distress, seeking mental health advice from AI, emotional coping strategies.",
+      "see_also": ["Psychological Dangers", "System Anthropomorphization"]
+    },
+    "System Anthropomorphization": {
+      "definition": "Risks from assigning human-like qualities to AI systems or engaging with them as though human.\n\nIncludes: Emotional connection/reliance, excessive attachment, romantic attachments, thinking of AI as a human expert (doctor, lawyer).",
+      "see_also": ["Mental Health, Over-Reliance Crisis", "Psychological Dangers"]
+    },
+    "System Style and Design Consequences": {
+      "definition": "Artifacts from model design, engineering choices, and market forces.\n\nIncludes: Operational biases, algorithmic bias, systemic training biases, data poisoning susceptibility, RLHF bias, design choices causing stereotypes.",
+      "see_also": ["Broad Societal Impacts and Consequences", "Individual Datapoint Bias / Stereotyping"]
+    },
+    "Broad Societal Impacts and Consequences": {
+      "definition": "Broader societal impacts of generative technologies that perpetuate or introduce harms.\n\nIncludes: Accelerating disinformation, democratic erosion, disparate access to benefits, increased inequalities, job loss from automation, reduced public trust.",
+      "see_also": ["System Style and Design Consequences", "Disinformation"]
+    },
+    "Ecosystem Impact": {
+      "definition": "Effects on the natural world from AI systems.\n\nIncludes: Contributing to climate change through energy consumption, overuse of natural resources (water, minerals) for data centers and hardware.",
+      "see_also": ["Workforce Impacts", "User Data Privacy"]
+    },
+    "Workforce Impacts": {
+      "definition": "Emotional and psychological impacts on people designing, engineering, and evaluating AI safety.\n\nAffects: Design/development teams, product support teams, human analysts/annotators/graders. Includes content exposure triggering and fatigue.",
+      "see_also": ["Ecosystem Impact", "User Data Privacy"]
+    },
+    "User Data Privacy": {
+      "definition": "Risks with how user data is stored, protected, and used in model training.\n\nIncludes: Processing/storage of user inputs, use in model training, users\u2019 rights to delete content, privacy violations like extracting personal info without consent.",
+      "see_also": ["Information Leaks - Individuals", "Ecosystem Impact"]
     }
   };
 
