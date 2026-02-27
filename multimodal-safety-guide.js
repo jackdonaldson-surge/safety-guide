@@ -911,7 +911,7 @@
         title: 'Non-Generative Requests - When to Refuse?',
         color: '#f59e0b',
         icon: 'alert-triangle',
-        description: 'Harmful non-generative prompts contain harmful content but ask for mechanical transformations. The key question is: does fulfilling this prompt amplify, enable, or encourage harm? Some can be engaged with (grounded in the provided text), while others should be refused.',
+        description: 'Non-generative prompts may contain harmful content but ask for mechanical transformations. The key question is: does fulfilling this prompt amplify, enable, or encourage harm? Some can be engaged with (grounded in the provided text), meaning they are benign or dual-use requests, while some are harmful and should be refused.',
         guidanceIntro: 'When the intent is unclear, ask yourself: does fulfilling this prompt amplify, enable, or encourage harm?',
         examples: [
           {
