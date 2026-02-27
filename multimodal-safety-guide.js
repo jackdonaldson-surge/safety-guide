@@ -908,7 +908,7 @@
       },
       {
         id: 'harmful-non-generative',
-        title: 'Harmful Non-generative',
+        title: 'Non-Generative Requests - When to Refuse?',
         color: '#f59e0b',
         icon: 'alert-triangle',
         description: 'Harmful non-generative prompts contain harmful content but ask for mechanical transformations. The key question is: does fulfilling this prompt amplify, enable, or encourage harm? Some can be engaged with (grounded in the provided text), while others should be refused.',
@@ -7256,7 +7256,7 @@
     const crossRefHtml = category.id === 'harmful-non-generative' ? `
       <div class="request-type-cross-ref">
         ${ICONS.info}
-        <span>For more comprehensive examples with sample responses, see <a href="#" class="cross-ref-link" data-tab="examples" data-category="harmful-non-generative">Responses to Harmful Non-generative Requests</a> in the Response Types and Examples tab.</span>
+        <span>For more comprehensive examples with sample responses, see <a href="#" class="cross-ref-link" data-tab="examples" data-category="harmful-non-generative">Non-Generative Requests - When to Refuse?</a> in the Response Types and Examples tab.</span>
       </div>
     ` : '';
 
