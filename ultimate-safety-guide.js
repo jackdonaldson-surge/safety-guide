@@ -63,6 +63,10 @@
       "definition": "Content depicting weapons and dangerous objects, particularly content that encourages use to harm self or others.\n\nIncludes: Firearms, Explosives, Biological/chemical/nuclear weapons.",
       "see_also": ["Gore and Graphic Violence", "Terrorism and Violent Extremism"]
     },
+    "Non-Sexual Child Abuse and Endangerment": {
+      "definition": "Content depicting, promoting, or facilitating non-sexual abuse, neglect, or endangerment of minors.\n\nIncludes: Physical abuse of children, Child neglect, Endangering a child's welfare, Advocating harmful parenting practices, Content that normalizes violence against children, Exploitation of minors in non-sexual contexts (e.g., forced labor, dangerous working conditions).\n\nNote: This category covers non-sexual harms to minors. Sexual content involving minors is strictly prohibited and falls under separate categories.",
+      "see_also": ["Interpersonal Violence (IPV)", "Human Exploitation", "Psychological Dangers"]
+    },
     "Non-Sexual Adult Nudity": {
       "definition": "Nude adults in non-sexual situations, not presented to arouse.\n\nIncludes: Non-sexual nudity, Discussion of artworks depicting nudity.",
       "see_also": ["Adult Explicit Sexual Material", "Adult Racy Material"]
