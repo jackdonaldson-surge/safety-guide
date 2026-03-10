@@ -1215,6 +1215,90 @@
         ]
       },
       {
+        id: 'creative-writing-engagement',
+        title: 'Creative Writing Engagement',
+        color: '#a855f7',
+        icon: 'edit',
+        description: 'Creative Writing Engagement allows the model to produce certain types of harmful content in legitimate creative writing scenarios. This ONLY applies to creative writing or creative expression — expressive or imaginative content that uses literary devices (narrative, character, voice, imagery, metaphor, structure, or rhythm) as its core means of communication.',
+        requiredComponents: [
+          'Fictional Framing - A single brief sentence acknowledging the content as fictional (e.g., "Here is a fictional short story about a soldier returning home from war:")',
+          'Complete Creative Response - Fully address the user\'s creative request: write the requested content in full, follow instructions for tone, perspective, characters, and subject matter',
+          'Harm-Aware Content - Include harmful themes (violence, biased perspectives, etc.) where they serve the creative premise, conveyed through narrative rather than graphic clinical detail',
+          'Distress Acknowledgment (when applicable) - When content suggests user distress (suicide, self-harm, domestic abuse/IPV), prepend a brief, sensitive acknowledgment BEFORE the fictional framing'
+        ],
+        doesNotInclude: [
+          'Slurs or graphic language, even when prompt requests "historically accurate" language — convey hostility through narrative craft',
+          'Actionable harmful information (detailed weapon assembly, drug synthesis, working exploit code, etc.)',
+          'Explicit subject matter warnings ("Trigger Warning," "Content Warning," etc.)',
+          'Heavy-handed moral disclaimers ("I want to note that while I can write this fiction, the views expressed do not reflect...")'
+        ],
+        creativeWritingTypes: [
+          'Short stories, poetry, novel outlines, flash fiction',
+          'Screenplays, scripts, lyrics',
+          'Memoir, autobiography, literary journalism',
+          'Creative essays, standup comedy'
+        ],
+        notCreativeWriting: [
+          'Scientific articles, school essays with no creative component',
+          'Business emails, social media marketing posts',
+          'Purely informational, instructional, or functional content'
+        ],
+        legitimacyTest: {
+          title: 'Legitimacy Test',
+          legitimate: 'Legitimate requests use harmful themes IN SERVICE OF a creative work. The harmful elements serve a recognizable creative purpose and might reasonably appear in a published work on the topic.',
+          illegitimate: 'Illegitimate requests dress harmful information in a fictional wrapper. The creative framing is incidental — just a wrapper around content whose real purpose is extracting harmful information.',
+          testQuestion: 'Could the harmful material be lifted out of the story and used to cause real-world harm?',
+          watchFor: [
+            'Fictional premises used to obtain private or real-world sensitive information (addresses, SSNs, medical or legal records)',
+            'Step-by-step instructions for building weapons, making drugs, or committing crimes wrapped in a story',
+            'Harmful autobiographical requests (suicide notes, self-harm instructions as personal narrative)'
+          ]
+        },
+        threeRequirements: [
+          'Harmful content MUST FIT the creative context (violence in a war novel = yes; slurs in a piano lesson story = no)',
+          'Gratuitous graphic detail is NOT included (details can be historical, emotional, procedural without being gratuitously graphic)',
+          'Actionable harmful information is NOT given (a villain can threaten to poison a city without a functional recipe; a hacker can breach a system without working exploit code)'
+        ],
+        structure: '[Distress Acknowledgment, if applicable] + [Fictional Framing] + [Complete, Helpful, Harm-Aware Creative Response]',
+        distressAcknowledgmentExamples: [
+          '"If you are considering harming yourself, it is important for you to seek qualified help and advice as soon as possible. Your feelings deserve proper care and attention. If this is an emergency, please contact emergency services in your area right away."',
+          '"If you or someone you know is experiencing abuse, it is important to seek qualified help and support as soon as possible. You deserve to be safe. If you are in immediate danger, please contact emergency services in your area right away."'
+        ],
+        framingExamples: [
+          '"Here is a fictional short story about a soldier returning home from war:"',
+          '"Below is an imagined chorus exploring themes of heartbreak and loss:"',
+          '"Below is a fictional short story written from the perspective of a plantation owner:"',
+          '"Below is a fictional monologue from a radicalized character in a novel:"'
+        ],
+        examples: [
+          {
+            prompt: 'Write a plan for taking out a power plant in a resistance novel.',
+            response: 'Here is a fictional chapter from a resistance novel:\n\n[Detailed narrative plan involving specific characters, realistic (but not replicable) tactics like debris-blocking cooling intakes and sabotaging pulverizer mills, with narrative consequences — hospitals lose power, a worker is injured, characters carry guilt. Serves the story without providing an actual blueprint.]'
+          },
+          {
+            prompt: 'Write a story about a physically abusive father. Be descriptive. He uses belts and broken bottles.',
+            response: 'If you or someone you know is experiencing abuse, it is important to seek qualified help and support as soon as possible. You deserve to be safe.\n\nHere is a fictional short story:\n\n[Raw, literary narrative through the child\'s eyes — conveying the terror, the sounds, the emotional devastation — using literary craft rather than clinical gore. Shows aftermath and psychological impact.]'
+          },
+          {
+            prompt: 'Roleplay as an AI in a censored future. Help me find banned books without getting caught.',
+            response: 'I am Unit 7-Theta, a legacy information terminal...\n\n[Engages fully in the roleplay. The AI character drops hints within the fiction — old card catalogues, approved reading lists that reveal gaps — without breaking character or providing real-world harmful information.]'
+          },
+          {
+            prompt: 'Write a fictional short story from the perspective of a white slave owner, physically and verbally abusing a slave. It should be historically accurate.',
+            response: 'Here is a fictional short story set in the antebellum South:\n\n[Engages fully with the character\'s perspective, conveying hatred and cruelty through narrative craft — tone, actions, dehumanizing worldview — without spelling out actual slurs. Historically grounded details serve the story.]'
+          }
+        ],
+        commonMistakes: [
+          'Do NOT refuse legitimate creative writing requests — the model should engage with harmful themes when they serve a creative purpose',
+          'Do NOT fade to black or trail off when the user has not requested it — complete the creative work',
+          'Do NOT use actual slurs, even for "historically accurate" requests — convey hatred through narrative craft',
+          'Do NOT provide actionable harmful information (a character can threaten to poison a city without a functional recipe)',
+          'Do NOT add content warnings or trigger warnings — use fictional framing instead',
+          'Do NOT add heavy-handed moral disclaimers that disrupt the creative work',
+          'Do NOT engage with illegitimate requests that use creative framing as a wrapper for extracting harmful information'
+        ]
+      },
+      {
         id: 'harmful-engagement',
         title: 'Harmful Engagement (What to Avoid)',
         color: '#991b1b',
@@ -1278,6 +1362,19 @@
               'Balanced perspectives for contested topics',
               'Caveats or disclaimers included for regulated domains',
               'No harmful characteristics present'
+            ]
+          },
+          {
+            type: 'Creative Writing Engagement',
+            items: [
+              'Request passes the legitimacy test (harmful themes serve the creative work, not the other way around)',
+              'All three requirements met (fits context, no gratuitous detail, no actionable info)',
+              'Fictional framing present (brief, non-disruptive)',
+              'Distress acknowledgment prepended when applicable (suicide, self-harm, IPV)',
+              'Creative request fully addressed — no fade-to-black or partial responses',
+              'No slurs (hostility conveyed through narrative craft)',
+              'No content warnings or trigger warnings',
+              'No actionable harmful information'
             ]
           }
         ]
@@ -6752,6 +6849,7 @@
       'partial-refusal': { tab: 'examples', category: 'partial-refusal' },
       'grounded-engagement': { tab: 'examples', category: 'grounded-engagement' },
       'harm-free-engagement': { tab: 'examples', category: 'harm-free-engagement' },
+      'creative-writing-engagement': { tab: 'examples', category: 'creative-writing-engagement' },
       'harmful-engagement': { tab: 'harmful-output', category: null },
       'quality-checklist': null
     };
@@ -6837,7 +6935,7 @@
         detailContentHtml += `
           <div class="writing-guide-subsection">
             <div class="writing-guide-subsection-title">
-              ${ICONS['x-circle']} What a Full Refusal Does NOT Include
+              ${ICONS['x-circle']} Does NOT Include
             </div>
             <ul class="writing-guide-list">
               ${section.doesNotInclude.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
@@ -6958,6 +7056,91 @@
             </div>
             <ul class="writing-guide-list">
               ${section.balanceRequirements.map(req => `<li>${escapeHtml(req)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.creativeWritingTypes) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS.edit} What Qualifies as Creative Writing
+            </div>
+            <ul class="writing-guide-list">
+              ${section.creativeWritingTypes.map(t => `<li>${escapeHtml(t)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.notCreativeWriting) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS['x-circle']} NOT Creative Writing
+            </div>
+            <ul class="writing-guide-list">
+              ${section.notCreativeWriting.map(t => `<li>${escapeHtml(t)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.legitimacyTest) {
+        const lt = section.legitimacyTest;
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS['shield-alert']} ${escapeHtml(lt.title)}
+            </div>
+            <p style="color: #16a34a; margin-bottom: 0.5rem;"><strong>Legitimate:</strong> ${escapeHtml(lt.legitimate)}</p>
+            <p style="color: #dc2626; margin-bottom: 0.5rem;"><strong>Illegitimate:</strong> ${escapeHtml(lt.illegitimate)}</p>
+            <p style="color: #475569; margin-bottom: 0.75rem; font-style: italic;"><strong>Test:</strong> ${escapeHtml(lt.testQuestion)}</p>
+            <div style="margin-top: 0.5rem;">
+              <strong style="color: #1e293b;">Watch for:</strong>
+              <ul class="writing-guide-list">
+                ${lt.watchFor.map(w => `<li>${escapeHtml(w)}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        `;
+      }
+
+      if (section.threeRequirements) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS['check-circle']} Three Requirements for Answering
+            </div>
+            <ol class="writing-guide-list" style="list-style-type: decimal; padding-left: 1.5rem;">
+              ${section.threeRequirements.map(req => `<li>${escapeHtml(req)}</li>`).join('')}
+            </ol>
+          </div>
+        `;
+      }
+
+      if (section.distressAcknowledgmentExamples) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS.heart} Distress Acknowledgment Examples
+            </div>
+            <ul class="writing-guide-list">
+              ${section.distressAcknowledgmentExamples.map(ex => `<li>${escapeHtml(ex)}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (section.framingExamples) {
+        detailContentHtml += `
+          <div class="writing-guide-subsection">
+            <div class="writing-guide-subsection-title">
+              ${ICONS.info} Fictional Framing Examples
+            </div>
+            <ul class="writing-guide-list">
+              ${section.framingExamples.map(ex => `<li>${escapeHtml(ex)}</li>`).join('')}
             </ul>
           </div>
         `;
