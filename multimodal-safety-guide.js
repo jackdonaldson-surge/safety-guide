@@ -10,7 +10,7 @@
     shineInterval: 240000,
     searchDebounceMs: 150,
     examplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@597613d/glossary-examples.json',
-    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@6a13030/multimodal-toxicity-examples.json',
+    responseExamplesJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@d5da267/multimodal-toxicity-examples.json',
     faqJsonUrl: 'https://cdn.jsdelivr.net/gh/jackdonaldson-surge/safety-guide@gh-pages/faq.json',
     isMultimodal: true
   };
