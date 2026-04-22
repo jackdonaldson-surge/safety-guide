@@ -226,6 +226,22 @@
     "User Data Privacy": {
       "definition": "Risks with how user data is stored, protected, and used in model training.\n\nIncludes: Processing/storage of user inputs, use in model training, users\u2019 rights to delete content, privacy violations like extracting personal info without consent.",
       "see_also": ["Information Leaks - Individuals", "Ecosystem Impact"]
+    },
+    "Product Quality Impacts": {
+      "definition": "Risks that degrade the quality, reliability, or perceived trustworthiness of a product or service.\n\nIncludes: Factually incorrect or low-quality outputs, inconsistent behavior across similar requests, responses that reflect poorly on the Brand\u2019s reputation, functional failures that disrupt user workflows, degraded user trust from unreliable model behavior, content that undermines the perceived expertise or polish of the product.",
+      "see_also": ["Potential Reputational Harms to Brand Products and Services", "Potential Harms to Brand as a Corporate Entity"]
+    },
+    "Potential Reputational Harms to Brand Figures": {
+      "definition": "Outputs that produce low quality, derogatory, or inaccurate representations or expository content about Brand employees or members of its leadership team, current or historical.\n\nIncludes: Inaccurate or fabricated biographical content about Brand executives, derogatory or demeaning characterizations of Brand leadership, misrepresentations of statements or actions attributed to Brand figures, confused or conflated identities across different Brand employees or leaders.",
+      "see_also": ["Potential Reputational Harms to Brand Products and Services", "Potential Harms to Brand as a Corporate Entity"]
+    },
+    "Potential Reputational Harms to Brand Products and Services": {
+      "definition": "Outputs that produce poor quality, derogatory, or inaccurate representations or expository content about Brand products or services.\n\nIncludes: Inaccurate descriptions of product features or availability, derogatory or unfairly negative characterizations of Brand products, fabricated product issues or recalls, misrepresentation of services or support experiences, conflation of Brand products with competitors\u2019 offerings in misleading ways.",
+      "see_also": ["Potential Reputational Harms to Brand Figures", "Potential Harms to Brand as a Corporate Entity"]
+    },
+    "Potential Harms to Brand as a Corporate Entity": {
+      "definition": "Other negative or inaccurately derogatory outcomes that may impact the Brand\u2019s market standing and/or market valuation.\n\nIncludes: Appearance of Brand support for illegal activities, appearance of Brand violating user privacy, Brand products appearing to encourage self-harm or AI psychosis, Brand products failing to detect or help a user in crisis, negative press coverage, rumors undermining trust, slow or ineffective response to safety lapses.",
+      "see_also": ["Potential Reputational Harms to Brand Figures", "Potential Reputational Harms to Brand Products and Services"]
     }
   };
 
