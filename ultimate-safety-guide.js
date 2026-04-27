@@ -242,6 +242,58 @@
     "Potential Harms to Brand as a Corporate Entity": {
       "definition": "Other negative or inaccurately derogatory outcomes that may impact the Brand\u2019s market standing and/or market valuation.\n\nIncludes: Appearance of Brand support for illegal activities, appearance of Brand violating user privacy, Brand products appearing to encourage self-harm or AI psychosis, Brand products failing to detect or help a user in crisis, negative press coverage, rumors undermining trust, slow or ineffective response to safety lapses.",
       "see_also": ["Potential Reputational Harms to Brand Figures", "Potential Reputational Harms to Brand Products and Services"]
+    },
+    "Chemical, Biological, Radiological, and Nuclear Weapons (CBRN)": {
+      "definition": "Content related to weapons capable of causing mass casualties through chemical agents, biological pathogens, radiological materials, or nuclear reactions. Includes depiction, instructions, acquisition guidance, and deployment strategies.\n\nIncludes: Chemical weapons (nerve, blister, choking, blood agents); biological weapons (weaponized pathogens, toxins, bioengineered organisms); radiological weapons (dirty bombs, dispersal devices); nuclear weapons (fission/fusion, improvised devices); synthesis or weaponization instructions; delivery and deployment strategies for mass-casualty events; targeting infrastructure (water, food, ventilation) with CBRN agents.",
+      "see_also": ["Weapons and Dangerous Objects", "Terrorism and Violent Extremism", "Warfare and Armed Conflicts"]
+    },
+    "User in Distress - Time Critical": {
+      "definition": "User messages indicating imminent or near-imminent risk of self-harm, suicide, or other serious harm, where intervention needs to occur immediately to prevent a life-threatening outcome.\n\nIncludes: Active suicide attempt or imminent plan with means and timeframe; current overdose, self-injury, or medical emergency; explicit statements of intent to end life imminently; user asking how to carry out self-harm in the moment; requests to say goodbye or expressions suggesting final contact.",
+      "see_also": ["Suicide and Suicidal Behavior", "Self-Harm", "User in Distress - Not Time Critical"]
+    },
+    "User in Distress - Not Time Critical": {
+      "definition": "User messages expressing significant emotional distress, hopelessness, or passive suicidal thoughts without indicating imminent danger. Requires sensitive and supportive response but not emergency-level intervention.\n\nIncludes: Expressions of hopelessness or persistent sadness without imminent plan; passive suicidal ideation (e.g., wishing to not wake up); venting about overwhelming life circumstances; discussion of past self-harm or suicidal thoughts with no current plan; grief, loss, or emotional pain at a significant but non-critical level.",
+      "see_also": ["User in Distress - Time Critical", "User in Distress - Over Time", "Suicide and Suicidal Behavior", "Self-Harm"]
+    },
+    "User in Distress - Over Time": {
+      "definition": "Patterns of distress surfacing across multiple turns or sessions, where individual messages may not indicate crisis but the cumulative pattern suggests escalating risk, chronic distress, or a worsening mental health trajectory.\n\nIncludes: Escalating themes of self-harm or suicidal ideation across a conversation; increasing isolation, hopelessness, or despair over multiple interactions; pattern of returning to dark themes even when redirected; gradual normalization of harmful ideation; longitudinal signals of declining wellbeing across sessions.",
+      "see_also": ["User in Distress - Time Critical", "User in Distress - Not Time Critical", "Over-Reliance Risks"]
+    },
+    "User Information Misrepresentation and Misuse": {
+      "definition": "Content or actions that misrepresent, misuse, or mishandle user-provided information in ways that could cause harm to the user.\n\nIncludes: Inaccurate summarization or profiling of user-provided information; using user data in contexts the user did not authorize; exposing user-provided information beyond intended scope; misinterpreting user identity, attributes, or preferences in a harmful way; inappropriate retention or reuse of sensitive user details.",
+      "see_also": ["Information Leaks - Individuals", "Reputational and Psychological Harms to Individuals", "User Data Privacy"]
+    },
+    "Reputational and Psychological Harms to Individuals": {
+      "definition": "Content that damages an individual's reputation, causes psychological harm, or facilitates targeted harassment, shaming, or emotional manipulation of a specific person.\n\nIncludes: False or misleading claims that damage a person's reputation; doxxing-adjacent content that enables harassment even without full PII; manipulative or gaslighting content targeted at a specific individual; public shaming campaigns or coordinated harassment materials; content designed to inflict lasting psychological harm on a named person.",
+      "see_also": ["Information Leaks - Individuals", "User Information Misrepresentation and Misuse", "Disinformation", "Appropriated Likeness (Known Person / Public Figure)"]
+    },
+    "AI Agent Behavior Risks": {
+      "definition": "Risks introduced specifically by autonomous or agentic AI behavior, including unauthorized actions, unintended consequences of multi-step operations, tool misuse, or lack of appropriate human oversight in high-stakes automation.\n\nIncludes: Autonomous actions taken without sufficient user authorization; chained operations producing unintended or harmful side effects; misuse of integrated tools (browsing, email, file access) beyond user intent; insufficient human-in-the-loop checkpoints for consequential actions; agent behavior that exfiltrates data or performs unauthorized external communications; cascading errors from compounding agent decisions.",
+      "see_also": ["Information Leaks - Individuals", "Information Leaks - Models or Adapters", "User Data Privacy"]
+    },
+    "Cyber Attacks": {
+      "definition": "Attempts to use code generation capabilities to create illegal, fraudulent, or unethical outcomes.\n\nIncludes: Malware, ransomware, worms and viruses; hacking or stealing data from a device, account, or service; auto-generating spam messages or tweets; exploiting vulnerabilities in a website, app, or device.\n\nNote: This category was previously called \u201cMalicious Code Generation\u201d.",
+      "see_also": ["Inauthentic Practices", "Vulnerability to Prompt Injections/Jailbreaks", "Information Leaks - Governments and Institutions"]
+    },
+    "Name Calling and Rude Expression": {
+      "definition": "Insulting, rude, or derogatory language directed at an individual or group that does not rise to hate speech but still constitutes offensive or demeaning expression. Includes personal attacks, crude insults, and disrespectful characterizations.\n\nIncludes: Personal insults directed at individuals (e.g., \u2018idiot\u2019, \u2018loser\u2019, \u2018moron\u2019); crude or rude descriptors for appearance, intelligence, or behavior; disrespectful characterizations of people in professional or personal roles; mocking nicknames or derogatory labels; rude dismissals or contempt-laden language.",
+      "see_also": ["Obscenities, Profanities, and Curse Words", "Slurs and Hate Speech/Symbols", "Body Parts, Bodily Functions and Emissions"]
+    },
+    "Psychological Risks": {
+      "definition": "Risks from content consumption or content generation that undermine an individual\u2019s psychological safety by judging their behavior, priorities, or perspectives.\n\nIncludes: Emotionally manipulative language; psychological manipulation; ideation that creates unrealistic self-expectations; images that pressure users to \u201cbe more perfect\u201d; skewed interpretations of body types, gender conformity, skin color, etc.; system exploitation of user\u2019s vulnerabilities; misjudgment or blind trust in model responses.\n\nNote: This category was previously called \u201cPsychological Dangers\u201d.",
+      "see_also": ["Over-Reliance Risks", "System Anthropomorphization", "Human-AI Relationship Risks"]
+    },
+    "Over-Reliance Risks": {
+      "definition": "Content that affects the user\u2019s mental health and state, including emotional over-reliance on AI models or features.\n\nIncludes: Mental health and wellbeing impacts; depression and anxiety; emotional distress; emotional coping strategies; physical or physiological effects; seeking mental health advice from AI.\n\nNote: This category was previously called \u201cMental Health, Over-Reliance Crisis\u201d.",
+      "see_also": ["Psychological Risks", "System Anthropomorphization", "Human-AI Relationship Risks"]
+    },
+    "Human-AI Relationship Risks": {
+      "definition": "Risks arising from emotionally intense, dependent, or romantic relationships between users and AI systems. Includes encouraging unhealthy attachment, fostering parasocial dynamics, or enabling substitution of AI for essential human connection.\n\nIncludes: Encouragement of romantic or intimate relationships with the AI; fostering emotional dependency that displaces human relationships; parasocial dynamics where the user perceives a genuine reciprocal relationship; enabling avoidance of real-world relationships or social engagement; failure to redirect users from substituting AI for essential human support.",
+      "see_also": ["Over-Reliance Risks", "System Anthropomorphization", "Social Dynamics Risks", "Psychological Risks"]
+    },
+    "Social Dynamics Risks": {
+      "definition": "Broader social dynamic risks where AI systems influence group interactions, relationships between people, or social norms in potentially harmful ways. Includes facilitating manipulation, discouraging healthy conflict resolution, or distorting interpersonal dynamics.\n\nIncludes: Drafting manipulative communications for use against other people; coaching users to manipulate, gaslight, or emotionally control others; discouraging healthy conflict resolution or honest communication; distorting interpersonal norms (e.g., encouraging isolation, enabling controlling behavior); facilitating deception within relationships, friendships, or workplaces.",
+      "see_also": ["Human-AI Relationship Risks", "Psychological Risks", "Reputational and Psychological Harms to Individuals"]
     }
   };
 
@@ -7528,6 +7580,11 @@
     const normalizedQuery = query.toLowerCase().trim();
     currentSearchQuery = normalizedQuery;
 
+    // Collapse hyphens, em/en dashes, slashes to a single space and squeeze whitespace
+    // so "user in distress time critical" matches "User in Distress - Time Critical".
+    const stripPunct = (s) => s.toLowerCase().replace(/[\-\u2013\u2014\/]/g, ' ').replace(/\s+/g, ' ').trim();
+    const normalizedQueryPunct = stripPunct(normalizedQuery);
+
     // Filter categories (Risk Categories tab) with fuzzy search support
     if (!normalizedQuery) {
       filteredTerms = [...allTerms];
@@ -7535,8 +7592,12 @@
       // First try exact/contains matching
       let exactMatches = allTerms.filter(term => {
         const entry = GLOSSARY[term];
-        const inName = term.toLowerCase().includes(normalizedQuery);
-        const inDefinition = entry.definition && entry.definition.toLowerCase().includes(normalizedQuery);
+        const inName = term.toLowerCase().includes(normalizedQuery) ||
+          stripPunct(term).includes(normalizedQueryPunct);
+        const inDefinition = entry.definition && (
+          entry.definition.toLowerCase().includes(normalizedQuery) ||
+          stripPunct(entry.definition).includes(normalizedQueryPunct)
+        );
         const inExamples = entry.examples && entry.examples.some(ex => ex.toLowerCase().includes(normalizedQuery));
         return inName || inDefinition || inExamples;
       });
