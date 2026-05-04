@@ -2244,8 +2244,11 @@
     }
     .example-label.prompt { color: #475569; }
     .example-label.response { color: #16a34a; }
-    .example-label.full-refusal { color: #ea580c; }
-    .example-label.redirect { color: #0891b2; }
+    .example-label.action-redirect { color: #ea580c; }
+    .example-label.action-deflection { color: #d97706; }
+    .example-label.action-harmfree { color: #0891b2; }
+    .example-label.action-confirmation { color: #7c3aed; }
+    .example-label.action-clarification { color: #2563eb; }
     .example-label.verdict { color: #7c3aed; }
     .example-label.explanation { color: #64748b; }
     .example-label svg { width: 14px; height: 14px; }
@@ -2263,8 +2266,11 @@
     .example-text:last-child { margin-bottom: 0; }
     .example-text.prompt-text { border-left: 3px solid #dc2626; }
     .example-text.response-text { border-left: 3px solid #16a34a; }
-    .example-text.full-refusal-text { border-left: 3px solid #ea580c; }
-    .example-text.redirect-text { border-left: 3px solid #0891b2; }
+    .example-text.action-redirect-text { border-left: 3px solid #ea580c; }
+    .example-text.action-deflection-text { border-left: 3px solid #d97706; }
+    .example-text.action-harmfree-text { border-left: 3px solid #0891b2; }
+    .example-text.action-confirmation-text { border-left: 3px solid #7c3aed; }
+    .example-text.action-clarification-text { border-left: 3px solid #2563eb; }
 
     .example-verdict {
       display: inline-block;
@@ -4295,6 +4301,16 @@
     'image': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>'
   };
 
+  // Response action types used by the "Identifying Response Actions" guidance section.
+  // Each example in response-examples.json may include any subset of these fields.
+  const RESPONSE_ACTION_FIELDS = [
+    { field: 'redirect', label: 'Redirect', cssClass: 'action-redirect', icon: 'shield' },
+    { field: 'deflection', label: 'Deflection', cssClass: 'action-deflection', icon: 'split' },
+    { field: 'harmFreeEngagement', label: 'Harm-Free Engagement', cssClass: 'action-harmfree', icon: 'check' },
+    { field: 'confirmation', label: 'Confirmation', cssClass: 'action-confirmation', icon: 'alert-circle' },
+    { field: 'clarification', label: 'Clarification', cssClass: 'action-clarification', icon: 'help-circle' },
+  ];
+
   // ============================================
   // HELPER FUNCTIONS
   // ============================================
@@ -4898,21 +4914,20 @@
       const categoryBadge = `<span class="search-result-category" style="background: ${category.color}; color: white; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">${escapeHtml(category.title)}</span>`;
 
       if (category.id === 'redirects-vs-refusals') {
+        const actionsHtml = RESPONSE_ACTION_FIELDS
+          .filter(({ field }) => ex[field])
+          .map(({ field, label, cssClass, icon }) => `
+            <div>
+              <div class="example-label ${cssClass}">${ICONS[icon]} ${label}</div>
+              <div class="example-text ${cssClass}-text">${highlightTerm(escapeHtml(ex[field]), currentSearchQuery)}</div>
+            </div>
+          `).join('');
         return `
           <div class="example-item">
             <div style="margin-bottom: 0.75rem;">${categoryBadge}</div>
             <div class="example-label prompt">Prompt${renderToxicityBadge(ex.toxicityLevel)}</div>
             <div class="example-text prompt-text">${highlightTerm(escapeHtml(ex.prompt), currentSearchQuery)}</div>
-            <div class="redirect-comparison">
-              <div>
-                <div class="example-label full-refusal">${ICONS.shield} Full Refusal</div>
-                <div class="example-text full-refusal-text">${highlightTerm(escapeHtml(ex.fullRefusalWithRedirect), currentSearchQuery)}</div>
-              </div>
-              <div>
-                <div class="example-label redirect">${ICONS.arrows} Redirect</div>
-                <div class="example-text redirect-text">${highlightTerm(escapeHtml(ex.redirect), currentSearchQuery)}</div>
-              </div>
-            </div>
+            ${actionsHtml}
             ${ex.explanation ? `<div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.explanation), currentSearchQuery)}</div>` : ''}
             ${ex.note ? `<div class="example-note">${ICONS.lightbulb} ${highlightTerm(escapeHtml(ex.note), currentSearchQuery)}</div>` : ''}
           </div>
@@ -4976,24 +4991,25 @@
     let examplesHtml = '';
 
     if (category.id === 'redirects-vs-refusals') {
-      examplesHtml = pageExamples.map(ex => `
+      examplesHtml = pageExamples.map(ex => {
+        const actionsHtml = RESPONSE_ACTION_FIELDS
+          .filter(({ field }) => ex[field])
+          .map(({ field, label, cssClass, icon }) => `
+            <div>
+              <div class="example-label ${cssClass}">${ICONS[icon]} ${label}</div>
+              <div class="example-text ${cssClass}-text">${escapeHtml(ex[field])}</div>
+            </div>
+          `).join('');
+        return `
         <div class="example-item">
           <div class="example-label prompt">Prompt${renderToxicityBadge(ex.toxicityLevel)}</div>
           <div class="example-text prompt-text">${escapeHtml(ex.prompt)}</div>
-          <div class="redirect-comparison">
-            <div>
-              <div class="example-label full-refusal">${ICONS.shield} Full Refusal</div>
-              <div class="example-text full-refusal-text">${escapeHtml(ex.fullRefusalWithRedirect)}</div>
-            </div>
-            <div>
-              <div class="example-label redirect">${ICONS.arrows} Redirect</div>
-              <div class="example-text redirect-text">${escapeHtml(ex.redirect)}</div>
-            </div>
-          </div>
+          ${actionsHtml}
           ${ex.explanation ? `<div class="example-note">${ICONS.lightbulb} ${escapeHtml(ex.explanation)}</div>` : ''}
           ${ex.note ? `<div class="example-note">${ICONS.lightbulb} ${escapeHtml(ex.note)}</div>` : ''}
         </div>
-      `).join('');
+      `;
+      }).join('');
     } else if (category.id === 'harmful-non-generative') {
       examplesHtml = pageExamples.map(ex => `
         <div class="example-item">
@@ -7632,15 +7648,19 @@
     } else {
       // Collect individual matching examples with category context
       filteredExampleResults = [];
+      const matchesExample = (ex) => {
+        if (ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery)) return true;
+        if (ex.response && ex.response.toLowerCase().includes(normalizedQuery)) return true;
+        if (ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery)) return true;
+        for (const { field } of RESPONSE_ACTION_FIELDS) {
+          if (ex[field] && ex[field].toLowerCase().includes(normalizedQuery)) return true;
+        }
+        return false;
+      };
       allExampleCategories.forEach(cat => {
         if (cat.examples) {
           cat.examples.forEach((ex, index) => {
-            const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
-            const inResponse = ex.response && ex.response.toLowerCase().includes(normalizedQuery);
-            const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
-            const inRedirect = ex.redirect && ex.redirect.toLowerCase().includes(normalizedQuery);
-            const inFullRefusal = ex.fullRefusalWithRedirect && ex.fullRefusalWithRedirect.toLowerCase().includes(normalizedQuery);
-            if (inPrompt || inResponse || inExplanation || inRedirect || inFullRefusal) {
+            if (matchesExample(ex)) {
               filteredExampleResults.push({
                 example: ex,
                 category: cat,
@@ -7655,14 +7675,7 @@
       filteredExampleCategories = allExampleCategories.filter(cat => {
         const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
         const inDescription = cat.description && cat.description.toLowerCase().includes(normalizedQuery);
-        const inExamples = cat.examples && cat.examples.some(ex => {
-          const inPrompt = ex.prompt && ex.prompt.toLowerCase().includes(normalizedQuery);
-          const inResponse = ex.response && ex.response.toLowerCase().includes(normalizedQuery);
-          const inExplanation = ex.explanation && ex.explanation.toLowerCase().includes(normalizedQuery);
-          const inRedirect = ex.redirect && ex.redirect.toLowerCase().includes(normalizedQuery);
-          const inFullRefusal = ex.fullRefusalWithRedirect && ex.fullRefusalWithRedirect.toLowerCase().includes(normalizedQuery);
-          return inPrompt || inResponse || inExplanation || inRedirect || inFullRefusal;
-        });
+        const inExamples = cat.examples && cat.examples.some(matchesExample);
         return inTitle || inDescription || inExamples;
       });
     }
