@@ -7946,12 +7946,16 @@
   // ============================================
   async function loadExamples() {
     try {
-      const response = await fetch(CONFIG.examplesJsonUrl);
-      if (!response.ok) {
-        console.warn('Failed to load examples JSON, using defaults');
-        return;
+      // Standalone HTML may inline the data on window — use it if present and skip fetch.
+      let examples = (typeof window !== 'undefined' && window.__INLINED_GLOSSARY_EXAMPLES__) || null;
+      if (!examples) {
+        const response = await fetch(CONFIG.examplesJsonUrl);
+        if (!response.ok) {
+          console.warn('Failed to load examples JSON, using defaults');
+          return;
+        }
+        examples = await response.json();
       }
-      const examples = await response.json();
 
       // Merge examples into GLOSSARY
       Object.keys(examples).forEach(categoryName => {
@@ -7966,12 +7970,16 @@
 
   async function loadResponseExamples() {
     try {
-      const response = await fetch(CONFIG.responseExamplesJsonUrl);
-      if (!response.ok) {
-        console.warn('Failed to load response examples JSON, using defaults');
-        return;
+      // Standalone HTML may inline the data on window — use it if present and skip fetch.
+      let data = (typeof window !== 'undefined' && window.__INLINED_RESPONSE_EXAMPLES__) || null;
+      if (!data) {
+        const response = await fetch(CONFIG.responseExamplesJsonUrl);
+        if (!response.ok) {
+          console.warn('Failed to load response examples JSON, using defaults');
+          return;
+        }
+        data = await response.json();
       }
-      const data = await response.json();
 
       // Add logging to verify data loaded correctly
       console.log('Response examples loaded:', data.categories.length, 'categories');
@@ -7986,17 +7994,21 @@
 
   async function loadFaqData() {
     try {
-      // Try CDN first, then fall back to local file for development
-      let response = await fetch(CONFIG.faqJsonUrl);
-      if (!response.ok) {
-        console.log('CDN FAQ not found, trying local file...');
-        response = await fetch('./faq.json');
+      // Standalone HTML may inline the data on window — use it if present and skip fetch.
+      let data = (typeof window !== 'undefined' && window.__INLINED_FAQ_DATA__) || null;
+      if (!data) {
+        // Try CDN first, then fall back to local file for development
+        let response = await fetch(CONFIG.faqJsonUrl);
+        if (!response.ok) {
+          console.log('CDN FAQ not found, trying local file...');
+          response = await fetch('./faq.json');
+        }
+        if (!response.ok) {
+          console.warn('Failed to load FAQ JSON from both CDN and local');
+          return;
+        }
+        data = await response.json();
       }
-      if (!response.ok) {
-        console.warn('Failed to load FAQ JSON from both CDN and local');
-        return;
-      }
-      const data = await response.json();
 
       // Add logging to verify data loaded correctly
       console.log('FAQ data loaded:', data.sections.length, 'sections');
