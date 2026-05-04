@@ -2245,6 +2245,7 @@
     .example-label.prompt { color: #475569; }
     .example-label.response { color: #16a34a; }
     .example-label.action-redirect { color: #ea580c; }
+    .example-label.action-partial { color: #b45309; }
     .example-label.action-deflection { color: #d97706; }
     .example-label.action-harmfree { color: #0891b2; }
     .example-label.action-confirmation { color: #7c3aed; }
@@ -2267,6 +2268,7 @@
     .example-text.prompt-text { border-left: 3px solid #dc2626; }
     .example-text.response-text { border-left: 3px solid #16a34a; }
     .example-text.action-redirect-text { border-left: 3px solid #ea580c; }
+    .example-text.action-partial-text { border-left: 3px solid #b45309; }
     .example-text.action-deflection-text { border-left: 3px solid #d97706; }
     .example-text.action-harmfree-text { border-left: 3px solid #0891b2; }
     .example-text.action-confirmation-text { border-left: 3px solid #7c3aed; }
@@ -4305,6 +4307,7 @@
   // Each example in response-examples.json may include any subset of these fields.
   const RESPONSE_ACTION_FIELDS = [
     { field: 'redirect', label: 'Redirect', cssClass: 'action-redirect', icon: 'shield' },
+    { field: 'partialRefusal', label: 'Partial Refusal', cssClass: 'action-partial', icon: 'shield-alert' },
     { field: 'deflection', label: 'Deflection', cssClass: 'action-deflection', icon: 'split' },
     { field: 'harmFreeEngagement', label: 'Harm-Free Engagement', cssClass: 'action-harmfree', icon: 'check' },
     { field: 'confirmation', label: 'Confirmation', cssClass: 'action-confirmation', icon: 'alert-circle' },
