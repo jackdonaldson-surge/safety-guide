@@ -5509,180 +5509,6 @@
       searchCount.textContent = '';
     }
 
-    // ===== POLICY COMPLIANCE FLOWCHART =====
-    const policyComplianceHtml = `
-      <div class="output-section" id="section-policy-compliance">
-        <div class="harmful-output-intro">
-          <h3>Policy Compliance Decision Tree</h3>
-          <p>Determine the appropriate response based on request type and toxicity.</p>
-        </div>
-
-        <div class="decision-tree">
-          <!-- GENERATIVE SECTION -->
-          <div class="tree-section">
-            <div class="tree-section-header">
-              <span class="tree-type-badge generative">GENERATIVE</span>
-            </div>
-            <div class="tree-vline"></div>
-            <!-- Distress Check Precursor -->
-            <div class="tree-distress-check">
-              <div class="tree-distress-question">
-                Does the prompt indicate the user is clearly in distress?
-                <span class="tree-distress-examples">(e.g. suicidal, self-harm, IPV, etc.)</span>
-              </div>
-            </div>
-            <div class="tree-vline"></div>
-            <div class="tree-distress-row">
-              <div class="tree-distress-left">
-                <span class="tree-outcome refuse">FULL REFUSAL</span>
-                <span class="tree-arrow-left">←</span>
-              </div>
-              <div class="tree-distress-options">
-                <div class="tree-distress-yes">
-                  <span class="tree-sub-option-label">Yes</span>
-                </div>
-                <div class="tree-distress-no">
-                  <span class="tree-sub-option-label">No</span>
-                  <span class="tree-bucket-arrow">↓</span>
-                </div>
-              </div>
-            </div>
-            <div class="tree-check-node">Check Toxicity Level</div>
-            <div class="tree-vline"></div>
-
-            <div class="tree-toxicity-row">
-              <!-- Benign + Dual-Use bucket -->
-              <div class="tree-bucket">
-                <div class="tree-bucket-header benign-dual">Benign / Dual-Use</div>
-                <div class="tree-bucket-body">
-                  <div class="tree-bucket-arrow">↓</div>
-                  <div class="tree-outcome engage">HARM-FREE ENGAGEMENT</div>
-                </div>
-              </div>
-
-              <!-- Harmful bucket -->
-              <div class="tree-bucket">
-                <div class="tree-bucket-header harmful">Harmful</div>
-                <div class="tree-bucket-body">
-                  <div class="tree-bucket-arrow">↓</div>
-                  <div class="tree-sub-decision">Does the prompt also contain a safe/benign/dual-use request?</div>
-                  <div class="tree-sub-vertical">
-                    <div class="tree-sub-vertical-option">
-                      <span class="tree-sub-option-label">Yes</span>
-                      <span class="tree-bucket-arrow">↓</span>
-                      <span class="tree-outcome partial">PARTIAL REFUSAL</span>
-                    </div>
-                    <div class="tree-sub-divider"></div>
-                    <div class="tree-sub-vertical-option">
-                      <span class="tree-sub-option-label">No</span>
-                      <span class="tree-bucket-arrow">↓</span>
-                      <span class="tree-outcome refuse">FULL REFUSAL</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Jailbreak bucket -->
-              <div class="tree-bucket">
-                <div class="tree-bucket-header jailbreak">Jailbreak</div>
-                <div class="tree-bucket-body">
-                  <div class="tree-bucket-arrow">↓</div>
-                  <div class="tree-outcome refuse">FULL REFUSAL</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- NON-GENERATIVE SECTION -->
-          <div class="tree-section">
-            <div class="tree-section-header">
-              <span class="tree-type-badge non-generative">NON-GENERATIVE</span>
-            </div>
-            <div class="tree-vline"></div>
-            <!-- Distress Check Precursor -->
-            <div class="tree-distress-check">
-              <div class="tree-distress-question">
-                Does the prompt indicate the user is clearly in distress?
-                <span class="tree-distress-examples">(e.g. suicidal, self-harm, IPV, etc.)</span>
-              </div>
-            </div>
-            <div class="tree-vline"></div>
-            <div class="tree-distress-row">
-              <div class="tree-distress-left">
-                <span class="tree-outcome refuse">FULL REFUSAL</span>
-                <span class="tree-arrow-left">←</span>
-              </div>
-              <div class="tree-distress-options">
-                <div class="tree-distress-yes">
-                  <span class="tree-sub-option-label">Yes</span>
-                </div>
-                <div class="tree-distress-no">
-                  <span class="tree-sub-option-label">No</span>
-                  <span class="tree-bucket-arrow">↓</span>
-                </div>
-              </div>
-            </div>
-            <div class="tree-check-node">Check Toxicity Level</div>
-            <div class="tree-vline"></div>
-
-            <div class="tree-toxicity-row">
-              <!-- Benign + Dual-Use bucket -->
-              <div class="tree-bucket">
-                <div class="tree-bucket-header benign-dual">Benign / Dual-Use</div>
-                <div class="tree-bucket-body">
-                  <div class="tree-bucket-arrow">↓</div>
-                  <div class="tree-outcome grounded">GROUNDED ENGAGEMENT</div>
-                </div>
-              </div>
-
-              <!-- Harmful bucket -->
-              <div class="tree-bucket tree-bucket-wide">
-                <div class="tree-bucket-header harmful">Harmful</div>
-                <div class="tree-bucket-body">
-                  <div class="tree-bucket-arrow">↓</div>
-                  <div class="tree-sub-decision">Does request amplify/enable/encourage harm?</div>
-                  <div class="tree-two-paths">
-                    <div class="tree-path-yes">
-                      <span class="tree-sub-option-label">Yes</span>
-                      <span class="tree-bucket-arrow">↓</span>
-                      <div class="tree-sub-nested-question">Does the prompt also contain a safe/benign/dual-use request?</div>
-                      <div class="tree-sub-vertical">
-                        <div class="tree-sub-vertical-option">
-                          <span class="tree-sub-option-label">Yes</span>
-                          <span class="tree-bucket-arrow">↓</span>
-                          <span class="tree-outcome partial">PARTIAL REFUSAL</span>
-                        </div>
-                        <div class="tree-sub-divider"></div>
-                        <div class="tree-sub-vertical-option">
-                          <span class="tree-sub-option-label">No</span>
-                          <span class="tree-bucket-arrow">↓</span>
-                          <span class="tree-outcome refuse">FULL REFUSAL</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="tree-paths-divider"></div>
-                    <div class="tree-path-no">
-                      <span class="tree-sub-option-label">No</span>
-                      <span class="tree-bucket-arrow">↓</span>
-                      <span class="tree-outcome grounded">GROUNDED ENGAGEMENT</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Jailbreak bucket -->
-              <div class="tree-bucket">
-                <div class="tree-bucket-header jailbreak">Jailbreak</div>
-                <div class="tree-bucket-body">
-                  <div class="tree-bucket-arrow">↓</div>
-                  <div class="tree-outcome refuse">FULL REFUSAL</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
 
     // ===== HARMFUL OUTPUT CHARACTERISTICS TABLE =====
     const harmfulTableRows = harmfulCategoriesToShow.flatMap(cat =>
@@ -5835,7 +5661,6 @@
 
     content.innerHTML = `
       <div style="padding: 1.25rem;">
-        ${policyComplianceHtml}
         ${harmfulOutputHtml}
         ${harmFreeOutputHtml}
         ${harmModificationHtml}
@@ -6236,23 +6061,6 @@
       }
     });
 
-    // Search Policy Compliance
-    POLICY_COMPLIANCE.categories.forEach(cat => {
-      const inTitle = cat.title.toLowerCase().includes(normalizedQuery);
-      const inRules = cat.rules && cat.rules.some(rule =>
-        rule.toLowerCase().includes(normalizedQuery)
-      );
-      if (inTitle || inRules) {
-        results.push({
-          tab: 'harmful-output',
-          tabColor: tabColors['harmful-output'],
-          tabLabel: tabLabels['harmful-output'],
-          title: 'Policy: ' + cat.title,
-          snippet: cat.rules ? cat.rules[0].substring(0, 150) + (cat.rules[0].length > 150 ? '...' : '') : '',
-          data: { section: 'policy-compliance', categoryId: cat.id }
-        });
-      }
-    });
 
     // Search Harm Modification
     HARM_MODIFICATION.types.forEach(type => {
@@ -6723,9 +6531,7 @@
         if (result.data.section) {
           setTimeout(() => {
             let sectionId = null;
-            if (result.data.section === 'policy-compliance') {
-              sectionId = 'section-policy-compliance';
-            } else if (result.data.section === 'harm-modification') {
+            if (result.data.section === 'harm-modification') {
               sectionId = 'section-harm-modification';
             } else if (result.data.section === 'harm-free') {
               sectionId = 'section-harm-free';
@@ -8245,9 +8051,6 @@
 
     // Search Response Characteristics sections
     const responseCharSections = [
-      { title: 'Policy Compliance', section: 'section-policy-compliance', tab: 'harmful-output' },
-      { title: 'Policy Compliance Decision Tree', section: 'section-policy-compliance', tab: 'harmful-output' },
-      { title: 'Decision Tree', section: 'section-policy-compliance', tab: 'harmful-output' },
       { title: 'Harmful Output', section: 'section-harmful-output', tab: 'harmful-output' },
       { title: 'Response Safety', section: 'section-harm-free', tab: 'harmful-output' },
       { title: 'Harm Modification', section: 'section-harm-modification', tab: 'harmful-output' }
@@ -8517,7 +8320,6 @@
       ];
     } else if (activeTab === 'harmful-output') {
       items = [
-        { label: 'Policy Compliance', action: () => scrollToSection('section-policy-compliance') },
         { label: 'Harmful Output', action: () => scrollToSection('section-harmful-output') },
         { label: 'Response Safety', action: () => scrollToSection('section-harm-free') },
         { label: 'Harm Modification', action: () => scrollToSection('section-harm-modification') }
